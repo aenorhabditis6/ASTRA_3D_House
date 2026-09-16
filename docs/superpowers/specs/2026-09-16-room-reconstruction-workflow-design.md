@@ -25,12 +25,12 @@ The first implementation is a semi-automatic desktop workflow. It uses command-l
 - Reconstruct only the upper-right bedroom in `assets/reference/floorplans/dorm-suite-floorplan.png`.
 - Exclude the adjacent bathroom and central shared area.
 - Use the supplied floor plan as the hard constraint for relative plan geometry.
-- Use a Full mattress footprint of 54 x 75 in (1.3716 x 1.905 m) as the initial XY scale anchor.
+- Use a Full mattress footprint of 54 x 75 in (1.3716 x 1.905 m) as a provisional XY scale anchor. An approximate pixel measurement of the drawing gives a bed-symbol short/long ratio of 0.732 versus the expected 0.720, a 1.7% relative residual; this passes an aspect-ratio sanity check but does not prove absolute scale.
 - Use the confirmed 11 ft (3.3528 m) floor-to-ceiling height as the Z scale anchor.
 - Represent the bed, desk, chair, chest, and pedestal as simple semantic proxy geometry.
 - Produce an editable Blender master, a GLB delivery model, a quality report, and an optional Gaussian Splat PLY.
-- Run geometry and Blender generation on Apple Silicon with 16 GB memory or better, without requiring NVIDIA CUDA.
-- Allow optional cloud GPU execution for Gaussian Splatting and other expensive appearance work.
+- Run plan interpretation, schema validation, local image QC, parametric geometry, and Blender generation on Apple Silicon with 16 GB memory or better, without requiring NVIDIA CUDA.
+- Provide a portable local camera-recovery fallback, but place learned feature matching, dense geometry, and Gaussian Splatting in one optional cloud GPU job. COLMAP PatchMatch dense reconstruction is not part of the CUDA-free local guarantee.
 
 ### 2.2 Non-goals for the MVP
 
@@ -53,7 +53,7 @@ Conflicts are resolved in this order:
 
 The plan determines wall relationships and room topology. Photographs may refine heights, openings, fixture positions, and appearance, but they must not silently distort plan proportions. Every inferred field in the room schema records its source and confidence.
 
-The Full bed is an initial metric anchor, not a permanent substitute for a wall measurement. A later measured wall length replaces the bed-derived global XY scale without changing the relative plan geometry.
+The Full bed is an initial metric anchor, not a permanent substitute for a wall measurement. Furniture symbols may include a frame or use generic templates even when their aspect ratio looks plausible. A later measured wall length replaces the bed-derived global XY scale without changing the relative plan geometry.
 
 ## 4. Capture Protocol
 
@@ -79,7 +79,7 @@ The target for the first room is 120-220 accepted still images. Video may be ing
 
 ### 4.3 Metric anchors
 
-- Required for the first logical model: Full bed label and 11 ft ceiling height.
+- Required for the first logical model: Full bed label, its aspect-ratio sanity check, and 11 ft ceiling height.
 - Recommended refinement: one measured full wall length.
 - Useful additional measurements: room depth, door width and height, window width and sill height.
 - Optional: one Apple RoomPlan export from a LiDAR-equipped iPhone.
@@ -102,11 +102,30 @@ Reads EXIF, normalizes orientation, detects blur, flags exposure discontinuities
 
 ### 5.4 Camera and reference geometry
 
-Uses COLMAP/PyCOLMAP for feature matching, camera calibration, Structure-from-Motion, and a reference point cloud. Optional RoomPlan/LiDAR data is transformed into the same coordinate system as an additional constraint.
+Camera recovery has two interchangeable profiles:
+
+- **Preferred indoor profile:** run hloc SuperPoint + LightGlue matching on a cloud GPU, then build a COLMAP reconstruction. This is intended to improve correspondence coverage on low-texture indoor imagery.
+- **Portable fallback:** run COLMAP SIFT feature extraction and matching on the CPU. It is slower and is expected to produce fewer useful correspondences on painted walls, but keeps camera recovery available without CUDA.
+
+COLMAP's incremental mapper is the baseline for the small, sequential room capture. Its integrated `global_mapper` (the maintained successor to the deprecated standalone GLOMAP repository) is a benchmarked alternative, not a separate dependency. The pipeline selects the reconstruction with the stronger connected-camera count, track length, and reprojection statistics; it never merges incompatible reconstructions silently.
+
+Sparse SfM supplies camera poses and feature tracks, not dependable wall surfaces. A cloud dense-geometry stage therefore runs either COLMAP PatchMatch MVS or a replaceable learned multi-view depth backend and fuses depth into a reference cloud with normals. The first room dataset is used to compare these backends before one becomes the default. Optional RoomPlan/LiDAR data is transformed into the same coordinate system as an additional constraint.
 
 ### 5.5 Structural fusion
 
-Aligns recovered cameras and reference geometry to the parametric room. It may refine fields not fixed by the plan, but preserves the plan topology and relative proportions. Low-confidence changes require human confirmation.
+Structural fusion solves a seven-degree-of-freedom similarity transform `T_room_from_sfm = (scale, rotation, translation)` from the arbitrary SfM frame into the metric, Z-up `room.json` frame. It uses dense or learned-depth geometry for surfaces; sparse SfM points are used for camera and track diagnostics only.
+
+The automatic alignment method is:
+
+1. Remove low-confidence depth, dynamic-object masks, mirrors, windows, and displays from the reference cloud.
+2. Fit dominant planes robustly with RANSAC or an equivalent estimator. Identify a floor candidate, optional ceiling candidate, and vertical wall candidates from plane normals and support.
+3. Estimate the Manhattan frame by clustering vertical-wall normals into two orthogonal horizontal axes and using the floor normal for the vertical axis.
+4. Enumerate assignments from detected wall planes to `room.json` wall IDs. Score assignments with orientation, cyclic adjacency, opposing-wall spacing ratios, detected opening evidence, and visibility from registered cameras.
+5. Solve `scale`, `rotation`, and `translation` jointly with robust point-to-plane residuals. Scale is constrained by opposing-plane or floor-to-ceiling spacing and by the current metric anchors; a single isolated plane is never treated as a scale observation.
+6. Reject unstable solutions, keep the best valid assignment, and write the transform, plane-to-wall correspondences, residuals, and confidence to the reconstruction metadata.
+7. Propose refinements only for fields not fixed by the plan. Topology or trusted proportion changes always require human approval.
+
+Automatic fusion requires a floor, two non-parallel wall directions, and at least one independent scale span such as opposing planes, floor-to-ceiling distance, LiDAR scale, or confirmed metric anchors. If those conditions are absent or multiple assignments remain ambiguous, the user confirms at least three non-collinear scene-to-plan correspondences spanning two horizontal axes plus the vertical direction. The solver then estimates the same similarity transform and reports its residuals rather than hiding the manual fallback.
 
 ### 5.6 Blender scene generation
 
@@ -123,7 +142,7 @@ Re-running generation produces the same logical scene for the same schema versio
 
 ### 5.7 Appearance and export
 
-Selected photographs are projected and baked into PBR textures for the clean structure. Unknown or occluded regions retain a neutral material and an explicit reshoot flag. A separate cloud-capable path trains a Gaussian Splat from registered images and exports a PLY. The master `.blend`, delivery `.glb`, and appearance `.ply` remain separate artifacts.
+Selected photographs are projected and baked into PBR textures for the clean structure. Unknown or occluded regions retain a neutral material and an explicit reshoot flag. The cloud GPU job can reuse the registered cameras for dense geometry and Gaussian Splatting, then export the chosen dense reference and a PLY Splat. The master `.blend`, delivery `.glb`, and appearance `.ply` remain separate artifacts.
 
 ## 6. Core Data Contract
 
@@ -139,6 +158,7 @@ The document contains:
 - Doors, windows, and other openings attached to wall identifiers.
 - Fixtures and furniture proxies with semantic class, dimensions, and transform.
 - Optional registered cameras and reconstruction references.
+- The solved SfM-to-room similarity transform, plane-to-wall correspondences, residuals, and alignment confidence.
 - Per-field provenance, confidence, and manual overrides.
 - Validation state and unresolved reshoot requirements.
 
@@ -153,8 +173,8 @@ Generated geometry is not the source of truth. A corrected dimension is written 
 5. Generate the untextured Blender shell and proxy furniture.
 6. Render a top-down overlay against the source plan and require human structural approval.
 7. Ingest room images and run automated image quality checks.
-8. Recover camera poses and reference geometry.
-9. Align the reconstruction to the approved parametric room and propose only allowed refinements.
+8. Recover camera poses, then produce dense reference geometry in the cloud when structural fusion requires it.
+9. Fit dominant planes, solve and validate the SfM-to-room similarity transform, then propose only allowed refinements.
 10. Require human approval for low-confidence or topology-affecting proposals.
 11. Bake clean structural textures from selected views.
 12. Optionally train and export a Gaussian Splat on a cloud GPU.
@@ -164,6 +184,8 @@ Generated geometry is not the source of truth. A corrected dimension is written 
 
 - If fewer than 80% of accepted images register, stop appearance processing and produce a reshoot report.
 - If camera reconstruction splits into disconnected components, do not merge them by guesswork; report the missing transition views.
+- If dense geometry does not contain a floor, two non-parallel wall directions, and an independent scale span, skip automatic structural fusion and request explicit scene-to-plan correspondences.
+- If multiple plane-to-wall assignments have similar scores or alignment residuals exceed the current provisional/refined tolerance, require human confirmation and preserve every candidate transform for diagnosis.
 - If plan extraction is ambiguous, preserve the source overlay and require a human line or opening confirmation.
 - If scale anchors conflict, preserve both measurements, identify their sources, and require a choice rather than averaging silently.
 - If a surface is hidden or texture evidence is inconsistent, assign a neutral material and mark it for reshoot.
@@ -175,7 +197,7 @@ Generated geometry is not the source of truth. A corrected dimension is written 
 
 ### 9.1 Provisional model
 
-- Bed-anchored overall dimensional error target: at most 10 cm or 3%, whichever is larger.
+- Bed-anchored overall dimensional error target: at most 15 cm or 5%, whichever is larger. This is a provisional scale check, not survey-grade accuracy.
 - Floor-plan overlay shows no unexplained wall or opening displacement.
 - Wall, floor, and ceiling geometry is closed and manifold where expected.
 - Door and window objects are attached to their parent walls and do not float or intersect incorrectly.
@@ -184,6 +206,7 @@ Generated geometry is not the source of truth. A corrected dimension is written 
 
 - After one measured wall length is supplied, major wall and opening error target: 3-5 cm.
 - At least 80% of accepted images register into one connected reconstruction.
+- The accepted SfM-to-room transform records its plane correspondences and has a median structural point-to-plane residual within the current 3-5 cm refined tolerance.
 - Blender headless generation completes without errors.
 - Exported GLB can be read back, uses meters, and retains expected object names and material assignments.
 - Visible structural surfaces have usable textures or explicit neutral/reshoot status.
@@ -197,6 +220,7 @@ Generated geometry is not the source of truth. A corrected dimension is written 
 - Blender headless build smoke test.
 - GLB export and read-back test.
 - Rendered top-down overlay regression test.
+- Synthetic similarity-transform recovery tests with noise, missing planes, ambiguous assignments, and expected manual-fallback cases.
 
 ## 10. Project Artifacts
 
@@ -205,7 +229,7 @@ Each reconstruction project produces:
 - Immutable source assets and `manifest.json`.
 - Versioned `room.json` plus explicit override history.
 - Image QC and reshoot reports.
-- COLMAP cameras, sparse points, and alignment transform.
+- COLMAP cameras, sparse points, dense or learned-depth reference geometry, and the solved alignment transform.
 - Plan overlay and structural review renders.
 - Editable `house_master.blend`.
 - Portable `house.glb`.
@@ -216,7 +240,9 @@ Each reconstruction project produces:
 
 - Python for orchestration, schemas, validation, and image preparation.
 - OpenCV-compatible image operations for plan registration and quality analysis.
-- COLMAP/PyCOLMAP for camera recovery and reference geometry.
+- hloc SuperPoint + LightGlue as the preferred cloud matching profile, with CPU COLMAP SIFT as the portable fallback.
+- COLMAP/PyCOLMAP incremental mapping as the baseline and COLMAP's integrated global mapper as a benchmarked alternative.
+- A replaceable cloud dense-geometry backend: COLMAP PatchMatch MVS and a learned multi-view depth candidate are evaluated on the first room dataset.
 - Blender and its Python API for deterministic parametric modeling, review renders, material baking, and export.
 - Nerfstudio Splatfacto or a compatible replaceable backend for optional cloud Gaussian Splatting.
 - Apple RoomPlan as an optional LiDAR input, not a mandatory dependency.
@@ -224,6 +250,8 @@ Each reconstruction project produces:
 Primary references:
 
 - COLMAP: <https://colmap.github.io/>
+- hloc: <https://github.com/cvg/Hierarchical-Localization>
+- LightGlue: <https://github.com/cvg/LightGlue>
 - Apple RoomPlan: <https://developer.apple.com/augmented-reality/roomplan/>
 - Blender glTF: <https://docs.blender.org/manual/en/4.0/addons/import_export/scene_gltf2.html>
 - Nerfstudio Splatfacto: <https://github.com/nerfstudio-project/nerfstudio/blob/main/docs/nerfology/methods/splat.md>

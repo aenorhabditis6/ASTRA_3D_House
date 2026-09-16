@@ -13,5 +13,6 @@
 - First target: the bedroom in the upper-right of the plan; exclude the adjacent bathroom and central shared area.
 - Confirmed ceiling height: 11 ft (3.3528 m), supplied by the user on 2026-09-16.
 - Provisional XY scale reference: the plan labels the bed as `FULL BED`. Use a 54 x 75 in (1.3716 x 1.905 m) mattress footprint for the first logical model.
+- Approximate pixel measurement of the drawn bed is 149 x 109 px. Its short/long ratio is about 0.732 versus 0.720 for a 54 x 75 in mattress, a 1.7% relative residual. The symbol passes an aspect-ratio sanity check but may still include a frame or generic template sizing.
 - Treat the bed-based scale as approximate because the drawn footprint may include a bed frame. Room width and depth remain unconfirmed and should later replace this provisional scale with at least one tape measurement.
 - The user confirmed on 2026-09-16 that the floor-plan proportions are reliable. Treat the plan's relative geometry as a hard structural constraint; photographs may refine missing dimensions and appearance but must not distort the plan topology or proportions.
