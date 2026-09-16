@@ -79,11 +79,6 @@ def _create_collections() -> dict[str, "Collection"]:
 def _material(name: str, color: tuple[float, float, float, float]) -> "Material":
     material = bpy.data.materials.new(name=name)
     material.diffuse_color = color
-    material.use_nodes = True
-    principled = material.node_tree.nodes.get("Principled BSDF")
-    if principled is not None:
-        principled.inputs["Base Color"].default_value = color
-        principled.inputs["Roughness"].default_value = 0.78
     return material
 
 
