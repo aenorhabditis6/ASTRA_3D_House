@@ -1,0 +1,409 @@
+{
+  "ceiling_height_m": 3.3528,
+  "ceiling_height_source": {
+    "confidence": 1.0,
+    "kind": "confirmed_measurement",
+    "reference": "user: 11ft"
+  },
+  "coordinate_system": {
+    "units": "meters",
+    "up_axis": "Z"
+  },
+  "floor_polygon": [
+    [
+      0.0,
+      3.8526162842556193
+    ],
+    [
+      4.501076450912506,
+      3.8526162842556193
+    ],
+    [
+      4.501076450912506,
+      0.0
+    ],
+    [
+      2.161533888856288,
+      0.0
+    ],
+    [
+      2.161533888856288,
+      1.1570563757995425
+    ],
+    [
+      0.0,
+      1.1570563757995425
+    ]
+  ],
+  "openings": [
+    {
+      "height_m": 1.5,
+      "id": "window-north",
+      "offset_m": 0.8010390293996832,
+      "position_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "sill_m": 0.9,
+      "vertical_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "wall_id": "wall-00",
+      "width_m": 2.771849339827475
+    },
+    {
+      "height_m": 2.03,
+      "id": "bath-door-south",
+      "offset_m": 1.1570563757995425,
+      "position_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "sill_m": 0.0,
+      "vertical_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "wall_id": "wall-02",
+      "width_m": 0.9154731764567807
+    },
+    {
+      "height_m": 2.03,
+      "id": "entry-door",
+      "offset_m": 0.0,
+      "position_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "sill_m": 0.0,
+      "vertical_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "wall_id": "wall-04",
+      "width_m": 0.8137539346282496
+    }
+  ],
+  "provenance": [
+    {
+      "confidence": 1.0,
+      "kind": "trusted_floorplan",
+      "reference": "dorm-suite-floorplan.png"
+    },
+    {
+      "confidence": 0.6,
+      "kind": "provisional_scale",
+      "reference": "full-bed 54x75in"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: 11ft"
+    },
+    {
+      "confidence": 0.35,
+      "kind": "provisional_assumption",
+      "reference": "opening/furniture default height"
+    }
+  ],
+  "proxies": [
+    {
+      "center": [
+        3.4775265800129107,
+        2.70191736107036,
+        0.275
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "bed-full",
+      "kind": "bed",
+      "size": [
+        1.905,
+        1.3716,
+        0.55
+      ],
+      "yaw_rad": 0.0
+    },
+    {
+      "center": [
+        0.49588130391408963,
+        3.1914412123701665,
+        0.38
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "desk",
+      "kind": "desk",
+      "size": [
+        0.6103154509711872,
+        1.27149052285664,
+        0.76
+      ],
+      "yaw_rad": 0.0
+    },
+    {
+      "center": [
+        1.0044775130567456,
+        3.312232812041547,
+        0.45
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "chair",
+      "kind": "chair",
+      "size": [
+        0.4323067777712576,
+        0.5467409248283552,
+        0.9
+      ],
+      "yaw_rad": 0.0
+    },
+    {
+      "center": [
+        3.235943380670149,
+        2.453976709113315,
+        0.325
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "chest",
+      "kind": "chest",
+      "size": [
+        0.6484601666568864,
+        0.6611750718854528,
+        0.65
+      ],
+      "yaw_rad": 0.0
+    },
+    {
+      "center": [
+        4.227705988498328,
+        1.7800867319992961,
+        0.325
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "pedestal",
+      "kind": "pedestal",
+      "size": [
+        0.44502168299982403,
+        0.4068769673141248,
+        0.65
+      ],
+      "yaw_rad": 0.0
+    },
+    {
+      "center": [
+        4.157774009741213,
+        0.7183921454140016,
+        1.2
+      ],
+      "footprint_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "height_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      },
+      "id": "closet",
+      "kind": "fixed_closet",
+      "size": [
+        0.6866048823425857,
+        1.4367842908280033,
+        2.4
+      ],
+      "yaw_rad": 0.0
+    }
+  ],
+  "room_id": "dorm-right-bedroom",
+  "scale_source": {
+    "confidence": 0.6,
+    "kind": "provisional_scale",
+    "reference": "full-bed 54x75in"
+  },
+  "schema_version": "1.0",
+  "walls": [
+    {
+      "end": [
+        4.501076450912506,
+        3.8526162842556193
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-00",
+      "start": [
+        0.0,
+        3.8526162842556193
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    },
+    {
+      "end": [
+        4.501076450912506,
+        0.0
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-01",
+      "start": [
+        4.501076450912506,
+        3.8526162842556193
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    },
+    {
+      "end": [
+        2.161533888856288,
+        0.0
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-02",
+      "start": [
+        4.501076450912506,
+        0.0
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    },
+    {
+      "end": [
+        2.161533888856288,
+        1.1570563757995425
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-03",
+      "start": [
+        2.161533888856288,
+        0.0
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    },
+    {
+      "end": [
+        0.0,
+        1.1570563757995425
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-04",
+      "start": [
+        2.161533888856288,
+        1.1570563757995425
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    },
+    {
+      "end": [
+        0.0,
+        3.8526162842556193
+      ],
+      "geometry_source": {
+        "confidence": 1.0,
+        "kind": "trusted_floorplan",
+        "reference": "dorm-suite-floorplan.png"
+      },
+      "id": "wall-05",
+      "start": [
+        0.0,
+        1.1570563757995425
+      ],
+      "thickness_m": 0.12,
+      "thickness_source": {
+        "confidence": 0.35,
+        "kind": "provisional_assumption",
+        "reference": "opening/furniture default height"
+      }
+    }
+  ]
+}
