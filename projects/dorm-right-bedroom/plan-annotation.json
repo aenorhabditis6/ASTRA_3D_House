@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "image": {
+    "path": "assets/reference/floorplans/dorm-suite-floorplan.png",
+    "width_px": 1000,
+    "height_px": 680
+  },
+  "target": {
+    "room_id": "dorm-right-bedroom",
+    "origin_px": [495, 385],
+    "floor_polygon_px": [[495, 82], [849, 82], [849, 385], [665, 385], [665, 294], [495, 294]],
+    "ceiling_height_m": 3.3528,
+    "wall_thickness_m": 0.12
+  },
+  "scale_anchor": {
+    "id": "full-bed",
+    "bbox_px": [694, 118, 843, 227],
+    "size_m": [1.905, 1.3716],
+    "fit": "isotropic_least_squares",
+    "source": "floorplan label FULL BED"
+  },
+  "openings": [
+    {"id": "window-north", "edge_index": 0, "start_px": [558, 82], "end_px": [776, 82], "sill_m": 0.9, "height_m": 1.5, "confidence": 0.35},
+    {"id": "bath-door-south", "edge_index": 2, "start_px": [758, 385], "end_px": [686, 385], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35},
+    {"id": "entry-door", "edge_index": 4, "start_px": [665, 294], "end_px": [601, 294], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35}
+  ],
+  "objects": [
+    {"id": "bed-full", "kind": "bed", "bbox_px": [694, 118, 843, 227], "height_m": 0.55},
+    {"id": "desk", "kind": "desk", "bbox_px": [510, 84, 558, 184], "height_m": 0.76},
+    {"id": "chair", "kind": "chair", "bbox_px": [557, 103, 591, 146], "height_m": 0.9},
+    {"id": "chest", "kind": "chest", "bbox_px": [724, 166, 775, 218], "height_m": 0.65},
+    {"id": "pedestal", "kind": "pedestal", "bbox_px": [810, 229, 845, 261], "height_m": 0.65},
+    {"id": "closet", "kind": "fixed_closet", "bbox_px": [795, 272, 849, 385], "height_m": 2.4}
+  ]
+}
