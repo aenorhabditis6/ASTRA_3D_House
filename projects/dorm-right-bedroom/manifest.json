@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "assets": [
+    {
+      "path": "assets/reference/floorplans/dorm-suite-floorplan.png",
+      "bytes": 183782,
+      "sha256": "8aae212209211a2e0f668801de6148cee8dae6c155b487a66c8797fdbcc77011",
+      "received_date": "2026-09-16",
+      "role": "trusted_floorplan"
+    }
+  ]
+}
