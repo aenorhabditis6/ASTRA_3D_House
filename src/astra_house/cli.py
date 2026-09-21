@@ -9,8 +9,10 @@ import sys
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
+from .capture import CapturePlan
+from .capture_pack import write_capture_pack
 from .errors import ValidationError
-from .io import save_room
+from .io import load_room, save_room
 from .logical_room import build_logical_room
 from .manifest import verify_manifest
 from .measurements import MeasurementSet
@@ -47,6 +49,21 @@ def _build_parser() -> argparse.ArgumentParser:
         required=True,
         type=Path,
         help="Path to the Blender executable.",
+    )
+    capture_parser = subparsers.add_parser(
+        "build-capture-pack",
+        help="Build a Blender-free offline photo-capture guide.",
+    )
+    capture_parser.add_argument(
+        "--project",
+        required=True,
+        type=Path,
+        help="Project directory containing room and capture-plan JSON files.",
+    )
+    capture_parser.add_argument(
+        "--output",
+        type=Path,
+        help="Output directory (default: build/<project-name>/capture-pack).",
     )
     return parser
 
@@ -132,6 +149,52 @@ def build_logical_project(
     return blend_path
 
 
+def build_capture_project(*, project_dir: Path, output_dir: Path) -> Path:
+    """Build the offline capture package without importing or invoking Blender."""
+    project_dir = _resolve_from_repository(project_dir)
+    output_dir = _resolve_from_repository(output_dir)
+    manifest_path = project_dir / "manifest.json"
+    annotation_path = project_dir / "plan-annotation.json"
+    room_path = project_dir / "room.json"
+    capture_path = project_dir / "capture-plan.json"
+
+    manifest = _load_json(manifest_path, "manifest")
+    verify_manifest(REPOSITORY_ROOT, manifest)
+    annotation = PlanAnnotation.from_dict(
+        _load_json(annotation_path, "plan annotation")
+    )
+    room = load_room(room_path)
+    plan = CapturePlan.from_dict(_load_json(capture_path, "capture plan"))
+
+    manifest_paths = {
+        item.get("path")
+        for item in manifest.get("assets", [])
+        if isinstance(item, dict)
+    }
+    if annotation.image.path not in manifest_paths:
+        raise ValidationError(
+            f"floor-plan source is not pinned by manifest: {annotation.image.path}"
+        )
+    source_plan_path = REPOSITORY_ROOT / annotation.image.path
+    return write_capture_pack(
+        plan,
+        annotation,
+        room,
+        source_plan_path,
+        output_dir,
+    )
+
+
+def _load_json(path: Path, label: str) -> dict[str, object]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValidationError(f"cannot load {label} {path}: {error}") from error
+    if not isinstance(value, dict):
+        raise ValidationError(f"{label} {path} must contain a JSON object")
+    return value
+
+
 def _resolve_from_repository(path: Path) -> Path:
     path = Path(path).expanduser()
     return path if path.is_absolute() else REPOSITORY_ROOT / path
@@ -165,6 +228,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"astra-house: could not start Blender: {error}", file=sys.stderr)
             return 3
         print(blend_path)
+        return 0
+    if args.command == "build-capture-pack":
+        output = args.output or Path("build") / args.project.name / "capture-pack"
+        try:
+            index_path = build_capture_project(
+                project_dir=args.project,
+                output_dir=output,
+            )
+        except (ValidationError, OSError) as error:
+            print(f"astra-house: validation failed: {error}", file=sys.stderr)
+            return 2
+        print(index_path)
         return 0
     raise AssertionError(f"unhandled command {args.command!r}")
 
