@@ -1,8 +1,7 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "room_id": "dorm-right-bedroom",
   "capture_id": "dorm-right-bedroom-diagnostic-01",
-  "expected_image_count": 48,
   "device_profile": {
     "make": "Xiaomi",
     "model": "Xiaomi 17 Ultra",
@@ -10,7 +9,15 @@
     "orientation": "landscape",
     "aspect_ratio": "4:3",
     "file_format": "JPG",
-    "arcore_status": "unverified_optional"
+    "arcore_status": "unverified_optional",
+    "equivalent_focal_length_mm": 23.0,
+    "horizontal_fov_deg": 70.0,
+    "vertical_fov_deg": 55.0,
+    "fov_source": "provisional conservative Xiaomi 17 Ultra 4:3 landscape estimate",
+    "fov_confidence": 0.5,
+    "camera_height_m": 1.45,
+    "camera_height_tolerance_m": 0.1,
+    "coverage_margin_deg": 5.0
   },
   "wall_review": {
     "wall-00": {
@@ -45,368 +52,3955 @@
       "opening_ids": []
     }
   },
-  "passes": [
+  "scale_anchors": [
     {
-      "id": "A",
-      "title": "结构环拍",
-      "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
-      "shots": [
+      "id": "window-west",
+      "target_id": "window-west",
+      "measurement_ids": [
+        "window-west-width"
+      ]
+    },
+    {
+      "id": "window-east",
+      "target_id": "window-east",
+      "measurement_ids": [
+        "window-east-width"
+      ]
+    },
+    {
+      "id": "entry-door",
+      "target_id": "entry-door",
+      "measurement_ids": [
+        "entry-door-width"
+      ]
+    },
+    {
+      "id": "bath-door-south",
+      "target_id": "bath-door-south",
+      "measurement_ids": [
+        "bath-door-width"
+      ]
+    },
+    {
+      "id": "bed-full",
+      "target_id": "bed-full",
+      "measurement_ids": [
+        "bed-length",
+        "bed-width"
+      ]
+    },
+    {
+      "id": "desk",
+      "target_id": "desk",
+      "measurement_ids": [
+        "desk-width"
+      ]
+    },
+    {
+      "id": "closet",
+      "target_id": "closet",
+      "measurement_ids": [
+        "closet-depth"
+      ]
+    }
+  ],
+  "stations": [
+    {
+      "id": "S01",
+      "number": 1,
+      "standing_point_m": [
+        1.35,
+        1.65
+      ],
+      "label": "just inside the entry area"
+    },
+    {
+      "id": "S02",
+      "number": 2,
+      "standing_point_m": [
+        2.15,
+        1.55
+      ],
+      "label": "inner north-side route point"
+    },
+    {
+      "id": "S03",
+      "number": 3,
+      "standing_point_m": [
+        3.1,
+        1.45
+      ],
+      "label": "bathroom-door/closet approach"
+    },
+    {
+      "id": "S04",
+      "number": 4,
+      "standing_point_m": [
+        3.65,
+        1.8
+      ],
+      "label": "far side beside the bed zone"
+    },
+    {
+      "id": "S05",
+      "number": 5,
+      "standing_point_m": [
+        2.55,
+        2.1
+      ],
+      "label": "central crossing point"
+    },
+    {
+      "id": "S06",
+      "number": 6,
+      "standing_point_m": [
+        2.2,
+        2.8
+      ],
+      "label": "window side near the bed"
+    },
+    {
+      "id": "S07",
+      "number": 7,
+      "standing_point_m": [
+        1.55,
+        2.75
+      ],
+      "label": "window side near the desk"
+    },
+    {
+      "id": "S08",
+      "number": 8,
+      "standing_point_m": [
+        1.1,
+        2.1
+      ],
+      "label": "desk/entry-side return point"
+    }
+  ],
+  "modes": [
+    {
+      "id": "lite-24",
+      "title": "Lightweight 24-image route",
+      "description": "A faster reviewed route with structural, vertical, and scale-anchor coverage.",
+      "expected_image_count": 24,
+      "risk_note": "Lower angular and occlusion redundancy than the standard route.",
+      "required_scale_anchor_ids": [
+        "window-west",
+        "window-east",
+        "entry-door",
+        "bath-door-south",
+        "bed-full",
+        "desk",
+        "closet"
+      ],
+      "passes": [
         {
-          "id": "A01-L",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "从入口内侧向左平拍北墙，保留入口墙边缘和墙顶、墙地交线。"
+          "id": "L-STRUCTURE",
+          "title": "Lightweight structure loop",
+          "purpose": "Two overlapping adjacent-wall views at every route station.",
+          "groups": [
+            {
+              "id": "L01",
+              "title": "Station S01 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S01",
+              "next_hint": "Continue to S02.",
+              "shots": [
+                {
+                  "id": "L01-A",
+                  "aim_point_m": [
+                    0.3787,
+                    1.4121
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05",
+                    "entry-door"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L01-B",
+                  "aim_point_m": [
+                    1.1131,
+                    2.6215
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L02",
+              "title": "Station S02 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S02",
+              "next_hint": "Continue to S03.",
+              "shots": [
+                {
+                  "id": "L02-A",
+                  "aim_point_m": [
+                    1.6954,
+                    2.4407
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00",
+                    "entry-door"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L02-B",
+                  "aim_point_m": [
+                    2.828,
+                    2.2851
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L03",
+              "title": "Station S03 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S03",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "L03-A",
+                  "aim_point_m": [
+                    2.919,
+                    0.4665
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-03",
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L03-B",
+                  "aim_point_m": [
+                    4.0092,
+                    1.0335
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L04",
+              "title": "Station S04 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S04",
+              "next_hint": "Continue to S05.",
+              "shots": [
+                {
+                  "id": "L04-A",
+                  "aim_point_m": [
+                    4.4371,
+                    1.1831
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L04-B",
+                  "aim_point_m": [
+                    4.0756,
+                    2.7049
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-01",
+                    "wall-00",
+                    "bed-full"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L05",
+              "title": "Station S05 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S05",
+              "next_hint": "Continue to S06.",
+              "shots": [
+                {
+                  "id": "L05-A",
+                  "aim_point_m": [
+                    1.9212,
+                    2.8776
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00",
+                    "window-west",
+                    "window-east"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L05-B",
+                  "aim_point_m": [
+                    3.2415,
+                    2.8224
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01",
+                    "bed-full"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L06",
+              "title": "Station S06 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S06",
+              "next_hint": "Continue to S07.",
+              "shots": [
+                {
+                  "id": "L06-A",
+                  "aim_point_m": [
+                    1.5527,
+                    3.5622
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L06-B",
+                  "aim_point_m": [
+                    3.0423,
+                    3.3391
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L07",
+              "title": "Station S07 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S07",
+              "next_hint": "Continue to S08.",
+              "shots": [
+                {
+                  "id": "L07-A",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00",
+                    "window-west",
+                    "window-east",
+                    "desk"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L07-B",
+                  "aim_point_m": [
+                    2.4655,
+                    3.1524
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            },
+            {
+              "id": "L08",
+              "title": "Station S08 overlapping structure pair",
+              "purpose": "Maintain adjacent-wall overlap while preserving room context.",
+              "station_id": "S08",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "L08-A",
+                  "aim_point_m": [
+                    0.2584,
+                    1.5599
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05"
+                  ],
+                  "instruction": "Frame the first adjacent-wall direction with every named anchor visible."
+                },
+                {
+                  "id": "L08-B",
+                  "aim_point_m": [
+                    0.8689,
+                    3.0729
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-05",
+                    "wall-00",
+                    "desk"
+                  ],
+                  "instruction": "Rotate in place to the overlapping second wall direction."
+                }
+              ]
+            }
+          ]
         },
         {
-          "id": "A01-C",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "原地转向窗墙中央，画面同时保留左右墙角，不要靠近窗户。"
+          "id": "L-VERTICAL",
+          "title": "Lightweight vertical coverage",
+          "purpose": "High and low views at the bath and window sides.",
+          "groups": [
+            {
+              "id": "L09",
+              "title": "Station S03 high and low coverage",
+              "purpose": "Extend vertical overlap without changing the confirmed station.",
+              "station_id": "S03",
+              "next_hint": "Continue to S07.",
+              "shots": [
+                {
+                  "id": "L09-A",
+                  "aim_point_m": [
+                    4.0092,
+                    1.0335
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      3.3528
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      3.3528
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 25.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Tilt upward while retaining the named walls and anchors."
+                },
+                {
+                  "id": "L09-B",
+                  "aim_point_m": [
+                    4.0092,
+                    1.0335
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Tilt downward while retaining the named walls and anchors."
+                }
+              ]
+            },
+            {
+              "id": "L10",
+              "title": "Station S07 high and low coverage",
+              "purpose": "Extend vertical overlap without changing the confirmed station.",
+              "station_id": "S07",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "L10-A",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 25.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05",
+                    "window-west",
+                    "window-east",
+                    "desk"
+                  ],
+                  "instruction": "Tilt upward while retaining the named walls and anchors."
+                },
+                {
+                  "id": "L10-B",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05",
+                    "window-west",
+                    "window-east",
+                    "desk"
+                  ],
+                  "instruction": "Tilt downward while retaining the named walls and anchors."
+                }
+              ]
+            }
+          ]
         },
         {
-          "id": "A01-R",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "level",
-          "target_ids": ["wall-04"],
-          "instruction": "原地向右覆盖入口墙，保留门洞、北墙转角和地面连接。"
-        },
-        {
-          "id": "A02-L",
-          "standing_point_m": [2.15, 1.55],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "向左平拍北墙，让上一站入口区域仍占画面约三分之一。"
-        },
-        {
-          "id": "A02-C",
-          "standing_point_m": [2.15, 1.55],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "正对双窗墙拍摄，保留书桌、床和两侧墙角作为空间上下文。"
-        },
-        {
-          "id": "A02-R",
-          "standing_point_m": [2.15, 1.55],
-          "pitch": "level",
-          "target_ids": ["wall-02"],
-          "instruction": "向右平拍浴室门所在墙，连同衣柜边缘和南墙转角入镜。"
-        },
-        {
-          "id": "A03-L",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "level",
-          "target_ids": ["wall-04"],
-          "instruction": "向左回看入口墙，保持入口门、北墙方向和地面连续可见。"
-        },
-        {
-          "id": "A03-C",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "level",
-          "target_ids": ["wall-02"],
-          "instruction": "正对浴室门墙，门洞两侧、衣柜和短回墙都不要裁掉。"
-        },
-        {
-          "id": "A03-R",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "level",
-          "target_ids": ["wall-01"],
-          "instruction": "向右覆盖南侧长墙，画面包含浴室门墙转角和窗墙方向。"
-        },
-        {
-          "id": "A04-L",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-02"],
-          "instruction": "向左平拍浴室门墙，保留衣柜前后轮廓及门框完整高度。"
-        },
-        {
-          "id": "A04-C",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-01"],
-          "instruction": "正对南侧长墙，保持两端转角、踢脚线与天花线可追踪。"
-        },
-        {
-          "id": "A04-R",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "向右转到窗墙，床边与南墙转角需一起入镜以保持重叠。"
-        },
-        {
-          "id": "A05-L",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "向左覆盖北墙与入口方向，保留书桌和墙角作为特征。"
-        },
-        {
-          "id": "A05-C",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "正对双窗墙拍摄全宽，确保两窗、窗间墙和窗台都完整。"
-        },
-        {
-          "id": "A05-R",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-01"],
-          "instruction": "向右覆盖南墙，连同床边、窗墙转角和地面纹理入镜。"
-        },
-        {
-          "id": "A06-L",
-          "standing_point_m": [2.20, 2.80],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "向左平拍北墙，书桌、入口方向和天花交线保持可见。"
-        },
-        {
-          "id": "A06-C",
-          "standing_point_m": [2.20, 2.80],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "近窗区正对双窗墙，但仍保留两侧墙角，不拍孤立窗户。"
-        },
-        {
-          "id": "A06-R",
-          "standing_point_m": [2.20, 2.80],
-          "pitch": "level",
-          "target_ids": ["wall-01"],
-          "instruction": "向右覆盖床和南墙，保持窗墙转角及床外轮廓完整。"
-        },
-        {
-          "id": "A07-L",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "向左覆盖书桌侧北墙，保留窗墙转角和入口方向。"
-        },
-        {
-          "id": "A07-C",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "正对窗墙，拍全两扇窗及中间墙段，并保留书桌和床边。"
-        },
-        {
-          "id": "A07-R",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "level",
-          "target_ids": ["wall-01"],
-          "instruction": "向右覆盖床与南墙，上一幅窗墙区域需继续占画面一部分。"
-        },
-        {
-          "id": "A08-L",
-          "standing_point_m": [1.10, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-04"],
-          "instruction": "向左回拍入口墙，门洞、北墙转角和书桌边缘一起入镜。"
-        },
-        {
-          "id": "A08-C",
-          "standing_point_m": [1.10, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-05"],
-          "instruction": "正对北墙平拍，保留入口墙与窗墙两端作为转角约束。"
-        },
-        {
-          "id": "A08-R",
-          "standing_point_m": [1.10, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-00"],
-          "instruction": "向右覆盖窗墙和书桌，画面需与 A07 的窗墙照片明显重叠。"
+          "id": "L-ANCHORS",
+          "title": "Lightweight scale anchors",
+          "purpose": "Explicit measured-object views with structural context.",
+          "groups": [
+            {
+              "id": "L11",
+              "title": "Station S06 scale-anchor view",
+              "purpose": "Capture measured geometry together with structural context.",
+              "station_id": "S06",
+              "next_hint": "Continue to S06.",
+              "shots": [
+                {
+                  "id": "L11-A",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-00",
+                    "window-west",
+                    "window-east"
+                  ],
+                  "instruction": "Frame both windows, their jambs, and surrounding east wall."
+                }
+              ]
+            },
+            {
+              "id": "L12",
+              "title": "Station S06 scale-anchor view",
+              "purpose": "Capture measured geometry together with structural context.",
+              "station_id": "S06",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "L12-A",
+                  "aim_point_m": [
+                    3.0423,
+                    3.3391
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "bed-full",
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "Frame the full measured bed with east- and south-wall context."
+                }
+              ]
+            },
+            {
+              "id": "L13",
+              "title": "Station S04 scale-anchor view",
+              "purpose": "Capture measured geometry together with structural context.",
+              "station_id": "S04",
+              "next_hint": "Continue to S02.",
+              "shots": [
+                {
+                  "id": "L13-A",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "Frame the full bathroom door and measured closet depth with wall-02."
+                }
+              ]
+            },
+            {
+              "id": "L14",
+              "title": "Station S02 scale-anchor view",
+              "purpose": "Capture measured geometry together with structural context.",
+              "station_id": "S02",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "L14-A",
+                  "aim_point_m": [
+                    1.1563,
+                    1.6624
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": -10.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05",
+                    "entry-door"
+                  ],
+                  "instruction": "Frame the full entry door with entry- and north-wall context."
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
-      "id": "B",
-      "title": "高低补拍",
-      "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
-      "shots": [
+      "id": "standard-48",
+      "title": "Standard 48-image diagnostic route",
+      "description": "The reviewed legacy diagnostic route normalized into station groups.",
+      "expected_image_count": 48,
+      "risk_note": "Higher redundancy than lite-24, but not a full professional production capture.",
+      "required_scale_anchor_ids": [
+        "window-west",
+        "window-east",
+        "entry-door",
+        "bath-door-south",
+        "bed-full",
+        "desk",
+        "closet"
+      ],
+      "passes": [
         {
-          "id": "B01-U",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "up",
-          "target_ids": ["wall-04", "wall-05"],
-          "instruction": "在 A01 点抬高取景，覆盖入口墙与北墙的墙顶交线及转角。"
+          "id": "A",
+          "title": "结构环拍",
+          "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+          "groups": [
+            {
+              "id": "STD-A01",
+              "title": "Standard A group at S01",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S01",
+              "next_hint": "Continue to S02.",
+              "shots": [
+                {
+                  "id": "A01-L",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "从入口内侧向左平拍北墙，保留入口墙边缘和墙顶、墙地交线。"
+                },
+                {
+                  "id": "A01-C",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "原地转向窗墙中央，画面同时保留左右墙角，不要靠近窗户。"
+                },
+                {
+                  "id": "A01-R",
+                  "aim_point_m": [
+                    1.7785,
+                    1.2694
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04"
+                  ],
+                  "instruction": "原地向右覆盖入口墙，保留门洞、北墙转角和地面连接。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A02",
+              "title": "Standard A group at S02",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S02",
+              "next_hint": "Continue to S03.",
+              "shots": [
+                {
+                  "id": "A02-L",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "向左平拍北墙，让上一站入口区域仍占画面约三分之一。"
+                },
+                {
+                  "id": "A02-C",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "正对双窗墙拍摄，保留书桌、床和两侧墙角作为空间上下文。"
+                },
+                {
+                  "id": "A02-R",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02"
+                  ],
+                  "instruction": "向右平拍浴室门所在墙，连同衣柜边缘和南墙转角入镜。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A03",
+              "title": "Standard A group at S03",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S03",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "A03-L",
+                  "aim_point_m": [
+                    1.1857,
+                    1.2694
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04"
+                  ],
+                  "instruction": "向左回看入口墙，保持入口门、北墙方向和地面连续可见。"
+                },
+                {
+                  "id": "A03-C",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02"
+                  ],
+                  "instruction": "正对浴室门墙，门洞两侧、衣柜和短回墙都不要裁掉。"
+                },
+                {
+                  "id": "A03-R",
+                  "aim_point_m": [
+                    4.9381,
+                    2.1133
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-01"
+                  ],
+                  "instruction": "向右覆盖南侧长墙，画面包含浴室门墙转角和窗墙方向。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A04",
+              "title": "Standard A group at S04",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S04",
+              "next_hint": "Continue to S05.",
+              "shots": [
+                {
+                  "id": "A04-L",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02"
+                  ],
+                  "instruction": "向左平拍浴室门墙，保留衣柜前后轮廓及门框完整高度。"
+                },
+                {
+                  "id": "A04-C",
+                  "aim_point_m": [
+                    4.9381,
+                    2.1133
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-01"
+                  ],
+                  "instruction": "正对南侧长墙，保持两端转角、踢脚线与天花线可追踪。"
+                },
+                {
+                  "id": "A04-R",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "向右转到窗墙，床边与南墙转角需一起入镜以保持重叠。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A05",
+              "title": "Standard A group at S05",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S05",
+              "next_hint": "Continue to S06.",
+              "shots": [
+                {
+                  "id": "A05-L",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "向左覆盖北墙与入口方向，保留书桌和墙角作为特征。"
+                },
+                {
+                  "id": "A05-C",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "正对双窗墙拍摄全宽，确保两窗、窗间墙和窗台都完整。"
+                },
+                {
+                  "id": "A05-R",
+                  "aim_point_m": [
+                    4.9381,
+                    2.1133
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-01"
+                  ],
+                  "instruction": "向右覆盖南墙，连同床边、窗墙转角和地面纹理入镜。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A06",
+              "title": "Standard A group at S06",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S06",
+              "next_hint": "Continue to S07.",
+              "shots": [
+                {
+                  "id": "A06-L",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "向左平拍北墙，书桌、入口方向和天花交线保持可见。"
+                },
+                {
+                  "id": "A06-C",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "近窗区正对双窗墙，但仍保留两侧墙角，不拍孤立窗户。"
+                },
+                {
+                  "id": "A06-R",
+                  "aim_point_m": [
+                    4.9381,
+                    2.1133
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-01"
+                  ],
+                  "instruction": "向右覆盖床和南墙，保持窗墙转角及床外轮廓完整。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A07",
+              "title": "Standard A group at S07",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S07",
+              "next_hint": "Continue to S08.",
+              "shots": [
+                {
+                  "id": "A07-L",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "向左覆盖书桌侧北墙，保留窗墙转角和入口方向。"
+                },
+                {
+                  "id": "A07-C",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "正对窗墙，拍全两扇窗及中间墙段，并保留书桌和床边。"
+                },
+                {
+                  "id": "A07-R",
+                  "aim_point_m": [
+                    4.9381,
+                    2.1133
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-01"
+                  ],
+                  "instruction": "向右覆盖床与南墙，上一幅窗墙区域需继续占画面一部分。"
+                }
+              ]
+            },
+            {
+              "id": "STD-A08",
+              "title": "Standard A group at S08",
+              "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+              "station_id": "S08",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "A08-L",
+                  "aim_point_m": [
+                    1.1857,
+                    1.2694
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04"
+                  ],
+                  "instruction": "向左回拍入口墙，门洞、北墙转角和书桌边缘一起入镜。"
+                },
+                {
+                  "id": "A08-C",
+                  "aim_point_m": [
+                    0.0,
+                    2.748
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-05"
+                  ],
+                  "instruction": "正对北墙平拍，保留入口墙与窗墙两端作为转角约束。"
+                },
+                {
+                  "id": "A08-R",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00"
+                  ],
+                  "instruction": "向右覆盖窗墙和书桌，画面需与 A07 的窗墙照片明显重叠。"
+                }
+              ]
+            }
+          ]
         },
         {
-          "id": "B01-D",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "down",
-          "target_ids": ["wall-04", "wall-05"],
-          "instruction": "在 A01 点压低取景，覆盖入口门槛、北墙踢脚线与连续地面。"
+          "id": "B",
+          "title": "高低补拍",
+          "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+          "groups": [
+            {
+              "id": "STD-B01",
+              "title": "Standard B group at S01",
+              "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+              "station_id": "S01",
+              "next_hint": "Continue to S03.",
+              "shots": [
+                {
+                  "id": "B01-U",
+                  "aim_point_m": [
+                    0.3787,
+                    1.4121
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 30.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05"
+                  ],
+                  "instruction": "在 A01 点抬高取景，覆盖入口墙与北墙的墙顶交线及转角。"
+                },
+                {
+                  "id": "B01-D",
+                  "aim_point_m": [
+                    0.3787,
+                    1.4121
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05"
+                  ],
+                  "instruction": "在 A01 点压低取景，覆盖入口门槛、北墙踢脚线与连续地面。"
+                }
+              ]
+            },
+            {
+              "id": "STD-B02",
+              "title": "Standard B group at S03",
+              "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+              "station_id": "S03",
+              "next_hint": "Continue to S05.",
+              "shots": [
+                {
+                  "id": "B02-U",
+                  "aim_point_m": [
+                    4.0092,
+                    1.0335
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      3.3528
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      3.3528
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 30.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01"
+                  ],
+                  "instruction": "在 A03 点抬高取景，保留浴室门顶、衣柜顶部及南墙天花线。"
+                },
+                {
+                  "id": "B02-D",
+                  "aim_point_m": [
+                    4.0092,
+                    1.0335
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-02",
+                    "wall-01"
+                  ],
+                  "instruction": "在 A03 点压低取景，覆盖浴室门槛、衣柜底边和南侧地面。"
+                }
+              ]
+            },
+            {
+              "id": "STD-B03",
+              "title": "Standard B group at S05",
+              "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+              "station_id": "S05",
+              "next_hint": "Continue to S07.",
+              "shots": [
+                {
+                  "id": "B03-U",
+                  "aim_point_m": [
+                    3.2415,
+                    2.8224
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      3.3528
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 30.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "在 A05 点抬高取景，覆盖窗上沿、窗墙顶部和南墙转角。"
+                },
+                {
+                  "id": "B03-D",
+                  "aim_point_m": [
+                    3.2415,
+                    2.8224
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "在 A05 点压低取景，覆盖窗下墙、床边和南墙地面连接。"
+                }
+              ]
+            },
+            {
+              "id": "STD-B04",
+              "title": "Standard B group at S07",
+              "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+              "station_id": "S07",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "B04-U",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      3.3528
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      3.3528
+                    ]
+                  ],
+                  "pitch": "up",
+                  "pitch_deg": 30.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05"
+                  ],
+                  "instruction": "在 A07 点抬高取景，覆盖窗上沿、北墙顶部和两墙转角。"
+                },
+                {
+                  "id": "B04-D",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      0.0
+                    ]
+                  ],
+                  "pitch": "down",
+                  "pitch_deg": -35.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05"
+                  ],
+                  "instruction": "在 A07 点压低取景，覆盖窗台下方、书桌脚和连续地面。"
+                }
+              ]
+            }
+          ]
         },
         {
-          "id": "B02-U",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "up",
-          "target_ids": ["wall-02", "wall-01"],
-          "instruction": "在 A03 点抬高取景，保留浴室门顶、衣柜顶部及南墙天花线。"
+          "id": "C",
+          "title": "遮挡区交叉视角",
+          "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+          "groups": [
+            {
+              "id": "STD-C01A",
+              "title": "Standard C group at S07",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S07",
+              "next_hint": "Continue to S08.",
+              "shots": [
+                {
+                  "id": "C01-A",
+                  "aim_point_m": [
+                    1.0638,
+                    3.6239
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05",
+                    "desk"
+                  ],
+                  "instruction": "从 A07 点拍书桌与窗墙转角，桌面上下、两面墙和地面都入镜。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C01B",
+              "title": "Standard C group at S08",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S08",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "C01-B",
+                  "aim_point_m": [
+                    0.8689,
+                    3.0729
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.2092,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.8788,
+                      3.5013,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      2.8913,
+                      0.38
+                    ],
+                    [
+                      0.544,
+                      4.1113,
+                      0.38
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-05",
+                    "desk"
+                  ],
+                  "instruction": "从 A08 点反向补拍同一书桌角，露出上一张被桌体挡住的墙地线。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C02A",
+              "title": "Standard C group at S04",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S04",
+              "next_hint": "Continue to S05.",
+              "shots": [
+                {
+                  "id": "C02-A",
+                  "aim_point_m": [
+                    4.0756,
+                    2.7049
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01",
+                    "bed-full"
+                  ],
+                  "instruction": "从 A04 点拍床与窗墙转角，保留床两侧和南墙连续边界。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C02B",
+              "title": "Standard C group at S05",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S05",
+              "next_hint": "Continue to S03.",
+              "shots": [
+                {
+                  "id": "C02-B",
+                  "aim_point_m": [
+                    3.2415,
+                    2.8224
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "wall-01",
+                    "bed-full"
+                  ],
+                  "instruction": "从 A05 点交叉补拍床区，露出床头床尾周围的墙地连接。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C03A",
+              "title": "Standard C group at S03",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S03",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "C03-A",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "从 A03 点同时拍浴室门与衣柜，保留门两侧整段墙和柜体深度。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C03B",
+              "title": "Standard C group at S04",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S04",
+              "next_hint": "Continue to S01.",
+              "shots": [
+                {
+                  "id": "C03-B",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "从 A04 点反向补拍浴室门和衣柜侧面，短回墙也必须出现。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C04A",
+              "title": "Standard C group at S01",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S01",
+              "next_hint": "Continue to S02.",
+              "shots": [
+                {
+                  "id": "C04-A",
+                  "aim_point_m": [
+                    0.3787,
+                    1.4121
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05",
+                    "entry-door"
+                  ],
+                  "instruction": "从 A01 点拍入口门与北墙连接，门框完整且门外仅作上下文。"
+                }
+              ]
+            },
+            {
+              "id": "STD-C04B",
+              "title": "Standard C group at S02",
+              "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+              "station_id": "S02",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "C04-B",
+                  "aim_point_m": [
+                    1.1563,
+                    1.6624
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04",
+                    "wall-05",
+                    "entry-door"
+                  ],
+                  "instruction": "从 A02 点交叉补拍入口区，露出门边、墙角和入口内侧地面。"
+                }
+              ]
+            }
+          ]
         },
         {
-          "id": "B02-D",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "down",
-          "target_ids": ["wall-02", "wall-01"],
-          "instruction": "在 A03 点压低取景，覆盖浴室门槛、衣柜底边和南侧地面。"
-        },
-        {
-          "id": "B03-U",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "up",
-          "target_ids": ["wall-00", "wall-01"],
-          "instruction": "在 A05 点抬高取景，覆盖窗上沿、窗墙顶部和南墙转角。"
-        },
-        {
-          "id": "B03-D",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "down",
-          "target_ids": ["wall-00", "wall-01"],
-          "instruction": "在 A05 点压低取景，覆盖窗下墙、床边和南墙地面连接。"
-        },
-        {
-          "id": "B04-U",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "up",
-          "target_ids": ["wall-00", "wall-05"],
-          "instruction": "在 A07 点抬高取景，覆盖窗上沿、北墙顶部和两墙转角。"
-        },
-        {
-          "id": "B04-D",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "down",
-          "target_ids": ["wall-00", "wall-05"],
-          "instruction": "在 A07 点压低取景，覆盖窗台下方、书桌脚和连续地面。"
-        }
-      ]
-    },
-    {
-      "id": "C",
-      "title": "遮挡区交叉视角",
-      "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
-      "shots": [
-        {
-          "id": "C01-A",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "level",
-          "target_ids": ["wall-00", "wall-05", "desk"],
-          "instruction": "从 A07 点拍书桌与窗墙转角，桌面上下、两面墙和地面都入镜。"
-        },
-        {
-          "id": "C01-B",
-          "standing_point_m": [1.10, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-00", "wall-05", "desk"],
-          "instruction": "从 A08 点反向补拍同一书桌角，露出上一张被桌体挡住的墙地线。"
-        },
-        {
-          "id": "C02-A",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-00", "wall-01", "bed-full"],
-          "instruction": "从 A04 点拍床与窗墙转角，保留床两侧和南墙连续边界。"
-        },
-        {
-          "id": "C02-B",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-00", "wall-01", "bed-full"],
-          "instruction": "从 A05 点交叉补拍床区，露出床头床尾周围的墙地连接。"
-        },
-        {
-          "id": "C03-A",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "level",
-          "target_ids": ["wall-02", "bath-door-south", "closet"],
-          "instruction": "从 A03 点同时拍浴室门与衣柜，保留门两侧整段墙和柜体深度。"
-        },
-        {
-          "id": "C03-B",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-02", "bath-door-south", "closet"],
-          "instruction": "从 A04 点反向补拍浴室门和衣柜侧面，短回墙也必须出现。"
-        },
-        {
-          "id": "C04-A",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "level",
-          "target_ids": ["wall-04", "wall-05", "entry-door"],
-          "instruction": "从 A01 点拍入口门与北墙连接，门框完整且门外仅作上下文。"
-        },
-        {
-          "id": "C04-B",
-          "standing_point_m": [2.15, 1.55],
-          "pitch": "level",
-          "target_ids": ["wall-04", "wall-05", "entry-door"],
-          "instruction": "从 A02 点交叉补拍入口区，露出门边、墙角和入口内侧地面。"
-        }
-      ]
-    },
-    {
-      "id": "D",
-      "title": "开口与尺度锚点",
-      "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
-      "shots": [
-        {
-          "id": "D01",
-          "standing_point_m": [1.55, 2.75],
-          "pitch": "level",
-          "target_ids": ["wall-00", "window-west", "window-east"],
-          "instruction": "从 A07 点拍两扇窗全貌，包含左墙边、窗间墙、右墙边与完整窗台。"
-        },
-        {
-          "id": "D02",
-          "standing_point_m": [2.20, 2.80],
-          "pitch": "level",
-          "target_ids": ["wall-00", "window-west", "window-east"],
-          "instruction": "从 A06 点较正面拍双窗，保持竖线垂直并保留四周墙面。"
-        },
-        {
-          "id": "D03",
-          "standing_point_m": [2.55, 2.10],
-          "pitch": "level",
-          "target_ids": ["wall-00", "window-west", "window-east"],
-          "instruction": "从 A05 点补拍窗户与房间深度关系，床和书桌边缘均作尺度上下文。"
-        },
-        {
-          "id": "D04",
-          "standing_point_m": [1.35, 1.65],
-          "pitch": "level",
-          "target_ids": ["wall-04", "entry-door"],
-          "instruction": "从 A01 点拍完整入口门及其 250 cm 墙段方向，不做只含门框的近照。"
-        },
-        {
-          "id": "D05",
-          "standing_point_m": [2.15, 1.55],
-          "pitch": "level",
-          "target_ids": ["wall-04", "entry-door"],
-          "instruction": "从 A02 点斜拍入口门，保留门洞深度、相邻北墙和室内地面。"
-        },
-        {
-          "id": "D06",
-          "standing_point_m": [3.10, 1.45],
-          "pitch": "level",
-          "target_ids": ["wall-02", "bath-door-south", "closet"],
-          "instruction": "从 A03 点拍完整浴室门、所在整段墙与 73 cm 深衣柜，不要把门标到回墙。"
-        },
-        {
-          "id": "D07",
-          "standing_point_m": [3.65, 1.80],
-          "pitch": "level",
-          "target_ids": ["wall-02", "bath-door-south", "closet"],
-          "instruction": "从 A04 点斜拍浴室门与衣柜凸出关系，保留 wall-02 两端转角。"
-        },
-        {
-          "id": "D08",
-          "standing_point_m": [2.20, 2.80],
-          "pitch": "level",
-          "target_ids": ["bed-full", "wall-00", "wall-01"],
-          "instruction": "从 A06 点拍完整 213×145 cm 床及窗墙、南墙两个方向，用床作尺度复核。"
+          "id": "D",
+          "title": "开口与尺度锚点",
+          "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+          "groups": [
+            {
+              "id": "STD-D01",
+              "title": "Standard D group at S07",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S07",
+              "next_hint": "Continue to S06.",
+              "shots": [
+                {
+                  "id": "D01",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "window-west",
+                    "window-east"
+                  ],
+                  "instruction": "从 A07 点拍两扇窗全貌，包含左墙边、窗间墙、右墙边与完整窗台。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D02",
+              "title": "Standard D group at S06",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S06",
+              "next_hint": "Continue to S05.",
+              "shots": [
+                {
+                  "id": "D02",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "window-west",
+                    "window-east"
+                  ],
+                  "instruction": "从 A06 点较正面拍双窗，保持竖线垂直并保留四周墙面。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D03",
+              "title": "Standard D group at S05",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S05",
+              "next_hint": "Continue to S01.",
+              "shots": [
+                {
+                  "id": "D03",
+                  "aim_point_m": [
+                    2.469,
+                    4.2266
+                  ],
+                  "framing_points_m": [
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      0.79,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      2.06,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      1.425,
+                      4.2266,
+                      2.55
+                    ],
+                    [
+                      2.55,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.82,
+                      4.2266,
+                      1.66
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      0.77
+                    ],
+                    [
+                      3.185,
+                      4.2266,
+                      2.55
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-00",
+                    "window-west",
+                    "window-east"
+                  ],
+                  "instruction": "从 A05 点补拍窗户与房间深度关系，床和书桌边缘均作尺度上下文。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D04",
+              "title": "Standard D group at S01",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S01",
+              "next_hint": "Continue to S02.",
+              "shots": [
+                {
+                  "id": "D04",
+                  "aim_point_m": [
+                    1.7785,
+                    1.2694
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04",
+                    "entry-door"
+                  ],
+                  "instruction": "从 A01 点拍完整入口门及其 250 cm 墙段方向，不做只含门框的近照。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D05",
+              "title": "Standard D group at S02",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S02",
+              "next_hint": "Continue to S03.",
+              "shots": [
+                {
+                  "id": "D05",
+                  "aim_point_m": [
+                    1.1857,
+                    1.2694
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.3714,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      0.0,
+                      1.2694,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.3714,
+                      1.2694,
+                      1.185
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      0.0
+                    ],
+                    [
+                      1.8714,
+                      1.2694,
+                      2.37
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-04",
+                    "entry-door"
+                  ],
+                  "instruction": "从 A02 点斜拍入口门，保留门洞深度、相邻北墙和室内地面。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D06",
+              "title": "Standard D group at S03",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S03",
+              "next_hint": "Continue to S04.",
+              "shots": [
+                {
+                  "id": "D06",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "从 A03 点拍完整浴室门、所在整段墙与 73 cm 深衣柜，不要把门标到回墙。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D07",
+              "title": "Standard D group at S04",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S04",
+              "next_hint": "Continue to S06.",
+              "shots": [
+                {
+                  "id": "D07",
+                  "aim_point_m": [
+                    3.6547,
+                    0.0
+                  ],
+                  "framing_points_m": [
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      2.3714,
+                      0.0,
+                      1.45
+                    ],
+                    [
+                      3.6687,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      2.7587,
+                      0.0,
+                      1.185
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.2137,
+                      0.0,
+                      2.37
+                    ],
+                    [
+                      4.1964,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.9264,
+                      0.7881,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      0.0,
+                      1.2
+                    ],
+                    [
+                      4.5614,
+                      1.5763,
+                      1.2
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "wall-02",
+                    "bath-door-south",
+                    "closet"
+                  ],
+                  "instruction": "从 A04 点斜拍浴室门与衣柜凸出关系，保留 wall-02 两端转角。"
+                }
+              ]
+            },
+            {
+              "id": "STD-D08",
+              "title": "Standard D group at S06",
+              "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+              "station_id": "S06",
+              "next_hint": null,
+              "shots": [
+                {
+                  "id": "D08",
+                  "aim_point_m": [
+                    3.0423,
+                    3.3391
+                  ],
+                  "framing_points_m": [
+                    [
+                      2.7501,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      4.8801,
+                      2.9642,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      2.2392,
+                      0.275
+                    ],
+                    [
+                      3.8151,
+                      3.6892,
+                      0.275
+                    ],
+                    [
+                      0.0,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      4.2266,
+                      1.45
+                    ],
+                    [
+                      4.9381,
+                      0.0,
+                      1.45
+                    ]
+                  ],
+                  "pitch": "level",
+                  "pitch_deg": 0.0,
+                  "target_ids": [
+                    "bed-full",
+                    "wall-00",
+                    "wall-01"
+                  ],
+                  "instruction": "从 A06 点拍完整 213×145 cm 床及窗墙、南墙两个方向，用床作尺度复核。"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -1,0 +1,414 @@
+{
+  "schema_version": "1.0",
+  "room_id": "dorm-right-bedroom",
+  "capture_id": "dorm-right-bedroom-diagnostic-01",
+  "expected_image_count": 48,
+  "device_profile": {
+    "make": "Xiaomi",
+    "model": "Xiaomi 17 Ultra",
+    "lens": "1x Leica 23 mm main",
+    "orientation": "landscape",
+    "aspect_ratio": "4:3",
+    "file_format": "JPG",
+    "arcore_status": "unverified_optional"
+  },
+  "wall_review": {
+    "wall-00": {
+      "role": "east double-window wall",
+      "opening_ids": [
+        "window-west",
+        "window-east"
+      ]
+    },
+    "wall-01": {
+      "role": "south long wall",
+      "opening_ids": []
+    },
+    "wall-02": {
+      "role": "west-facing bathroom-door wall",
+      "opening_ids": [
+        "bath-door-south"
+      ]
+    },
+    "wall-03": {
+      "role": "connecting return",
+      "opening_ids": []
+    },
+    "wall-04": {
+      "role": "west-facing entry wall",
+      "opening_ids": [
+        "entry-door"
+      ]
+    },
+    "wall-05": {
+      "role": "north measured wall",
+      "opening_ids": []
+    }
+  },
+  "passes": [
+    {
+      "id": "A",
+      "title": "结构环拍",
+      "purpose": "用连续重叠视角恢复房间外壳、转角与相机路径。",
+      "shots": [
+        {
+          "id": "A01-L",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "从入口内侧向左平拍北墙，保留入口墙边缘和墙顶、墙地交线。"
+        },
+        {
+          "id": "A01-C",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "原地转向窗墙中央，画面同时保留左右墙角，不要靠近窗户。"
+        },
+        {
+          "id": "A01-R",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "level",
+          "target_ids": ["wall-04"],
+          "instruction": "原地向右覆盖入口墙，保留门洞、北墙转角和地面连接。"
+        },
+        {
+          "id": "A02-L",
+          "standing_point_m": [2.15, 1.55],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "向左平拍北墙，让上一站入口区域仍占画面约三分之一。"
+        },
+        {
+          "id": "A02-C",
+          "standing_point_m": [2.15, 1.55],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "正对双窗墙拍摄，保留书桌、床和两侧墙角作为空间上下文。"
+        },
+        {
+          "id": "A02-R",
+          "standing_point_m": [2.15, 1.55],
+          "pitch": "level",
+          "target_ids": ["wall-02"],
+          "instruction": "向右平拍浴室门所在墙，连同衣柜边缘和南墙转角入镜。"
+        },
+        {
+          "id": "A03-L",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "level",
+          "target_ids": ["wall-04"],
+          "instruction": "向左回看入口墙，保持入口门、北墙方向和地面连续可见。"
+        },
+        {
+          "id": "A03-C",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "level",
+          "target_ids": ["wall-02"],
+          "instruction": "正对浴室门墙，门洞两侧、衣柜和短回墙都不要裁掉。"
+        },
+        {
+          "id": "A03-R",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "level",
+          "target_ids": ["wall-01"],
+          "instruction": "向右覆盖南侧长墙，画面包含浴室门墙转角和窗墙方向。"
+        },
+        {
+          "id": "A04-L",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-02"],
+          "instruction": "向左平拍浴室门墙，保留衣柜前后轮廓及门框完整高度。"
+        },
+        {
+          "id": "A04-C",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-01"],
+          "instruction": "正对南侧长墙，保持两端转角、踢脚线与天花线可追踪。"
+        },
+        {
+          "id": "A04-R",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "向右转到窗墙，床边与南墙转角需一起入镜以保持重叠。"
+        },
+        {
+          "id": "A05-L",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "向左覆盖北墙与入口方向，保留书桌和墙角作为特征。"
+        },
+        {
+          "id": "A05-C",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "正对双窗墙拍摄全宽，确保两窗、窗间墙和窗台都完整。"
+        },
+        {
+          "id": "A05-R",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-01"],
+          "instruction": "向右覆盖南墙，连同床边、窗墙转角和地面纹理入镜。"
+        },
+        {
+          "id": "A06-L",
+          "standing_point_m": [2.20, 2.80],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "向左平拍北墙，书桌、入口方向和天花交线保持可见。"
+        },
+        {
+          "id": "A06-C",
+          "standing_point_m": [2.20, 2.80],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "近窗区正对双窗墙，但仍保留两侧墙角，不拍孤立窗户。"
+        },
+        {
+          "id": "A06-R",
+          "standing_point_m": [2.20, 2.80],
+          "pitch": "level",
+          "target_ids": ["wall-01"],
+          "instruction": "向右覆盖床和南墙，保持窗墙转角及床外轮廓完整。"
+        },
+        {
+          "id": "A07-L",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "向左覆盖书桌侧北墙，保留窗墙转角和入口方向。"
+        },
+        {
+          "id": "A07-C",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "正对窗墙，拍全两扇窗及中间墙段，并保留书桌和床边。"
+        },
+        {
+          "id": "A07-R",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "level",
+          "target_ids": ["wall-01"],
+          "instruction": "向右覆盖床与南墙，上一幅窗墙区域需继续占画面一部分。"
+        },
+        {
+          "id": "A08-L",
+          "standing_point_m": [1.10, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-04"],
+          "instruction": "向左回拍入口墙，门洞、北墙转角和书桌边缘一起入镜。"
+        },
+        {
+          "id": "A08-C",
+          "standing_point_m": [1.10, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-05"],
+          "instruction": "正对北墙平拍，保留入口墙与窗墙两端作为转角约束。"
+        },
+        {
+          "id": "A08-R",
+          "standing_point_m": [1.10, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-00"],
+          "instruction": "向右覆盖窗墙和书桌，画面需与 A07 的窗墙照片明显重叠。"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "高低补拍",
+      "purpose": "补足天花、地面、墙顶与墙地交线，减少纯色墙面造成的几何缺口。",
+      "shots": [
+        {
+          "id": "B01-U",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "up",
+          "target_ids": ["wall-04", "wall-05"],
+          "instruction": "在 A01 点抬高取景，覆盖入口墙与北墙的墙顶交线及转角。"
+        },
+        {
+          "id": "B01-D",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "down",
+          "target_ids": ["wall-04", "wall-05"],
+          "instruction": "在 A01 点压低取景，覆盖入口门槛、北墙踢脚线与连续地面。"
+        },
+        {
+          "id": "B02-U",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "up",
+          "target_ids": ["wall-02", "wall-01"],
+          "instruction": "在 A03 点抬高取景，保留浴室门顶、衣柜顶部及南墙天花线。"
+        },
+        {
+          "id": "B02-D",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "down",
+          "target_ids": ["wall-02", "wall-01"],
+          "instruction": "在 A03 点压低取景，覆盖浴室门槛、衣柜底边和南侧地面。"
+        },
+        {
+          "id": "B03-U",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "up",
+          "target_ids": ["wall-00", "wall-01"],
+          "instruction": "在 A05 点抬高取景，覆盖窗上沿、窗墙顶部和南墙转角。"
+        },
+        {
+          "id": "B03-D",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "down",
+          "target_ids": ["wall-00", "wall-01"],
+          "instruction": "在 A05 点压低取景，覆盖窗下墙、床边和南墙地面连接。"
+        },
+        {
+          "id": "B04-U",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "up",
+          "target_ids": ["wall-00", "wall-05"],
+          "instruction": "在 A07 点抬高取景，覆盖窗上沿、北墙顶部和两墙转角。"
+        },
+        {
+          "id": "B04-D",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "down",
+          "target_ids": ["wall-00", "wall-05"],
+          "instruction": "在 A07 点压低取景，覆盖窗台下方、书桌脚和连续地面。"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "遮挡区交叉视角",
+      "purpose": "从两侧观察容易被家具遮住的墙角、门边与固定柜体。",
+      "shots": [
+        {
+          "id": "C01-A",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "level",
+          "target_ids": ["wall-00", "wall-05", "desk"],
+          "instruction": "从 A07 点拍书桌与窗墙转角，桌面上下、两面墙和地面都入镜。"
+        },
+        {
+          "id": "C01-B",
+          "standing_point_m": [1.10, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-00", "wall-05", "desk"],
+          "instruction": "从 A08 点反向补拍同一书桌角，露出上一张被桌体挡住的墙地线。"
+        },
+        {
+          "id": "C02-A",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-00", "wall-01", "bed-full"],
+          "instruction": "从 A04 点拍床与窗墙转角，保留床两侧和南墙连续边界。"
+        },
+        {
+          "id": "C02-B",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-00", "wall-01", "bed-full"],
+          "instruction": "从 A05 点交叉补拍床区，露出床头床尾周围的墙地连接。"
+        },
+        {
+          "id": "C03-A",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "level",
+          "target_ids": ["wall-02", "bath-door-south", "closet"],
+          "instruction": "从 A03 点同时拍浴室门与衣柜，保留门两侧整段墙和柜体深度。"
+        },
+        {
+          "id": "C03-B",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-02", "bath-door-south", "closet"],
+          "instruction": "从 A04 点反向补拍浴室门和衣柜侧面，短回墙也必须出现。"
+        },
+        {
+          "id": "C04-A",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "level",
+          "target_ids": ["wall-04", "wall-05", "entry-door"],
+          "instruction": "从 A01 点拍入口门与北墙连接，门框完整且门外仅作上下文。"
+        },
+        {
+          "id": "C04-B",
+          "standing_point_m": [2.15, 1.55],
+          "pitch": "level",
+          "target_ids": ["wall-04", "wall-05", "entry-door"],
+          "instruction": "从 A02 点交叉补拍入口区，露出门边、墙角和入口内侧地面。"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "开口与尺度锚点",
+      "purpose": "为门窗、衣柜和已测床尺寸提供带周边结构的清晰证据。",
+      "shots": [
+        {
+          "id": "D01",
+          "standing_point_m": [1.55, 2.75],
+          "pitch": "level",
+          "target_ids": ["wall-00", "window-west", "window-east"],
+          "instruction": "从 A07 点拍两扇窗全貌，包含左墙边、窗间墙、右墙边与完整窗台。"
+        },
+        {
+          "id": "D02",
+          "standing_point_m": [2.20, 2.80],
+          "pitch": "level",
+          "target_ids": ["wall-00", "window-west", "window-east"],
+          "instruction": "从 A06 点较正面拍双窗，保持竖线垂直并保留四周墙面。"
+        },
+        {
+          "id": "D03",
+          "standing_point_m": [2.55, 2.10],
+          "pitch": "level",
+          "target_ids": ["wall-00", "window-west", "window-east"],
+          "instruction": "从 A05 点补拍窗户与房间深度关系，床和书桌边缘均作尺度上下文。"
+        },
+        {
+          "id": "D04",
+          "standing_point_m": [1.35, 1.65],
+          "pitch": "level",
+          "target_ids": ["wall-04", "entry-door"],
+          "instruction": "从 A01 点拍完整入口门及其 250 cm 墙段方向，不做只含门框的近照。"
+        },
+        {
+          "id": "D05",
+          "standing_point_m": [2.15, 1.55],
+          "pitch": "level",
+          "target_ids": ["wall-04", "entry-door"],
+          "instruction": "从 A02 点斜拍入口门，保留门洞深度、相邻北墙和室内地面。"
+        },
+        {
+          "id": "D06",
+          "standing_point_m": [3.10, 1.45],
+          "pitch": "level",
+          "target_ids": ["wall-02", "bath-door-south", "closet"],
+          "instruction": "从 A03 点拍完整浴室门、所在整段墙与 73 cm 深衣柜，不要把门标到回墙。"
+        },
+        {
+          "id": "D07",
+          "standing_point_m": [3.65, 1.80],
+          "pitch": "level",
+          "target_ids": ["wall-02", "bath-door-south", "closet"],
+          "instruction": "从 A04 点斜拍浴室门与衣柜凸出关系，保留 wall-02 两端转角。"
+        },
+        {
+          "id": "D08",
+          "standing_point_m": [2.20, 2.80],
+          "pitch": "level",
+          "target_ids": ["bed-full", "wall-00", "wall-01"],
+          "instruction": "从 A06 点拍完整 213×145 cm 床及窗墙、南墙两个方向，用床作尺度复核。"
+        }
+      ]
+    }
+  ]
+}

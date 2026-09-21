@@ -137,7 +137,7 @@ def _render_html(
         "</tr>"
         for review in plan.wall_review
     )
-    pass_sections = "".join(_render_pass(item) for item in plan.passes)
+    pass_sections = "".join(_render_pass(plan, item) for item in plan.passes)
     lens_label = plan.device_profile.lens.replace("1x ", "1× ")
     source_hash = hashes["floorplan_sha256"]
 
@@ -314,10 +314,14 @@ def _render_route_svg(
     )
 
     structure_pass = next(item for item in plan.passes if item.id == "A")
-    station_shots: dict[str, list[CaptureShot]] = {}
-    for shot in structure_pass.shots:
-        station_shots.setdefault(shot.id.split("-")[0], []).append(shot)
-    stations = [(station_id, shots[0].standing_point_m, shots) for station_id, shots in station_shots.items()]
+    stations = [
+        (
+            group.shots[0].id.split("-")[0],
+            plan.station(group.station_id).standing_point_m,
+            list(group.shots),
+        )
+        for group in structure_pass.groups
+    ]
     projected = [calibration.room_to_pixel(point) for _, point, _ in stations]
     route_points = projected + projected[:1]
     route = " ".join(f"{point.x:.2f},{point.y:.2f}" for point in route_points)
@@ -360,8 +364,12 @@ def _render_station_marker(
     )
 
 
-def _render_pass(capture_pass: CapturePass) -> str:
-    shots = "".join(_render_shot(shot) for shot in capture_pass.shots)
+def _render_pass(plan: CapturePlan, capture_pass: CapturePass) -> str:
+    shots = "".join(
+        _render_shot(shot, plan.station(group.station_id).standing_point_m)
+        for group in capture_pass.groups
+        for shot in group.shots
+    )
     return (
         '<div class="pass-head">'
         f'<span class="pass-pill">Pass {escape(capture_pass.id)}</span>'
@@ -372,7 +380,7 @@ def _render_pass(capture_pass: CapturePass) -> str:
     )
 
 
-def _render_shot(shot: CaptureShot) -> str:
+def _render_shot(shot: CaptureShot, standing_point_m: Any) -> str:
     pitch = {"level": "平拍", "up": "向上", "down": "向下"}[shot.pitch]
     targets = "".join(
         f'<span class="target">{escape(target)}</span>' for target in shot.target_ids
@@ -380,8 +388,8 @@ def _render_shot(shot: CaptureShot) -> str:
     return (
         '<article class="shot">'
         f'<div class="shot-id">□ {escape(shot.id)}</div>'
-        f'<div class="shot-meta">站位约 ({shot.standing_point_m.x:.2f}, '
-        f'{shot.standing_point_m.y:.2f}) m · {pitch}</div>'
+        f'<div class="shot-meta">站位约 ({standing_point_m.x:.2f}, '
+        f'{standing_point_m.y:.2f}) m · {pitch}</div>'
         f"<div>{escape(shot.instruction)}</div>"
         f'<div class="targets">{targets}</div>'
         "</article>"
