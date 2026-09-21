@@ -55,6 +55,7 @@ def build_logical_room(
         endpoint_b = calibration.pixel_to_room(item.end_px)
         distance_a = wall.start.distance_to(endpoint_a)
         distance_b = wall.start.distance_to(endpoint_b)
+        offset_record = _measurement(measurements, item.id, "offset")
         width_record = _measurement(measurements, item.id, "width")
         height_record = _measurement(measurements, item.id, "height")
         sill_record = _measurement(measurements, item.id, "sill")
@@ -63,6 +64,12 @@ def build_logical_room(
             if width_record is not None
             and width_record.application == "exact_override"
             else endpoint_a.distance_to(endpoint_b)
+        )
+        offset_m = (
+            offset_record.value_m
+            if offset_record is not None
+            and offset_record.application == "exact_override"
+            else min(distance_a, distance_b)
         )
         sill_m = (
             sill_record.value_m
@@ -76,9 +83,14 @@ def build_logical_room(
             and height_record.application == "exact_override"
             else item.height_m
         )
+        horizontal_records = tuple(
+            record for record in (offset_record, width_record) if record is not None
+        )
         horizontal_source = (
-            _hybrid_source(width_record)
-            if width_record is not None
+            _combined_measurement_source(horizontal_records)
+            if len(horizontal_records) == 2
+            else _hybrid_source(horizontal_records[0])
+            if horizontal_records
             else plan_source
         )
         vertical_records = tuple(
@@ -93,7 +105,7 @@ def build_logical_room(
             Opening(
                 id=item.id,
                 wall_id=wall.id,
-                offset_m=min(distance_a, distance_b),
+                offset_m=offset_m,
                 width_m=width_m,
                 sill_m=sill_m,
                 height_m=height_m,

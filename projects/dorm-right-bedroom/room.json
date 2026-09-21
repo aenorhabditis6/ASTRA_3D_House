@@ -39,11 +39,11 @@
     {
       "height_m": 1.78,
       "id": "window-west",
-      "offset_m": 0.8788058212546211,
+      "offset_m": 0.79,
       "position_source": {
-        "confidence": 0.9,
-        "kind": "hybrid_plan_measurement",
-        "reference": "floorplan position; user: west window width 127 cm (2026-09-20)"
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: east wall start to first window 79 cm (2026-09-20); user: west window width 127 cm (2026-09-20)"
       },
       "sill_m": 0.77,
       "vertical_source": {
@@ -57,11 +57,11 @@
     {
       "height_m": 1.78,
       "id": "window-east",
-      "offset_m": 2.650366762513937,
+      "offset_m": 2.55,
       "position_source": {
-        "confidence": 0.9,
-        "kind": "hybrid_plan_measurement",
-        "reference": "floorplan position; user: east window width 127 cm (2026-09-20)"
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: 79 cm margin + 127 cm window + 49 cm gap (2026-09-20); user: east window width 127 cm (2026-09-20)"
       },
       "sill_m": 0.77,
       "vertical_source": {
@@ -73,25 +73,25 @@
       "width_m": 1.27
     },
     {
-      "height_m": 2.03,
+      "height_m": 2.37,
       "id": "bath-door-south",
-      "offset_m": 1.2693861862566749,
+      "offset_m": 0.0,
       "position_source": {
-        "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: bathroom door width 91 cm (2026-09-20)"
       },
       "sill_m": 0.0,
       "vertical_source": {
-        "confidence": 0.35,
-        "kind": "provisional_assumption",
-        "reference": "opening/furniture default height"
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: bathroom door height 237 cm (2026-09-20)"
       },
-      "wall_id": "wall-02",
-      "width_m": 1.004349510005281
+      "wall_id": "wall-03",
+      "width_m": 0.91
     },
     {
-      "height_m": 2.03,
+      "height_m": 2.37,
       "id": "entry-door",
       "offset_m": 0.0,
       "position_source": {
@@ -101,9 +101,9 @@
       },
       "sill_m": 0.0,
       "vertical_source": {
-        "confidence": 0.35,
-        "kind": "provisional_assumption",
-        "reference": "opening/furniture default height"
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: west exit door height 237 cm (2026-09-20)"
       },
       "wall_id": "wall-04",
       "width_m": 1.0
@@ -163,6 +163,11 @@
     {
       "confidence": 1.0,
       "kind": "confirmed_measurement",
+      "reference": "user: east wall start to first window 79 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
       "reference": "user: east window width 127 cm (2026-09-20)"
     },
     {
@@ -178,7 +183,32 @@
     {
       "confidence": 1.0,
       "kind": "confirmed_measurement",
+      "reference": "user: 79 cm margin + 127 cm window + 49 cm gap (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: east wall 79+127+49+127+103 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: north wall 294 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
       "reference": "user: full bathroom-door wall 133 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: bathroom door width 91 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: bathroom door height 237 cm (2026-09-20)"
     },
     {
       "confidence": 1.0,
@@ -193,7 +223,12 @@
     {
       "confidence": 1.0,
       "kind": "confirmed_measurement",
-      "reference": "user: full living-room exit wall 250 cm (2026-09-20)"
+      "reference": "user: west exit door height 237 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: full west exit-door wall 250 cm (2026-09-20)"
     }
   ],
   "proxies": [

@@ -51,14 +51,22 @@ class LogicalRoomTest(unittest.TestCase):
                 "confirmed_measurement",
             )
         self.assertAlmostEqual(openings["entry-door"].width_m, 1.0)
+        self.assertAlmostEqual(openings["entry-door"].height_m, 2.37)
+        self.assertAlmostEqual(openings["window-west"].offset_m, 0.79)
+        self.assertAlmostEqual(openings["window-east"].offset_m, 2.55)
+        self.assertEqual(openings["bath-door-south"].wall_id, "wall-03")
+        self.assertAlmostEqual(openings["bath-door-south"].width_m, 0.91)
+        self.assertAlmostEqual(openings["bath-door-south"].height_m, 2.37)
 
-    def test_scale_is_confirmed_but_unmeasured_door_heights_remain_provisional(
-        self,
-    ) -> None:
+    def test_scale_and_measured_door_heights_are_confirmed(self) -> None:
         openings = {opening.id: opening for opening in self.room.openings}
         self.assertEqual(self.room.scale_source.kind, "confirmed_measurement")
         self.assertEqual(self.room.scale_source.confidence, 1.0)
-        self.assertLess(openings["entry-door"].vertical_source.confidence, 0.5)
-        self.assertLess(
-            openings["bath-door-south"].vertical_source.confidence, 0.5
+        self.assertEqual(
+            openings["entry-door"].vertical_source.kind,
+            "confirmed_measurement",
+        )
+        self.assertEqual(
+            openings["bath-door-south"].vertical_source.kind,
+            "confirmed_measurement",
         )

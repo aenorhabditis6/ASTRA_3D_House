@@ -39,6 +39,20 @@ def write_plan_overlay(
     width = annotation.image.width_px
     height = annotation.image.height_px
     calibration = PlanCalibration.from_annotation(annotation)
+    measurement_audit = (
+        [_audit_measurement(record, room) for record in measurements.measurements]
+        if measurements is not None
+        else []
+    )
+    warnings = _warnings(room, measurement_audit)
+    warning_labels = []
+    if "provisional_scale" in warnings:
+        warning_labels.append("Scale is provisional")
+    if "assumed_door_heights" in warnings:
+        warning_labels.append("Door heights need review")
+    if "measurement_residuals_require_review" in warnings:
+        warning_labels.append("Wall measurement residuals need review")
+    warning_text = " · ".join(warning_labels) or "Measured geometry review"
     polygon = " ".join(
         f"{_number(point.x)},{_number(point.y)}"
         for point in annotation.target.floor_polygon_px
@@ -54,7 +68,7 @@ def write_plan_overlay(
         "<title id=\"title\">ASTRA right-bedroom plan review</title>",
         (
             "<description id=\"description\">Source plan with reviewed target, "
-            "openings, furniture proxies, scale, and provisional-value warnings.</description>"
+            "openings, furniture proxies, scale, and measurement warnings.</description>"
         ),
         "<style>"
         ".label{font:700 13px -apple-system,BlinkMacSystemFont,sans-serif;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}"
@@ -116,7 +130,7 @@ def write_plan_overlay(
         [
             '<rect x="18" y="18" width="440" height="74" rx="8" fill="#10243e" fill-opacity="0.9"/>',
             f'<text class="meta" x="34" y="47">{html.escape(meta_text)}</text>',
-            '<text class="meta" x="34" y="75" fill="#ffd166">⚠ Door heights and wall residuals need review</text>',
+            f'<text class="meta" x="34" y="75" fill="#ffd166">⚠ {html.escape(warning_text)}</text>',
             '<g transform="translate(22 620)">',
             '<rect width="374" height="42" rx="7" fill="#fff" fill-opacity="0.9"/>',
             '<line x1="13" y1="13" x2="49" y2="13" stroke="#1261d7" stroke-width="5"/>',
@@ -256,6 +270,7 @@ def _modeled_value(record: MeasurementRecord, room: RoomModel) -> float:
         )
         if item is not None:
             values = {
+                "offset": item.offset_m,
                 "width": item.width_m,
                 "height": item.height_m,
                 "sill": item.sill_m,

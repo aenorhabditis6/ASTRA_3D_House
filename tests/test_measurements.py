@@ -21,9 +21,22 @@ class MeasurementSetTest(unittest.TestCase):
             measurements.value_for("window-east", "height"), 1.78
         )
         self.assertEqual(
-            measurements.record_for("wall-02", "length").application,
+            measurements.record_for("wall-03", "length").application,
             "audit_only",
         )
+        self.assertAlmostEqual(
+            measurements.value_for("window-west", "offset"), 0.79
+        )
+        self.assertAlmostEqual(
+            measurements.value_for("window-east", "offset"), 2.55
+        )
+        self.assertAlmostEqual(
+            measurements.value_for("bath-door-south", "width"), 0.91
+        )
+        self.assertAlmostEqual(
+            measurements.value_for("bath-door-south", "height"), 2.37
+        )
+        self.assertEqual(len(measurements.measurements), 20)
 
     def test_rejects_duplicate_target_dimensions(self) -> None:
         source = {
@@ -47,4 +60,3 @@ class MeasurementSetTest(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValidationError, "duplicate measurement"):
             MeasurementSet.from_dict(data)
-

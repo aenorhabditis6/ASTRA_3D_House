@@ -56,7 +56,7 @@ class CliSmokeTest(unittest.TestCase):
             )
             self.assertAlmostEqual(entry.width_m, 1.0)
             report = json.loads((output / "quality-report.json").read_text())
-            self.assertEqual(len(report["measurement_audit"]), 13)
+            self.assertEqual(len(report["measurement_audit"]), 20)
             self.assertIn(
                 "measurement_residuals_require_review", report["warnings"]
             )

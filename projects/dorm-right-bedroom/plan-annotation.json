@@ -22,7 +22,7 @@
   "openings": [
     {"id": "window-west", "edge_index": 0, "start_px": [558, 82], "end_px": [649, 82], "sill_m": 0.77, "height_m": 1.78, "confidence": 1.0},
     {"id": "window-east", "edge_index": 0, "start_px": [685, 82], "end_px": [776, 82], "sill_m": 0.77, "height_m": 1.78, "confidence": 1.0},
-    {"id": "bath-door-south", "edge_index": 2, "start_px": [758, 385], "end_px": [686, 385], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35},
+    {"id": "bath-door-south", "edge_index": 3, "start_px": [665, 385], "end_px": [665, 320], "sill_m": 0.0, "height_m": 2.37, "confidence": 1.0},
     {"id": "entry-door", "edge_index": 4, "start_px": [665, 294], "end_px": [601, 294], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35}
   ],
   "objects": [
