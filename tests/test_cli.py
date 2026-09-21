@@ -1,5 +1,6 @@
 import contextlib
 import io
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -54,6 +55,11 @@ class CliSmokeTest(unittest.TestCase):
                 opening for opening in room.openings if opening.id == "entry-door"
             )
             self.assertAlmostEqual(entry.width_m, 1.0)
+            report = json.loads((output / "quality-report.json").read_text())
+            self.assertEqual(len(report["measurement_audit"]), 13)
+            self.assertIn(
+                "measurement_residuals_require_review", report["warnings"]
+            )
 
     def test_missing_blender_returns_external_failure_code(self) -> None:
         with mock.patch(

@@ -99,8 +99,8 @@ def build_logical_project(
     report_path = output_dir / "quality-report.json"
     blend_path = output_dir / "house_master.blend"
     glb_path = output_dir / "house.glb"
-    write_plan_overlay(annotation, room, overlay_path)
-    write_quality_report(annotation, room, report_path)
+    write_plan_overlay(annotation, room, overlay_path, measurements)
+    write_quality_report(annotation, room, report_path, measurements)
 
     builder_path = REPOSITORY_ROOT / "blender" / "build_scene.py"
     command = [
