@@ -125,6 +125,13 @@ class CapturePlanTest(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "exactly 48"):
             CapturePlan.from_dict(data).validate(load_room(ROOM))
 
+    def test_rejects_wrong_pass_distribution_with_same_total(self) -> None:
+        data = valid_capture_data()
+        moved = data["passes"][0]["shots"].pop()
+        data["passes"][1]["shots"].append(moved)
+        with self.assertRaisesRegex(ValidationError, "pass A.*24.*23"):
+            CapturePlan.from_dict(data).validate(load_room(ROOM))
+
 
 if __name__ == "__main__":
     unittest.main()

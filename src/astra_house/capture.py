@@ -133,6 +133,11 @@ class CapturePlan:
                 "diagnostic capture plan must contain exactly 48 shots, "
                 f"not {self.expected_image_count}"
             )
+        actual_count = len(self.shots)
+        if actual_count != self.expected_image_count:
+            raise ValidationError(
+                f"expected {self.expected_image_count} shots, found {actual_count}"
+            )
 
         for field_name, value in vars(self.device_profile).items():
             _require_text(f"device_profile.{field_name}", value)
@@ -140,6 +145,22 @@ class CapturePlan:
         _ensure_unique("capture pass", (item.id for item in self.passes))
         if not self.passes:
             raise ValidationError("capture plan must contain at least one pass")
+        expected_pass_counts = (("A", 24), ("B", 8), ("C", 8), ("D", 8))
+        actual_pass_ids = tuple(item.id for item in self.passes)
+        expected_pass_ids = tuple(item[0] for item in expected_pass_counts)
+        if actual_pass_ids != expected_pass_ids:
+            raise ValidationError(
+                f"diagnostic capture passes must be {expected_pass_ids}, "
+                f"found {actual_pass_ids}"
+            )
+        for item, (_, expected_count) in zip(
+            self.passes, expected_pass_counts, strict=True
+        ):
+            if len(item.shots) != expected_count:
+                raise ValidationError(
+                    f"capture pass {item.id} must contain {expected_count} shots, "
+                    f"found {len(item.shots)}"
+                )
         allowed_pitch = {"level", "up", "down"}
         target_ids = {
             *(wall.id for wall in room.walls),
@@ -172,11 +193,6 @@ class CapturePlan:
                     )
 
         _ensure_unique("shot", (shot.id for shot in self.shots))
-        actual_count = len(self.shots)
-        if actual_count != self.expected_image_count:
-            raise ValidationError(
-                f"expected {self.expected_image_count} shots, found {actual_count}"
-            )
 
         self._validate_wall_review(room)
 
