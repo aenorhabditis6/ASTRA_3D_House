@@ -19,8 +19,8 @@ immutable floor-plan PNG
 ```
 
 Every measured or assumed value has a source kind and confidence. The supplied
-11 ft ceiling height is confirmed; the full-bed scale is provisional; opening
-and furniture heights are explicit assumptions.
+11 ft ceiling height and the measured `2.13 × 1.45 m` bed are confirmed. Door
+heights and unmeasured furniture heights remain explicit assumptions.
 
 ## Prerequisites
 
@@ -49,11 +49,14 @@ returns exit code 2; a failed Blender process returns exit code 3.
 ## Artifacts
 
 - `projects/dorm-right-bedroom/room.json` — versioned meter/Z-up logical model,
-  with six walls, three openings, six semantic proxies, and field-level sources.
+  with six walls, four openings, six semantic proxies, and field-level sources.
+- `projects/dorm-right-bedroom/measurements.json` — original confirmed metric
+  observations, their targets, and whether each is an exact override or an
+  audit-only constraint.
 - `build/dorm-right-bedroom/plan-review.svg` — portable, self-contained overlay;
   the original PNG is embedded and every trace remains visible.
 - `build/dorm-right-bedroom/quality-report.json` — hashes, scale, counts,
-  confidence data, and stable warnings for provisional assumptions.
+  confidence data, a measured-versus-modeled residual table, and stable warnings.
 - `build/dorm-right-bedroom/house_master.blend` — editable Blender source with
   named collections and custom provenance properties.
 - `build/dorm-right-bedroom/house.glb` — portable geometry export whose semantic
@@ -95,6 +98,20 @@ assertion traceback yet still return process status 0.
    are presentation experiments until represented in the annotation/model layer.
 5. Treat `quality-report.json` warnings as unresolved until a new measurement or
    photograph supplies evidence.
+
+## Current confirmed measurements
+
+- bed: `2.13 × 1.45 m`;
+- two windows: each `1.27 m` wide and `1.78 m` high, sill `0.77 m`;
+- desk width: `1.22 m`;
+- closet projection depth: `0.73 m`;
+- living-room exit door width: `1.00 m`;
+- full bathroom-door wall: `1.33 m` (audit-only pending endpoint review);
+- full living-room exit wall: `2.50 m` (audit-only).
+
+Exact overrides are written into generated geometry. Audit-only wall lengths do
+not silently distort the floor polygon: their residuals are reported against the
+current plan trace, with absolute errors above 5% marked `needs_review`.
 
 ## Scope boundary
 
