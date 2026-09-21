@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from astra_house.io import load_room
 
 
 ROOM = Path("projects/dorm-right-bedroom/room.json")
+CAPTURE_PLAN = Path("projects/dorm-right-bedroom/capture-plan.json")
 
 
 def valid_capture_data() -> dict[str, object]:
@@ -70,6 +72,18 @@ def valid_capture_data() -> dict[str, object]:
 
 
 class CapturePlanTest(unittest.TestCase):
+    def test_project_capture_plan_has_expected_passes_and_device(self) -> None:
+        plan = CapturePlan.from_dict(json.loads(CAPTURE_PLAN.read_text()))
+        plan.validate(load_room(ROOM))
+        self.assertEqual([item.id for item in plan.passes], ["A", "B", "C", "D"])
+        self.assertEqual([len(item.shots) for item in plan.passes], [24, 8, 8, 8])
+        self.assertEqual(plan.device_profile.model, "Xiaomi 17 Ultra")
+        self.assertEqual(plan.device_profile.lens, "1x Leica 23 mm main")
+        self.assertEqual(plan.device_profile.arcore_status, "unverified_optional")
+        review = {item.wall_id: item for item in plan.wall_review}
+        self.assertEqual(review["wall-02"].opening_ids, ("bath-door-south",))
+        self.assertEqual(review["wall-03"].opening_ids, ())
+
     def test_accepts_48_unique_shots_and_reviewed_openings(self) -> None:
         plan = CapturePlan.from_dict(valid_capture_data())
         plan.validate(load_room(ROOM))
