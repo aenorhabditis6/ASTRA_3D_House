@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "room_id": "dorm-right-bedroom",
+  "measurements": [
+    {"id": "bed-length", "target_kind": "proxy", "target_id": "bed-full", "dimension": "size_x", "value_m": 2.13, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: bed length 213 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "bed-width", "target_kind": "proxy", "target_id": "bed-full", "dimension": "size_y", "value_m": 1.45, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: bed width 145 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "desk-width", "target_kind": "proxy", "target_id": "desk", "dimension": "size_y", "value_m": 1.22, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: desk width 122 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-west-width", "target_kind": "opening", "target_id": "window-west", "dimension": "width", "value_m": 1.27, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: west window width 127 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-west-height", "target_kind": "opening", "target_id": "window-west", "dimension": "height", "value_m": 1.78, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: west window two stacked 89 cm panes (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-west-sill", "target_kind": "opening", "target_id": "window-west", "dimension": "sill", "value_m": 0.77, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: west window sill 77 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-east-width", "target_kind": "opening", "target_id": "window-east", "dimension": "width", "value_m": 1.27, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: east window width 127 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-east-height", "target_kind": "opening", "target_id": "window-east", "dimension": "height", "value_m": 1.78, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: east window two stacked 89 cm panes (2026-09-20)", "confidence": 1.0}},
+    {"id": "window-east-sill", "target_kind": "opening", "target_id": "window-east", "dimension": "sill", "value_m": 0.77, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: east window sill 77 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "bath-wall-length", "target_kind": "wall", "target_id": "wall-02", "dimension": "length", "value_m": 1.33, "application": "audit_only", "source": {"kind": "confirmed_measurement", "reference": "user: full bathroom-door wall 133 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "closet-depth", "target_kind": "proxy", "target_id": "closet", "dimension": "size_x", "value_m": 0.73, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: closet projection depth 73 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "entry-door-width", "target_kind": "opening", "target_id": "entry-door", "dimension": "width", "value_m": 1.0, "application": "exact_override", "source": {"kind": "confirmed_measurement", "reference": "user: living-room exit door width 100 cm (2026-09-20)", "confidence": 1.0}},
+    {"id": "entry-wall-length", "target_kind": "wall", "target_id": "wall-04", "dimension": "length", "value_m": 2.5, "application": "audit_only", "source": {"kind": "confirmed_measurement", "reference": "user: full living-room exit wall 250 cm (2026-09-20)", "confidence": 1.0}}
+  ]
+}
