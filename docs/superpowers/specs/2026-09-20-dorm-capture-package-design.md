@@ -10,8 +10,10 @@ Target: right-side dorm bedroom in `projects/dorm-right-bedroom`
 
 This subproject creates a lightweight, repeatable shooting package for the
 first RGB reconstruction experiment. It tells a non-specialist exactly what to
-photograph with an ordinary iPhone and records enough shot identity to diagnose
-coverage failures later.
+photograph with an ordinary phone and records enough shot identity to diagnose
+coverage failures later. The pilot uses a Xiaomi 17 Ultra as its primary camera;
+an iPhone remains a fallback for a separate batch, not a second camera mixed into
+the same capture.
 
 The package is deliberately smaller than the final 120–220-image capture. Its
 first batch contains 48 planned still images and answers one question: can the
@@ -35,6 +37,9 @@ camera poses before the user spends time on a full appearance pass?
   connecting return and contains no door.
 - The generated package uses only the Python standard library and existing
   project data. It does not install COLMAP, hloc, OpenCV, or a cloud client.
+- The device card distinguishes RGB camera-pose recovery, optional ARCore
+  depth-from-motion, laser autofocus, and hardware LiDAR instead of treating
+  them as interchangeable capabilities.
 
 ## 3. Scope
 
@@ -43,7 +48,7 @@ camera poses before the user spends time on a full appearance pass?
 - A versioned capture-plan data file for the dorm room.
 - Validation of pass counts, shot IDs, target wall IDs, and station locations.
 - A deterministic self-contained HTML guide with an embedded vector route map,
-  shot ledger, iPhone settings, preparation checklist, and upload checklist.
+  shot ledger, Xiaomi settings, preparation checklist, and upload checklist.
 - A machine-readable empty intake manifest that maps later source filenames to
   planned shot IDs without modifying the originals.
 - Automated unit tests plus a rendered browser screenshot for visual QA.
@@ -144,11 +149,16 @@ wall-floor junctions.
 Purpose: make openings and existing metric anchors identifiable without relying
 on reflective window glass as a geometric feature.
 
-## 7. iPhone Capture Rules
+## 7. Xiaomi 17 Ultra Capture Rules
 
-- Use still photographs, the 1× rear camera, and landscape orientation.
-- Use one lens for the entire batch; do not switch to ultra-wide, telephoto,
-  portrait mode, digital zoom, panorama, or video.
+- Use still photographs, landscape orientation, and only the 1× Leica 23 mm
+  main camera for all 48 images. Do not switch to the 14 mm ultra-wide or the
+  75–100 mm telephoto.
+- Use the normal 4:3 photo mode and JPG output. Do not use 50 MP, RAW, portrait,
+  panorama, long exposure, burst, Dynamic Shot, digital zoom, or video for the
+  diagnostic batch.
+- Select one Leica photographic style before the first image and do not change
+  it during the batch. Disable Leica filters and the Leica watermark.
 - Keep room lights and curtains in one state for the complete batch. Turn flash
   off and avoid people, moving pets, television content, and changing displays.
 - Clean the lens, hold the phone with two hands, pause before each exposure, and
@@ -156,13 +166,40 @@ on reflective window glass as a geometric feature.
   intake.
 - Do not rename files on the phone. Capture order plus EXIF time will later map
   originals to planned shot IDs.
-- For this pilot, choose the iPhone **Most Compatible** camera format when that
-  option is available so new stills are JPEG. Apple documents that this setting
-  is under Camera > Formats on supported devices. If the phone still produces
-  HEIC, keep the originals; conversion happens only in the later intake stage.
 
-The Apple format guidance is based on the official support page:
-<https://support.apple.com/en-ae/116944>.
+Xiaomi lists a 50 MP, 23 mm-equivalent, one-inch main camera with OIS and JPG,
+HEIF, and RAW capture. It also lists a laser focus sensor, but no LiDAR or ToF
+depth sensor. Laser autofocus is not treated as room-scanning geometry.
+
+Official specification:
+<https://www.mi.com/global/product/xiaomi-17-ultra/specs/>.
+
+### 7.1 Optional ARCore probe
+
+Ordinary still-photo reconstruction does not require ARCore: camera positions
+are recovered later from overlap between images. ARCore, if supported by the
+exact phone/ROM, can additionally record motion tracking and software depth in
+a separate experiment. Google describes its Depth API as depth-from-motion that
+may merge available ToF hardware; it is not equivalent to an iPhone Pro LiDAR
+scan.
+
+The current official ARCore device table lists Xiaomi 17, 17 Pro, 17 Pro Max,
+17T, and 17T Pro with Depth API support but does not explicitly list Xiaomi 17
+Ultra. The capture pack therefore labels ARCore as `unverified_optional` and
+does not require it. A later compatibility probe may promote it without changing
+the 48-shot RGB batch.
+
+Official references:
+
+- <https://developers.google.com/ar/develop/depth>
+- <https://developers.google.com/ar/devices>
+
+### 7.2 Single-device rule
+
+All 48 diagnostic images come from the Xiaomi 17 Ultra. An iPhone reshoot is a
+new capture batch with a new capture ID. Images from different phones are not
+silently mixed because their intrinsics, processing, color, and filenames may
+form separate reconstruction behavior that must be diagnosed independently.
 
 ## 8. Generated Guide
 
@@ -178,7 +215,7 @@ produces only three files:
 
 1. `index.html` — self-contained guide with the plan image embedded as data,
    the SVG route map, preparation/settings checklists, wall review, four passes,
-   and upload instructions.
+   upload instructions, and the Xiaomi 17 Ultra settings card.
 2. `capture-intake.json` — empty 48-row manifest keyed by planned shot ID, ready
    for later source filenames and hashes.
 3. `capture-pack-report.json` — generator version, source hashes, counts, and
@@ -224,7 +261,8 @@ or materially moved a station. It does not ask them to rename 48 files by hand.
 - CLI tests verify deterministic creation of all three output files and failure
   before partial output on invalid input.
 - HTML tests verify the 48 shot IDs, four pass headings, source hash, wall review,
-  and embedded plan image.
+  embedded plan image, Xiaomi 23 mm primary-camera rule, and optional/unverified
+  ARCore status.
 - Browser visual QA renders the local HTML at desktop and phone widths and checks
   that the map, checklist, and shot table are legible without horizontal
   overflow.
