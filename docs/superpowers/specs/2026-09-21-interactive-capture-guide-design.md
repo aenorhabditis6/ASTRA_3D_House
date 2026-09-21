@@ -2,7 +2,7 @@
 
 Date: 2026-09-21
 
-Status: revised draft for user review after two external technical reviews
+Status: approved for implementation after two external technical reviews
 
 Target: right-side dorm bedroom in `projects/dorm-right-bedroom`
 
