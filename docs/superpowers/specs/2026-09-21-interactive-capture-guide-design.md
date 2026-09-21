@@ -2,7 +2,7 @@
 
 Date: 2026-09-21
 
-Status: draft for user review
+Status: revised draft for user review after external technical review
 
 Target: right-side dorm bedroom in `projects/dorm-right-bedroom`
 
@@ -34,6 +34,10 @@ originals and their EXIF metadata.
   image, room geometry, and capture-mode data.
 - Continue using the Xiaomi native camera; completion is recorded manually in
   the guide after each photograph or group.
+- For the pilot, open the guide on the same Xiaomi phone used for photography,
+  in Chrome for Android over a stable HTTP(S) origin. Opening the file directly,
+  an in-app browser, Xiaomi Browser, and WeChat are fallback/test cases rather
+  than persistence-supported paths.
 - Use the map-first mobile layout selected in the visual comparison.
 - Provide two enabled modes:
   - `lite-24`: a faster 24-image route with lower redundancy;
@@ -44,8 +48,12 @@ originals and their EXIF metadata.
 - Make capture modes data-driven so a future production mode can be added
   without restructuring the renderer or interaction controller.
 - Use manual station confirmation in this release. Automatic indoor position
-  detection and WebXR/ARCore are optional future providers, not silent claims
-  made by the current UI.
+  detection and WebXR/ARCore remain future work, not silent claims or placeholder
+  providers in the current UI.
+- Record operator actions as an auditable event log. The log aids later manual
+  EXIF matching but never claims to observe the shutter or prove photo existence.
+- Preflight the planned bearings against the room polygon, a conservative camera
+  field of view, target spans, and scale-anchor redundancy before field use.
 - Prioritize a correct, testable workflow now; visual polish may iterate later.
 
 ## 3. Goals and Success Criteria
@@ -57,18 +65,22 @@ The change succeeds when:
   are visible without scanning a long document;
 - checking one photograph immediately updates the arrow and the next task;
 - completing a group advances to the next incomplete group;
-- completed, current, skipped, and upcoming station states are distinguishable
-  by both color and text/shape;
+- completed, current, gap, in-progress, and upcoming station states are
+  distinguishable by both color and text/shape;
 - the user can jump to another station without falsely completing intervening
   work;
 - progress survives refresh in a supported browser and remains independent for
   the two modes;
+- a killed/reloaded browser tab returns directly to the last active route and
+  group, while requiring a fresh manual station confirmation;
 - the user can undo, skip with a note, reset a mode, and export a progress JSON;
 - the page remains fully useful as a static guide if JavaScript is disabled;
 - the page never claims that it automatically knows the user's physical
   position;
+- coverage diagnostics expose infeasible or weak bearings before the route is
+  released, rather than relying only on prose about overlap;
 - the generated package remains deterministic, dependency-free at Python
-  runtime, and usable without network resources.
+  runtime, and free of external network resources after the document loads.
 
 ## 4. Scope
 
@@ -77,12 +89,17 @@ The change succeeds when:
 - A capture-plan schema that represents shared stations and multiple ordered
   capture modes.
 - Explicit aim points for every planned photograph.
+- Machine-readable camera field of view, nominal camera height, and numeric
+  pitch for coverage checks.
 - A reviewed 24-image lightweight mode and the existing 48-image standard mode.
 - An interactive map-first workflow with per-shot and per-group completion.
 - Pending, completed, and skipped shot states with optional notes.
 - Independent local progress for each capture mode.
 - Progress export, mode reset, direct station navigation, and completion
   summary.
+- A compact action-event ledger and a documented manual photo-intake contract.
+- Embedded coverage diagnostics for line of sight, angular span, adjacent-route
+  overlap, vertical coverage, and scale anchors.
 - Static no-JavaScript fallback content for both modes.
 - Updated intake/report JSON contracts that describe both modes.
 - Automated domain, rendering, CLI, interaction, persistence, accessibility,
@@ -93,7 +110,9 @@ The change succeeds when:
 - The final 120–220-image production route and its exact station density.
 - In-browser photography, image storage, image upload, or camera control.
 - Progress import from a previously exported JSON file.
-- Automatic EXIF-to-shot matching and image quality control.
+- Automatic EXIF/filename-to-shot matching and image quality control. The
+  current release records evidence for a later tool but leaves ambiguity for
+  manual resolution.
 - Blur, exposure, duplicate, and coverage analysis.
 - WebXR, ARCore, GPS, compass-gated completion, or automatic station detection.
 - COLMAP, hloc, LightGlue, dense depth, Gaussian Splatting, and texture fusion.
@@ -122,16 +141,19 @@ mode remains diagnostic: it is intended to validate camera recovery and room
 structure, not to promise production-level appearance completeness.
 
 The schema-`1.0` standing points become stations without changing their
-coordinates. Standard-mode groups are station visits, not merely semantic
-subjects:
+coordinates. A frozen migration fixture preserves every ordered
+`(shot_id, standing_point_m, pitch, target_ids, instruction)` tuple before the
+source file is replaced. Standard-mode groups are station visits, not merely
+semantic subjects:
 
-- pass A has eight three-shot groups, A01–A08 at S01–S08;
-- pass B has four two-shot groups: B01 at S01, B02 at S03, B03 at S05, and B04
-  at S07;
+- pass A has eight three-shot groups, `STD-A01`–`STD-A08` at S01–S08;
+- pass B has four two-shot groups: `STD-B01` at S01, `STD-B02` at S03,
+  `STD-B03` at S05, and `STD-B04` at S07;
 - pass C keeps its existing shot order but uses eight one-shot groups because
-  each A/B occlusion pair is photographed from two different stations;
-- pass D uses eight one-shot groups at the station represented by each existing
-  standing point.
+  each A/B occlusion pair is photographed from two different stations. Their
+  IDs are `STD-C01A`, `STD-C01B`, through `STD-C04A`, `STD-C04B`;
+- pass D uses eight one-shot groups `STD-D01`–`STD-D08` at the station
+  represented by each existing standing point.
 
 This produces 28 standard-mode groups while preserving all 48 shot IDs, their
 order, pitch, instructions, and semantic targets. It also keeps the invariant
@@ -140,7 +162,8 @@ that one group has exactly one station to confirm.
 ### 5.2 Lightweight mode — `lite-24`
 
 The lightweight mode is an explicit reviewed plan, not a runtime sample of the
-48-shot mode:
+48-shot mode. It contains three ordered passes: `L-STRUCTURE` for L01–L08,
+`L-VERTICAL` for L09–L10, and `L-ANCHORS` for L11–L14.
 
 | Group | Coverage | Images |
 | --- | --- | ---: |
@@ -149,7 +172,7 @@ The lightweight mode is an explicit reviewed plan, not a runtime sample of the
 | L10 | Up/down coverage at station 7: double-window/desk and north-wall area | 2 |
 | L11 | Both windows with surrounding east wall | 1 |
 | L12 | Entry door with north/entry-wall context | 1 |
-| L13 | Bathroom door plus closet and both ends of `wall-02` | 1 |
+| L13 | Bathroom door plus closet with surrounding `wall-02` | 1 |
 | L14 | Measured bed together with the east and south wall directions | 1 |
 | **Total** |  | **24** |
 
@@ -157,9 +180,9 @@ The 16 level views use these reviewed target pairs:
 
 | Station | First view | Second view |
 | --- | --- | --- |
-| S01 | `wall-05` + `wall-00` | `wall-00` + `wall-04` |
-| S02 | `wall-05` + `wall-00` | `wall-00` + `wall-02` |
-| S03 | `wall-04` + `wall-02` | `wall-02` + `wall-01` |
+| S01 | `wall-04` + `wall-05` | `wall-05` + `wall-00` |
+| S02 | `wall-05` + `wall-00` | `wall-00` + `wall-01` |
+| S03 | `wall-03` + `wall-02` | `wall-02` + `wall-01` |
 | S04 | `wall-02` + `wall-01` | `wall-01` + `wall-00` |
 | S05 | `wall-05` + `wall-00` | `wall-00` + `wall-01` |
 | S06 | `wall-05` + `wall-00` | `wall-00` + `wall-01` |
@@ -173,18 +196,51 @@ Lightweight shot IDs are `L01-A`/`L01-B` through `L10-A`/`L10-B`, followed by
 the single shots `L11-A` through `L14-A`. The IDs are not aliases for standard
 shots even where the operator instruction is similar.
 
-The two level views at each route station must overlap each other and adjacent
-stations. They must not become isolated close-ups. This mode intentionally has
-less angular, high/low, and occlusion redundancy than `standard-48`; the UI
-states that its reconstruction success rate and completeness are lower.
+The anchor/vertical groups have these required primary targets:
+
+| Group | Required `target_ids` |
+| --- | --- |
+| L09 | `wall-02`, `wall-01`, `bath-door-south`, `closet` |
+| L10 | `wall-00`, `wall-05`, `window-west`, `window-east`, `desk` |
+| L11 | `wall-00`, `window-west`, `window-east` |
+| L12 | `wall-04`, `wall-05`, `entry-door` |
+| L13 | `wall-02`, `bath-door-south`, `closet` |
+| L14 | `bed-full`, `wall-00`, `wall-01` |
+
+Primary scale anchors are `window-west`, `window-east`, `entry-door`,
+`bath-door-south`, `bed-full`, `desk`, and `closet`. Existing level views must
+also name an anchor when it is deliberately framed: windows from at least S05
+and S07, entry door from S01 and S02, bathroom door/closet from S03 and S04,
+bed from S04 and S05, and desk from S07 and S08. Thus every anchor is targeted
+from two stations with at least a 0.5 m baseline without adding photographs.
+
+For the pilot data, lightweight level shots use `pitch_deg: -10`, up shots use
+`+30`, and down shots use `-35`. Standard-mode level shots preserve a nominal
+`0`; existing B up/down shots receive `+30`/`-35`. These are operator targets,
+not claims of measured IMU attitude, and their vertical-coverage warnings are
+rechecked after the first Xiaomi trial.
+
+The sequence intentionally uses adjacent wall-corner pairs. At each station the
+two views share a wall, and every neighboring station pair in the closed
+S01→…→S08→S01 route shares at least one structural wall target; repeated
+S05–S07 views add translational baseline rather than new directions. The two
+level views at each route station must overlap each other and adjacent stations.
+They must not become isolated close-ups. `target_ids` define the
+minimum elements that must remain recognizable and uncropped; they are not an
+exhaustive claim about every object incidentally visible in the frame. This mode
+intentionally has less angular, high/low, and occlusion redundancy than
+`standard-48`; the UI states that its reconstruction success rate and
+completeness are lower.
 
 ### 5.3 Future mode extension
 
 The domain model and renderer iterate over enabled modes from source data. They
 must not encode a two-mode maximum or hard-code rendering logic for only the
-`lite-24` and `standard-48` IDs. Adding a future reviewed `production-*` mode
-should require new capture-plan data and validation tests, not a new UI
-architecture.
+`lite-24` and `standard-48` IDs. The station/group/shot primitives can express
+a future reviewed `production-*` mode, including many closely spaced along-wall
+stations. Such a mode still requires its own route data, performance review,
+coverage thresholds, and interaction tests; this design does not promise that
+adding 120–220 shots is validation-free.
 
 ## 6. Source Data Contract
 
@@ -196,16 +252,36 @@ Top-level fields:
 - `schema_version`: exactly `2.0` for the multi-mode contract;
 - `room_id`: must match `room.json` and `plan-annotation.json`;
 - `capture_id`: stable identity shared by the two current modes;
-- `device_profile`: the reviewed Xiaomi settings and ARCore status;
+- `device_profile`: the reviewed Xiaomi settings and conservative optical
+  parameters;
 - `wall_review`: the reviewed wall-to-opening ownership table;
+- `scale_anchor_ids`: measured openings/proxies that require multi-station
+  coverage;
 - `stations`: ordered reusable room-space standing zones;
 - `modes`: ordered enabled capture modes.
+
+The device profile retains its human-readable `lens`, `orientation`,
+`aspect_ratio`, and file-format fields and adds:
+
+- `equivalent_focal_length_mm`: `23` for the selected 1× main camera;
+- `horizontal_fov_deg` and `vertical_fov_deg`: conservative 4:3 landscape
+  values used by validation and map cones;
+- `fov_source` and `fov_confidence`: provenance rather than false precision;
+- `camera_height_m` and `camera_height_tolerance_m`: the nominal handheld lens
+  height and permitted variation;
+- `coverage_margin_deg`: an angular margin removed from both frame edges.
+
+The pilot starts with conservative provisional values of 70° horizontal, 52°
+vertical, 1.45 m camera height, ±0.10 m height tolerance, and a 5° margin at
+each horizontal edge. The first Xiaomi trial must measure effective field of
+view and either confirm or revise them before the route is promoted beyond the
+pilot. `orientation` already exists and remains fixed to `landscape`.
 
 Each station contains:
 
 - `id`: stable semantic ID such as `S01`;
 - `number`: human-facing integer used on the map;
-- `standing_point_m`: approximate point inside or on the floor polygon;
+- `standing_point_m`: approximate point strictly inside the floor polygon;
 - `label`: short landmark-based description.
 
 The current station conversion is fixed as follows:
@@ -229,6 +305,7 @@ Each mode contains:
 - `id`, `title`, and `description`;
 - `expected_image_count`;
 - `risk_note`: concise statement of the mode's intended reliability;
+- `required_scale_anchor_ids`;
 - ordered `passes`, each containing ordered groups.
 
 Each group contains:
@@ -241,18 +318,47 @@ Each shot contains:
 
 - globally unique `id`;
 - `aim_point_m`, a room-space point distinct from its standing point;
+- `framing_points_m`: ordered room-space landmark points that must fit inside
+  the usable horizontal frame;
 - `pitch`: `level`, `up`, or `down`;
+- `pitch_deg`: nominal optical-axis elevation in degrees, positive upward;
 - one or more semantic `target_ids` from walls, openings, or proxies;
 - operator-facing instruction.
 
 `aim_point_m` represents only the horizontal bearing. `pitch` separately tells
-the user whether to hold the phone level, raise it, or lower it. For a single
+the user whether to hold the phone level, raise it, or lower it, while
+`pitch_deg` makes that instruction testable. Lightweight level shots use a
+nominal −10° pitch to include more textured floor boundary; up/down values are
+stored explicitly per shot. For a single
 wall/opening target the point normally lies on its centre; for a proxy it
 normally uses the proxy centre. Multi-target and context views use a reviewed
 point on the intended view bisector. Those points are stored explicitly in the
-plan and are never inferred by browser code. The SVG normalizes and visually
-clamps the station-to-aim vector, so arrow length is not presented as camera
-distance or field of view.
+plan and are never inferred by browser code. Python extends the bearing to its
+first room-boundary intersection and precomputes a field-of-view cone; the
+browser renders those values and never treats arrow length as camera distance.
+
+`framing_points_m` make requirements such as “include both window edges” or
+“keep both sides of the door wall” numerically reviewable. They are selected
+points on walls, opening edges/centres, or proxy footprints and are not inferred
+from an entire wall ID. Every primary target has at least one associated framing
+point; a target that must appear at full width has points at both extremes. This
+prevents a generic `wall-00` target from incorrectly requiring the whole wall to
+fit in every photograph.
+
+### 6.1 Identifier scopes and browser keys
+
+| Identifier | Required scope |
+| --- | --- |
+| station ID and display number | unique for the capture plan |
+| mode ID | unique for the capture plan |
+| pass ID | unique within its mode |
+| group ID | unique within its mode |
+| shot ID | unique across all enabled modes |
+
+DOM IDs, storage records, and controller lookups never rely on a bare pass or
+group ID. They use typed composite keys such as
+`mode:standard-48/group:STD-A01` and `shot:A01-L`, preventing collisions between
+separate identifier namespaces.
 
 The standing point belongs to the station rather than being duplicated in every
 shot. Runtime view data may denormalize the station point for rendering, but the
@@ -264,7 +370,8 @@ Generation stops before replacing outputs unless all rules pass:
 
 - schema, room identity, capture identity, and required strings are valid;
 - station IDs and display numbers are unique;
-- station points lie inside or on the concave floor polygon;
+- station points lie strictly inside the concave floor polygon with the same
+  `0.01 m` numerical tolerance used by geometry tests;
 - every mode ID is unique and each mode has at least one pass and group;
 - pass, group, and shot IDs are unique within their documented scopes; shot IDs
   are globally unique across enabled modes;
@@ -274,12 +381,50 @@ Generation stops before replacing outputs unless all rules pass:
 - every group references a known station;
 - every shot references at least one known wall, opening, or proxy;
 - every aim point is finite, lies inside or on the floor polygon, and is at least
-  `0.10 m` from its station point;
+  `0.50 m` from its station point;
+- every framing point is finite, belongs to one declared target geometry within
+  a `0.01 m` tolerance, and has line of sight from the station inside the room;
 - every pitch is one of the three supported values;
+- every numeric pitch is finite, agrees with its category, and is within the
+  reviewed camera guidance range;
 - every room wall appears exactly once in `wall_review`;
 - every room opening appears exactly once under its actual parent wall;
 - `bath-door-south` remains on `wall-02`, while `wall-03` remains opening-free;
 - the immutable floor-plan asset exists and matches its manifest hash.
+
+Geometry validation distinguishes release-blocking errors from pilot warnings.
+The following are errors:
+
+- the complete segment from a station to its aim point leaves the concave floor
+  polygon before reaching the aim point;
+- a station lies on a wall or inside any non-walkable proxy footprint;
+- a required scale anchor is not a primary target from at least two distinct
+  stations whose baseline is at least `0.50 m`;
+- the angular span of a shot's framing points exceeds the usable horizontal
+  field of view after its margins;
+- a referenced target is geometrically behind the shot bearing rather than
+  inside its field-of-view cone.
+
+The following initially produce report warnings, because their thresholds must
+be calibrated by the first real Xiaomi batch:
+
+- paired views at one station differ by more than `0.7 × horizontal_fov_deg`;
+- neighboring route stations do not have a mutually visible structural wall
+  span of at least `0.50 m` inside both view cones;
+- a station is closer than `0.30 m` to a wall or movable proxy;
+- the first boundary hit is closer than `1.0 m` to the station;
+- vertical ray/FOV analysis using room height, camera height, pitch, and vertical
+  FOV finds no planned coverage of a required floor/ceiling seam;
+- any wall has no primary coverage target in a mode. `wall-03` may remain a
+  warning in `lite-24`, but it cannot disappear silently from the report.
+
+The report stores per-shot bearings, first-wall intersections, angular target
+spans, visible target IDs, adjacent-station shared spans, vertical extents, and
+all warning/error codes. The HTML embeds a toggleable diagnostic FOV layer over
+the floor plan; this satisfies the coverage-map requirement without creating a
+fourth generated file. Warnings remain visible in the mode-selection screen and
+must be acknowledged for the pilot. After measured FOV and one completed trial,
+the reviewed thresholds may be promoted to errors.
 
 The general domain validator allows additional future fixed-count modes. The
 project fixture tests, rather than hard-coded library branches, lock the two
@@ -289,14 +434,35 @@ current mode IDs and their exact counts.
 
 ### 8.1 Entry and resume
 
-On first load, the page presents the two modes with count, purpose, and risk
-note. If saved progress exists, each mode also shows its completed/required
-count and offers `Resume`. Starting one mode does not alter the other.
+When no valid last-active pointer exists, the page presents the two modes with
+count, purpose, and risk note. If saved progress exists, each mode also shows
+its completed/required count and offers `Resume`. Starting one mode does not
+alter the other.
+
+The supported pilot entry path is the same Xiaomi phone used for capture,
+running current Chrome for Android and loading the page from one stable HTTP(S)
+URL. The URL may be served from the development Mac on the same local network
+during the pilot; permanent hosting remains outside this change. Direct
+`file://`/`content://`, in-app browsers, Xiaomi Browser, and message-app WebViews
+show a warning that persistence and download are unverified.
 
 If no saved state exists, the recommended default is `standard-48`; the user
 must still make the selection explicitly. The card may carry a `Recommended`
 badge, but neither mode is preselected, so the smaller route is never mistaken
 for equivalent coverage.
+
+After a mode has been started, a small `last_active_mode` pointer and its last
+group are persisted. A reload or tab restoration returns directly to that route
+instead of the mode chooser. It does not restore physical station confirmation.
+`Change mode` remains available in the header.
+
+Before the first station, the inherited Xiaomi checklist is mandatory: 1× 23 mm
+main camera, landscape 4:3 JPG, one unchanged Leica style, watermark/filters/
+AI-scene/HDR/flash/digital zoom/Dynamic Shot off, stable room lights and
+curtains, and no moving screens or people. Each movable door is put in one fixed
+state—preferably closed unless an open doorway is required—and is not moved
+during the selected route. The guide records acknowledgement but cannot verify
+camera settings.
 
 ### 8.2 Map-first field screen
 
@@ -314,34 +480,44 @@ The field screen follows the approved map-first concept:
    instructions, targets, and navigation actions.
 
 Map meaning never relies on color alone. Marker fill, ring, opacity, line width,
-labels, and status text distinguish current, completed, skipped, and upcoming
-states.
+labels, and status text distinguish `current`, `completed`, `gap`, `in progress`,
+and `upcoming` states.
 
-Station state is derived only from shots in the selected mode. `current`
-overrides every other visual state. A non-current station is `completed` when
-all of its shots are completed, `gap` when it has no pending shots and at least
-one skipped shot, `in progress` when it mixes resolved and pending shots, and
-`upcoming` when every shot remains pending. A station with no shots in a future
-mode is not rendered as a selectable route station.
+The prominent station fill is derived from the current pass so completing pass A
+does not make every standard-route marker permanently `in progress`. `current`
+overrides every other visual state. Within that pass, a non-current station is
+`completed` when all of its shots are completed, `gap` when it has no pending
+shots and at least one skipped shot, `in progress` when it mixes resolved and
+pending shots, and `upcoming` when every shot remains pending. A secondary ring
+and accessible label expose whole-mode state using the same rules. A station
+with no shots in a future mode is not rendered as selectable.
+
+Because tightly spaced SVG markers may overlap at phone width, the map is not
+the only navigation control. A native-button station list below it exposes the
+same state and is the accessibility/touch fallback.
 
 ### 8.3 Manual station confirmation
 
 The guide says `Go to station N` and describes nearby landmarks. The user taps
 `I am at station N` before the shot checkboxes and group-completion action are
 enabled. This is a manual confirmation, not automatic detection. Confirmation
-is held only for the current in-memory group visit; selecting another group or
-reloading requires confirmation again, and confirmation is not exported as
-evidence of physical position.
+is held for the current in-memory station visit, including consecutive groups at
+the same station. Selecting a different station or reloading requires
+confirmation again. The confirmation action is exported as a time-boundary
+event while being explicitly labeled operator input, not evidence that the phone
+was physically at the station.
 
-The current release uses `position_provider: manual` in its embedded UI config.
-The controller boundary may accept a future `webxr` provider, but the current
-page does not request camera, geolocation, motion, compass, or XR permission.
+The current page does not expose a `position_provider` field and does not request
+camera, geolocation, motion, compass, or XR permission. A future automatic
+provider requires a separate contract for room-coordinate registration,
+confidence, permission lifecycle, secure hosting, and fallback behavior.
 
 ### 8.4 Shot and group completion
 
 Each shot starts `pending` and offers a native checkbox. Checking it records a
-completion timestamp and advances the highlighted arrow to the next pending shot
-in the group. Unchecking it restores `pending` and updates group and mode totals.
+completion event and advances the highlighted arrow to the next pending shot in
+the group. Reopening it records a new event, restores `pending`, and updates
+group and mode totals.
 
 `Complete group` marks every pending shot in the group completed. It does not
 silently erase notes. The user may undo individual shots after group completion.
@@ -349,8 +525,16 @@ The action is labeled `All photos taken — complete group` and, like the shot
 checkboxes, is disabled until the current station has been manually confirmed.
 
 When all shots in a group are completed or skipped, the page selects the next
-group that still has pending work and updates the map. It does not mark travel
-between stations as photographic progress.
+group that still has pending work and updates the map. The search starts after
+the current group in selected-mode plan order and wraps once at the end. If no
+pending group exists, it opens the completion/gaps screen. It does not mark
+travel between stations as photographic progress.
+
+`Undo last action` is always available when the event log has a reversible
+action. It appends an inverse event and reopens the affected group. Individual
+reopen/undo, note editing, and restoring a skipped shot are allowed without
+station confirmation; only a transition from pending to completed and the group
+completion action require current-station confirmation.
 
 ### 8.5 Skip, notes, and out-of-order work
 
@@ -362,19 +546,23 @@ as completed. The progress display shows both values, for example
 Skipping is available before station confirmation so an inaccessible location
 can be recorded honestly. Marking the current shot skipped advances the arrow
 using the same next-pending rule as completion. Restoring a skipped shot returns
-it to `pending` and clears neither its note nor unrelated progress.
+it to `pending` and clears neither its note nor unrelated progress. The undo and
+reopen events preserve the prior audit history.
 
 The user may select any station marker. Selection opens the first incomplete
-group at that station but does not change shot status. `Next incomplete` returns
-to the planned route order. This permits safe field adaptation without
+group at that station but does not change shot status. If the station has no
+pending group, selection opens its last group so completed/skipped shots remain
+reviewable and reversible. `Next incomplete` applies the same forward-then-wrap
+search rule described above. This permits safe field adaptation without
 pretending the original sequence was followed.
 
 ### 8.6 Completion and upload handoff
 
-When every required shot is completed, the page displays a completion state and
-the existing untouched-original upload checklist. If any shot is skipped, the
-page instead displays `Route reviewed with gaps`, lists the missing IDs, and
-does not claim full completion.
+When every planned shot is operator-marked completed, the page displays
+`Checklist complete — verify the album` and the existing untouched-original
+upload checklist. It never states that the browser verified photo existence. If
+any shot is skipped, the page instead displays `Route reviewed with gaps`, lists
+the missing IDs, and does not claim full completion.
 
 The completion screen reminds the user to:
 
@@ -382,6 +570,10 @@ The completion screen reminds the user to:
 - avoid renaming, editing, recompressing, or messaging-app transfer;
 - include the exported progress JSON;
 - mention materially moved stations or additional untracked retakes.
+
+The page also displays the event-log time window and the minimum number of
+planned photographs expected in the phone album during that window. Extra
+retakes are allowed and must not be deleted before intake.
 
 ## 9. Progress State and Persistence
 
@@ -394,8 +586,9 @@ room_id + capture_id + mode_id + mode_plan_sha256
 ```
 
 The mode-specific hash covers a canonical bundle containing the capture schema,
-room/capture identity, device profile, wall review, selected complete mode,
-every station referenced by that mode, and the source room-model SHA-256. It
+room/capture identity, device profile, wall review, scale-anchor catalog,
+selected complete mode, every station referenced by that mode, and the source
+room-model SHA-256. It
 prevents changed instructions, camera settings, geometry, shots, aim points, or
 station coordinates from silently reusing stale completion state, while avoiding
 a reset when only another mode is edited.
@@ -405,21 +598,34 @@ Saved state contains:
 - progress schema version;
 - room, capture, and mode IDs;
 - mode-plan hash;
-- current group and shot IDs;
-- per-shot status: `pending`, `completed`, or `skipped`;
-- per-shot status-change timestamp and optional resolved-order integer;
-- a monotonically increasing next-order counter;
-- per-shot optional notes.
+- last selected group ID; the current shot is derived as the first pending shot
+  in that group and is not redundantly persisted;
+- an append-only action-event array with strictly increasing `seq` values.
 
-When a pending shot becomes completed or skipped, it receives the next
-resolved-order integer. Returning it to pending clears that integer; resolving
-it again assigns a new one. `Complete group` assigns consecutive integers in
-the group's displayed shot order. This ordering is an operator-action audit aid
-for later EXIF/manual matching, not a claim that the browser observed the camera
-shutter or knows the true capture time.
+Every event contains:
 
-The controller writes after every state transition. Refresh reconstructs the
-view from saved state. Switching modes preserves both states.
+- `seq`;
+- `t_ms`, UTC Unix epoch milliseconds;
+- `tz_offset_min`, minutes east of UTC at the time of the action;
+- `type`;
+- `group_id`, `station_id`, and ordered `shot_ids` where applicable;
+- `method`: `shot`, `group`, or `manual_station` where applicable;
+- a note payload only for note/skip events.
+
+Event types cover station confirmation, shot completion, group completion, skip,
+reopen, note change, and undo. `group_complete` stores all affected pending shot
+IDs in displayed order and `method: group`; it does not synthesize individual
+shutter events. Undo appends an event referring to the prior reversible `seq`
+rather than deleting history. It targets the latest state-changing event not
+already compensated; station-confirmation is not an undo target, and cursor
+changes are not events. Current per-shot status and note values are derived by
+replay, with invalid references rejecting the event that contains them.
+
+The controller writes after every event and cursor change. Refresh replays the
+event log, validates the last group, derives its current shot, and reconstructs
+the view. Switching modes preserves both mode logs. The last-active-mode pointer
+contains only room/capture/mode/hash/group identity and never station
+confirmation.
 
 ### 9.1 Storage failure
 
@@ -428,30 +634,61 @@ If `localStorage` is unavailable, denied, full, or corrupt:
 - the workflow continues in memory;
 - a persistent warning says refresh or closing the page will lose progress;
 - no completion action is blocked;
-- corrupt state is ignored rather than partially applied;
-- the page does not automatically delete the unreadable stored value.
+- a corrupt raw value is first copied to a timestamped quarantine key when a
+  write is possible, then a clean current state is started;
+- if quarantine also fails, the unreadable value is left untouched and the
+  workflow runs in memory;
+- a valid event log with only an invalid cursor preserves its events and
+  recomputes the first pending group instead of discarding all progress.
 
-Because direct `file://` storage behavior varies among browsers, persistence is
-best-effort when opening a downloaded file and must be tested on the target
-Chromium browser. The warning path is a supported fallback, not an exception
-that crashes the guide.
+On load, the page scans the same room/capture/mode prefix for states with older
+mode hashes. It never applies them to the new route, but shows their counts and
+offers raw export so a copy edit or material plan revision cannot make field
+work undiscoverable.
+
+Direct `file://`/`content://` storage remains best-effort and is not the pilot's
+persistence-supported path. The warning path is a supported degradation, not an
+exception that crashes the guide.
 
 ### 9.2 Export and reset
 
 `Export progress` is available at any time and downloads a canonically ordered
-JSON document containing the saved fields plus ordered completed, skipped, and
-pending shot IDs. Its values include real action timestamps, so separate capture
-sessions are not expected to produce byte-identical exports. It never includes
-photos or browser/device identifiers.
+JSON document for the currently selected mode. It contains identity/hash fields,
+the full ordered event log, derived completed/skipped/pending shot IDs, warning
+acknowledgements, and the first/last event time. Its values include real action
+timestamps, so separate capture sessions are not expected to produce
+byte-identical exports. It never includes photos or persistent browser/device
+identifiers.
 
-The export also includes the current resolved-order ledger. Downstream tools
-may compare it with EXIF chronology, but automatic filename-to-shot assignment
-remains deferred and must not be silently guessed by this release.
+If Blob download fails, the page displays the exact export JSON in a read-only
+text area with `Select all` and `Copy` controls. Clipboard failure leaves manual
+selection available.
 
 `Reset current mode` requires confirmation and removes only the selected mode's
 current-hash state. It does not reset the other mode.
 
 Progress import and cross-device sync remain deferred.
+
+### 9.3 Manual photo-intake contract
+
+- The supported pilot runs the guide and Xiaomi native camera on the same phone.
+- `station_confirmed` and the following resolution events define operator-action
+  windows, not measured shutter windows or proof of station location. For
+  consecutive groups in one confirmed station visit, the prior group's last
+  resolution event becomes the next group's lower time boundary.
+- For `method: shot`, action order is evidence of reported shot order, still not
+  direct shutter observation.
+- For `method: group`, ordered `shot_ids` are explicitly marked
+  `within_group_order: inferred`; downstream matching must not present them as
+  observed.
+- EXIF `DateTimeOriginal` is interpreted with `OffsetTimeOriginal` when present;
+  otherwise the event's `tz_offset_min` is an explicit matching assumption.
+- Reopened/undone shots, overlapping time windows, missing EXIF, unexpected file
+  counts, and multiple plausible photos require manual confirmation.
+- Images outside every plausible action window remain `unassigned` but are
+  retained for SfM and manual review; they are never discarded automatically.
+- Original filenames, file bytes, and EXIF remain authoritative. The progress
+  log is advisory metadata and never overwrites them.
 
 ## 10. Generated Package Contract
 
@@ -463,12 +700,23 @@ astra-house build-capture-pack \
   --output build/dorm-right-bedroom/capture-pack
 ```
 
+For the dorm pilot, serve that directory from the Mac on the same trusted local
+network, then open its stable LAN URL in Chrome on the Xiaomi phone:
+
+```text
+python3 -m http.server 8765 \
+  --directory build/dorm-right-bedroom/capture-pack
+```
+
+The exact Mac LAN address is deployment information, not embedded in the pack.
+This serving step adds no generated artifact or runtime package dependency.
+
 It still produces exactly three deterministic files:
 
 1. `index.html` — self-contained interactive guide plus static fallback;
 2. `capture-intake.json` — both mode ledgers, keyed by mode and ordered shot ID;
 3. `capture-pack-report.json` — generator version, source hashes, mode counts,
-   station/group counts, and validation status.
+   station/group counts, coverage metrics/warnings, and validation status.
 
 The report changes from a single `shot_count` to:
 
@@ -492,10 +740,13 @@ validation, source hashes, deterministic serialization, and atomic output.
 
 The generated browser code is responsible only for local presentation state:
 
-- `CaptureState`: mode-specific statuses, timestamps, notes, and cursor;
-- `StateStore`: validated `localStorage` access with in-memory fallback;
-- `CaptureController`: pure state transitions and next-incomplete selection;
-- `MapView`: station/arrow/status rendering from embedded projected geometry;
+- `EventReducer`: pure replay of mode-specific events into status and notes;
+- `StateStore`: validated `localStorage`, stale-version discovery, quarantine,
+  and in-memory fallback;
+- `CaptureController`: event creation, undo, cursor derivation, and the
+  forward-then-wrap selection rule;
+- `MapView`: station, ray/cone, pass/mode status, and diagnostic rendering from
+  embedded precomputed geometry;
 - `TaskView`: current group, checkboxes, navigation, notes, and completion;
 - `ProgressExport`: canonical client-side JSON serialization and download.
 
@@ -511,6 +762,10 @@ network requests, service workers, or CDN dependencies.
 The server-rendered HTML includes every mode, pass, group, shot ID, instruction,
 target, station, and aim description before JavaScript runs. JavaScript enhances
 that content into the field screen; it does not make the instructions exist.
+Static content remains visible until controller initialization has completed
+successfully. Only then may an `enhanced` class switch to the interactive view;
+an initialization exception therefore leaves a usable guide rather than a blank
+page.
 
 With JavaScript disabled, the page displays:
 
@@ -523,19 +778,19 @@ Interactive controls use native buttons, checkboxes, text areas, and confirmatio
 dialogs. Dynamic progress changes use a polite live region. Keyboard focus is
 never removed or replaced with custom-only gestures.
 
-The layout supports at least 320 CSS pixels. At 390 pixels, map labels,
-instructions, controls, and status text must fit without document-level
-horizontal overflow. Print output shows static checkboxes and omits controls
-whose behavior cannot exist on paper.
+At both 320 and 390 CSS pixels, map labels, instructions, controls, and status
+text must fit without document-level horizontal overflow. Print output shows
+static checkboxes and omits controls whose behavior cannot exist on paper.
 
 ## 13. Error Handling
 
 - Invalid capture data stops generation before replacing any artifact.
 - Missing or hash-mismatched floor-plan data stops generation.
 - Unknown current group or shot IDs in saved state cause the state to be ignored
-  with a warning; they are never coerced to a different task.
+  at event granularity with a warning; valid earlier events remain available.
+- An invalid cursor is recomputed from the event-derived statuses.
 - A mode-plan hash mismatch starts a fresh state under a new key and leaves the
-  previous key untouched.
+  previous key untouched and exportable.
 - Storage write failure switches to memory and reports the persistence loss.
 - Repeated button activation is idempotent; it cannot increment counts twice.
 - Direct station selection changes only the cursor, never completion state.
@@ -543,6 +798,8 @@ whose behavior cannot exist on paper.
 - Export failure is surfaced as an actionable message and leaves progress intact.
 - Missing browser APIs degrade to static/manual operation rather than blocking
   capture.
+- Unsupported origin/browser combinations are identified before capture and do
+  not receive a false persistence guarantee.
 
 ## 14. Testing Strategy
 
@@ -552,9 +809,15 @@ whose behavior cannot exist on paper.
 - Pin current mode order and exact counts to 24 and 48.
 - Pin lightweight mode to 14 groups and standard mode to 28 groups with the
   reviewed station assignments.
+- Freeze the schema-`1.0` ordered shot tuples and prove that flattening
+  `standard-48` from schema `2.0` reproduces every ID, standing point, pitch,
+  target list, instruction, and order exactly.
 - Reject duplicate IDs or station numbers, missing station references, invalid
   counts, unknown targets, invalid pitch, invalid aim points, and stations outside
   the concave floor polygon.
+- Test concave-polygon segment containment, first-wall ray intersections,
+  FOV/multi-target angular spans, anchor baselines, station clearances, adjacent
+  shared spans, and vertical coverage warnings.
 - Preserve the regression that `bath-door-south` belongs to `wall-02` and
   `wall-03` contains no opening.
 - Prove a third valid fixed-count mode can be parsed without adding a renderer
@@ -566,38 +829,70 @@ whose behavior cannot exist on paper.
 - Assert both modes and all 72 distinct shot IDs are present in static HTML and
   machine-readable intake data.
 - Assert mode-plan hashes and counts appear in the report.
-- Assert the embedded map contains eight stations and per-shot aim geometry.
+- Assert the embedded map contains eight stations, per-shot aim geometry, FOV
+  cones, and the same diagnostic codes as the report.
 - Assert no external resource URL or network-dependent element is emitted.
 - Preserve fail-before-replacement behavior for invalid inputs.
 
 ### 14.3 Browser interaction tests
 
-Playwright exercises the generated file at desktop and 390 × 844 viewports:
+Playwright serves the generated directory from a local HTTP origin and exercises
+it at desktop, 390 × 844, and 320-pixel-wide viewports. A separate smoke test
+opens `file://` only to verify honest fallback behavior:
 
 - select each mode and verify its independent total;
 - confirm a station, complete one shot, and verify progress and arrow state;
+- verify station-confirmation and resolution events contain sequence, UTC time,
+  timezone offset, method, and composite identity;
 - complete a group and verify automatic next-group selection;
-- undo and verify counts decrease correctly;
+- verify forward-then-wrap traversal, completed-station reopening, global undo,
+  and undo without station confirmation;
 - skip with a note and verify the route is not reported complete;
 - click an out-of-order station and verify no shot status changes;
 - reload and verify persistence;
 - switch modes and verify state isolation;
 - reset one mode and verify the other remains unchanged;
 - intercept and validate the progress JSON download;
+- force Blob/clipboard failure and verify the read-only manual-copy fallback;
 - inject unavailable, corrupt, and failing storage and verify the warning and
-  in-memory fallback;
+  in-memory fallback, corrupt-value quarantine, and invalid-cursor recovery;
+- simulate a stale mode hash and verify old progress is discoverable/exportable
+  but never applied;
 - disable JavaScript and verify both static checklists remain readable;
-- assert `scrollWidth == clientWidth` at both viewports;
-- visually inspect map labels, active/completed/skipped states, direction arrows,
-  current task, and completion handoff.
+- inject an initialization exception and verify static content stays visible;
+- assert `scrollWidth == clientWidth` at desktop, 390 × 844, and 320-pixel-wide
+  viewports;
+- use station-list buttons and hit-testing to verify nearby SVG targets do not
+  make a station unreachable;
+- compare static DOM instructions against embedded plan data exactly;
+- render a third-mode fixture and run its full select/confirm/complete/export
+  flow, rather than proving parsing alone;
+- use screenshot baselines for map labels, status treatments, direction/FOV
+  geometry, current task, and completion handoff.
 
-No camera, motion-sensor, WebXR, cloud, or network permission is needed by the
-test or production page.
+No camera, motion-sensor, WebXR, or cloud permission is needed. After the initial
+HTTP(S) document load, the page makes no network request.
+
+### 14.4 Required real-device pilot matrix
+
+Desktop Playwright cannot validate Android `content://`, tab reclamation, or
+vendor WebViews. Before field release, the Xiaomi test records pass/fail evidence
+for current Chrome over the supported HTTP(S) URL: first open, refresh, switch to
+the native camera and return, simulated tab kill/reload, independent mode state,
+download, copy fallback, and completion recovery. Direct file, Xiaomi Browser,
+and WeChat are tested only to verify that they warn or degrade honestly; they are
+not promoted to supported paths by a desktop test.
 
 ## 15. Migration and Compatibility
 
 - Replace the committed schema-`1.0` capture plan with the reviewed schema-`2.0`
   multi-mode plan in one change; generated `build/` artifacts remain ignored.
+- The repository audit confirms that schema `1.0` currently has exactly eight
+  unique standing points; B shots are already consecutive by station; and every
+  C/D standing point exactly equals one of those eight points. Standard shot IDs
+  use A/B/C/D prefixes, so they do not collide with the new L-prefixed shots.
+- Before replacement, commit the ordered schema-`1.0` tuples as a test fixture
+  and require byte-for-value equivalence after flattening `standard-48`.
 - Keep the public CLI command and its arguments stable.
 - Bump the capture-pack generator and machine-readable intake/report schema
   versions because their shapes change.
@@ -612,8 +907,8 @@ test or production page.
 - Python standard library only at runtime.
 - No frontend framework, build tool, database, hosting service, or cloud job.
 - One self-contained operator page and two small JSON handoff files.
-- Progress contains metadata only; browser storage does not grow with photograph
-  count or image size.
+- Progress contains metadata only. Its append-only log grows with operator
+  actions, not photograph bytes, and remains small at the planned route sizes.
 - Browser tests use the already established Playwright development workflow.
 
 ## 17. Acceptance Checklist
@@ -622,16 +917,29 @@ test or production page.
 - [ ] `standard-48` preserves exactly 48 reviewed images.
 - [ ] Both modes use the same eight valid station locations.
 - [ ] Every shot has a validated target, pitch, instruction, and aim point.
-- [ ] The map updates station and arrow state after each checkbox action.
+- [ ] Every required scale anchor is targeted from two stations at least 0.5 m
+      apart.
+- [ ] Geometry preflight reports line of sight, FOV span, neighboring overlap,
+      vertical coverage, and uncovered walls before field use.
+- [ ] The map updates pass/mode station state, ray, and FOV cone after each
+      action.
 - [ ] The current group can be completed, undone, skipped, or visited out of
       order without corrupting totals.
+- [ ] The event log distinguishes individual and group resolution, records UTC
+      plus timezone offset, and preserves undo history.
 - [ ] Mode progress is independent and survives refresh when storage works.
 - [ ] Storage failure is visible and non-blocking.
+- [ ] A supported Chrome/HTTP(S) reload resumes the active mode and group without
+      pretending station confirmation survived.
 - [ ] Exported progress identifies the exact room, batch, mode, plan hash, and
       missing shots.
+- [ ] Download failure exposes the same JSON for manual copy.
 - [ ] No automatic physical-position claim appears in the interface.
 - [ ] Static fallback includes all 72 current planned photographs.
-- [ ] The page is readable without horizontal overflow at 390 CSS pixels.
+- [ ] The page is readable without horizontal overflow at 320 and 390 CSS
+      pixels, with native station buttons available when map markers overlap.
+- [ ] The Xiaomi real-device matrix passes for Chrome over the supported URL;
+      unsupported opening paths warn rather than promising persistence.
 - [ ] The package remains self-contained and reproducible.
-- [ ] The future production mode can be introduced as reviewed data without a
-      renderer redesign.
+- [ ] A third-mode fixture completes the full interaction flow without a
+      mode-specific renderer branch.
