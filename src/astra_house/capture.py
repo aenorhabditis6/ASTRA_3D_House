@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from decimal import Decimal, ROUND_HALF_UP
 from typing import Any
 
 from .errors import ValidationError
@@ -251,9 +252,7 @@ class CapturePlan:
                 return mode
         raise ValidationError(f"unknown capture mode {mode_id!r}")
 
-    def validate(
-        self, room: RoomModel, measurements: MeasurementSet | None = None
-    ) -> None:
+    def validate(self, room: RoomModel, measurements: MeasurementSet) -> None:
         """Raise when the plan is incomplete or disagrees with project sources."""
         if self.schema_version != "2.0":
             raise ValidationError(
@@ -265,7 +264,7 @@ class CapturePlan:
             raise ValidationError(
                 f"capture room_id {self.room_id!r} does not match {room.room_id!r}"
             )
-        if measurements is not None and measurements.room_id != self.room_id:
+        if measurements.room_id != self.room_id:
             raise ValidationError(
                 f"measurement room_id {measurements.room_id!r} does not match "
                 f"{self.room_id!r}"
@@ -331,14 +330,12 @@ class CapturePlan:
             raise ValidationError("device_profile.fov_confidence must be in [0, 1]")
 
     def _validate_scale_anchors(
-        self, target_ids: set[str], measurements: MeasurementSet | None
+        self, target_ids: set[str], measurements: MeasurementSet
     ) -> None:
         _ensure_unique("scale anchor", (anchor.id for anchor in self.scale_anchors))
-        measurement_by_id = (
-            {record.id: record for record in measurements.measurements}
-            if measurements is not None
-            else {}
-        )
+        measurement_by_id = {
+            record.id: record for record in measurements.measurements
+        }
         for anchor in self.scale_anchors:
             _require_text("scale anchor id", anchor.id)
             _require_text(f"scale anchor {anchor.id!r} target_id", anchor.target_id)
@@ -354,8 +351,6 @@ class CapturePlan:
             _ensure_unique(
                 f"measurement in scale anchor {anchor.id!r}", anchor.measurement_ids
             )
-            if measurements is None:
-                continue
             for measurement_id in anchor.measurement_ids:
                 record = measurement_by_id.get(measurement_id)
                 if record is None:
@@ -496,7 +491,10 @@ class CapturePlan:
             raise ValidationError(
                 f"shot {shot.id!r} aim point is outside floor polygon"
             )
-        if station.standing_point_m.distance_to(shot.aim_point_m) < 0.50:
+        aim_distance_m = _quantize_length_m(
+            station.standing_point_m.distance_to(shot.aim_point_m)
+        )
+        if aim_distance_m < 0.50:
             raise ValidationError(
                 f"shot {shot.id!r} aim point must be at least 0.50 m from station"
             )
@@ -642,6 +640,13 @@ def _validate_pitch(shot: CaptureShot) -> None:
             f"shot {shot.id!r} pitch_deg {shot.pitch_deg!r} "
             f"disagrees with {shot.pitch!r}"
         )
+
+
+def _quantize_length_m(value: float) -> float:
+    """Quantize a derived length to the capture geometry decision precision."""
+    return float(
+        Decimal(str(value)).quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP)
+    )
 
 
 def _require_text(label: str, value: str) -> None:

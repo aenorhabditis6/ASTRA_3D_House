@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import contextlib
 import io
+import json
 import shutil
 import tempfile
 import unittest
@@ -68,6 +69,46 @@ class CaptureCliTest(unittest.TestCase):
 
             self.assertEqual(result, 2)
             self.assertIn("SHA-256 mismatch", stderr.getvalue())
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "old guide")
+            self.assertFalse((output / "capture-intake.json").exists())
+            self.assertFalse((output / "capture-pack-report.json").exists())
+
+    def test_invalid_scale_anchor_fails_before_output(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / "projects" / "dorm-right-bedroom"
+            source = root / SOURCE
+            output = root / "build" / "capture-pack"
+            shutil.copytree(PROJECT, project)
+            source.parent.mkdir(parents=True)
+            shutil.copy2(SOURCE, source)
+            capture_path = project / "capture-plan.json"
+            capture_data = json.loads(capture_path.read_text(encoding="utf-8"))
+            capture_data["scale_anchors"][0]["measurement_ids"] = [
+                "window-east-width"
+            ]
+            capture_path.write_text(json.dumps(capture_data), encoding="utf-8")
+            output.mkdir(parents=True)
+            sentinel = output / "index.html"
+            sentinel.write_text("old guide", encoding="utf-8")
+
+            stderr = io.StringIO()
+            with (
+                mock.patch("astra_house.cli.REPOSITORY_ROOT", root),
+                contextlib.redirect_stderr(stderr),
+            ):
+                result = main(
+                    [
+                        "build-capture-pack",
+                        "--project",
+                        str(project),
+                        "--output",
+                        str(output),
+                    ]
+                )
+
+            self.assertEqual(result, 2)
+            self.assertIn("window-east-width", stderr.getvalue())
             self.assertEqual(sentinel.read_text(encoding="utf-8"), "old guide")
             self.assertFalse((output / "capture-intake.json").exists())
             self.assertFalse((output / "capture-pack-report.json").exists())

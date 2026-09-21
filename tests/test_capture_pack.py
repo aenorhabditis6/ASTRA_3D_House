@@ -9,6 +9,7 @@ from astra_house.capture import CapturePlan
 from astra_house.capture_pack import write_capture_pack
 from astra_house.errors import ValidationError
 from astra_house.io import load_room
+from astra_house.measurements import MeasurementSet
 from astra_house.plan import PlanAnnotation
 
 
@@ -16,6 +17,7 @@ PROJECT = Path("projects/dorm-right-bedroom")
 CAPTURE_PLAN = PROJECT / "capture-plan.json"
 ANNOTATION = PROJECT / "plan-annotation.json"
 ROOM = PROJECT / "room.json"
+MEASUREMENTS = PROJECT / "measurements.json"
 
 
 class CapturePackTest(unittest.TestCase):
@@ -27,6 +29,9 @@ class CapturePackTest(unittest.TestCase):
             json.loads(ANNOTATION.read_text(encoding="utf-8"))
         )
         cls.room = load_room(ROOM)
+        cls.measurements = MeasurementSet.from_dict(
+            json.loads(MEASUREMENTS.read_text(encoding="utf-8"))
+        )
         cls.source_png = Path(cls.annotation.image.path)
 
     def test_writes_three_deterministic_self_contained_artifacts(self) -> None:
@@ -36,6 +41,7 @@ class CapturePackTest(unittest.TestCase):
                 self.plan,
                 self.annotation,
                 self.room,
+                self.measurements,
                 self.source_png,
                 output,
             )
@@ -75,6 +81,7 @@ class CapturePackTest(unittest.TestCase):
                 self.plan,
                 self.annotation,
                 self.room,
+                self.measurements,
                 self.source_png,
                 output,
             )
@@ -109,6 +116,7 @@ class CapturePackTest(unittest.TestCase):
                     invalid_plan,
                     self.annotation,
                     self.room,
+                    self.measurements,
                     self.source_png,
                     output,
                 )

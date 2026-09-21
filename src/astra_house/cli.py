@@ -156,6 +156,7 @@ def build_capture_project(*, project_dir: Path, output_dir: Path) -> Path:
     manifest_path = project_dir / "manifest.json"
     annotation_path = project_dir / "plan-annotation.json"
     room_path = project_dir / "room.json"
+    measurements_path = project_dir / "measurements.json"
     capture_path = project_dir / "capture-plan.json"
 
     manifest = _load_json(manifest_path, "manifest")
@@ -164,6 +165,9 @@ def build_capture_project(*, project_dir: Path, output_dir: Path) -> Path:
         _load_json(annotation_path, "plan annotation")
     )
     room = load_room(room_path)
+    measurements = MeasurementSet.from_dict(
+        _load_json(measurements_path, "measurements")
+    )
     plan = CapturePlan.from_dict(_load_json(capture_path, "capture plan"))
 
     manifest_paths = {
@@ -180,6 +184,7 @@ def build_capture_project(*, project_dir: Path, output_dir: Path) -> Path:
         plan,
         annotation,
         room,
+        measurements,
         source_plan_path,
         output_dir,
     )

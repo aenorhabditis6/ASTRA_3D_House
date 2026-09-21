@@ -184,7 +184,7 @@
       "title": "Lightweight 24-image route",
       "description": "A faster reviewed route with structural, vertical, and scale-anchor coverage.",
       "expected_image_count": 24,
-      "risk_note": "Lower angular and occlusion redundancy than the standard route.",
+      "risk_note": "Lower angular and occlusion redundancy than the standard route. Keep both the entry and bathroom doors closed for the entire route. If either door state changes, finish and restart under a new capture ID.",
       "required_scale_anchor_ids": [
         "window-west",
         "window-east",
@@ -1863,7 +1863,7 @@
       "title": "Standard 48-image diagnostic route",
       "description": "The reviewed legacy diagnostic route normalized into station groups.",
       "expected_image_count": 48,
-      "risk_note": "Higher redundancy than lite-24, but not a full professional production capture.",
+      "risk_note": "Higher redundancy than lite-24, but not a full professional production capture. Keep both the entry and bathroom doors closed for the entire route. If either door state changes, finish and restart under a new capture ID.",
       "required_scale_anchor_ids": [
         "window-west",
         "window-east",

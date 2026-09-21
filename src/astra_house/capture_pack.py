@@ -15,6 +15,7 @@ from typing import Any
 
 from .capture import CapturePass, CapturePlan, CaptureShot
 from .errors import ValidationError
+from .measurements import MeasurementSet
 from .model import RoomModel
 from .plan import PlanAnnotation, PlanCalibration
 
@@ -26,11 +27,12 @@ def write_capture_pack(
     plan: CapturePlan,
     annotation: PlanAnnotation,
     room: RoomModel,
+    measurements: MeasurementSet,
     source_plan_path: Path,
     output_dir: Path,
 ) -> Path:
     """Validate and atomically write the three-file offline capture package."""
-    plan.validate(room)
+    plan.validate(room, measurements)
     annotation.validate()
     if annotation.target.room_id != room.room_id:
         raise ValidationError(

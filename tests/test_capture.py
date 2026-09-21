@@ -136,6 +136,11 @@ class CapturePlanTest(unittest.TestCase):
         with self.assertRaises(FrozenInstanceError):
             plan.station("S01").number = 7
 
+    def test_schema_v2_validation_requires_measurements(self) -> None:
+        plan = CapturePlan.from_dict(valid_capture_data_v2())
+        with self.assertRaises(TypeError):
+            plan.validate(load_room(ROOM))
+
     def test_rejects_schema_v1(self) -> None:
         data = json.loads(LEGACY_CAPTURE_PLAN.read_text(encoding="utf-8"))
         with self.assertRaisesRegex(ValidationError, "unsupported.*schema.*'1.0'"):
@@ -225,6 +230,23 @@ class CapturePlanTest(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "aim point is outside floor polygon"):
             self.validate(outside)
 
+    def test_quantizes_aim_distance_half_up_before_threshold(self) -> None:
+        rounds_to_boundary = valid_capture_data_v2()
+        rounds_to_boundary["modes"][0]["passes"][0]["groups"][0]["shots"][0][
+            "aim_point_m"
+        ] = [2.49996, 2.0]
+        try:
+            self.validate(rounds_to_boundary)
+        except ValidationError as error:
+            self.fail(f"0.49996 m should quantize to the accepted boundary: {error}")
+
+        remains_below = valid_capture_data_v2()
+        remains_below["modes"][0]["passes"][0]["groups"][0]["shots"][0][
+            "aim_point_m"
+        ] = [2.49994, 2.0]
+        with self.assertRaisesRegex(ValidationError, "at least 0.50 m"):
+            self.validate(remains_below)
+
     def test_rejects_station_on_boundary_or_in_concave_notch(self) -> None:
         boundary = valid_capture_data_v2()
         boundary["stations"][0]["standing_point_m"] = [0.0, 2.0]
@@ -283,6 +305,16 @@ class CapturePlanTest(unittest.TestCase):
         self.assertEqual(tuple(mode.id for mode in plan.modes), ("lite-24", "standard-48"))
         self.assertEqual(tuple(len(mode.shots) for mode in plan.modes), (24, 48))
         self.assertEqual(tuple(len(mode.groups) for mode in plan.modes), (14, 28))
+        door_state_rule = (
+            "Keep both the entry and bathroom doors closed for the entire route. "
+            "If either door state changes, finish and restart under a new capture ID."
+        )
+        for mode in plan.modes:
+            self.assertIn(
+                door_state_rule,
+                f"{mode.description} {mode.risk_note}",
+                mode.id,
+            )
         self.assertEqual(
             tuple(
                 (capture_pass.id, len(capture_pass.groups), len(capture_pass.shots))
