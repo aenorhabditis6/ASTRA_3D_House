@@ -13,6 +13,7 @@ from .errors import ValidationError
 from .io import save_room
 from .logical_room import build_logical_room
 from .manifest import verify_manifest
+from .measurements import MeasurementSet
 from .plan import PlanAnnotation
 from .review import write_plan_overlay, write_quality_report
 
@@ -68,6 +69,7 @@ def build_logical_project(
 
     manifest_path = project_dir / "manifest.json"
     annotation_path = project_dir / "plan-annotation.json"
+    measurements_path = project_dir / "measurements.json"
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
@@ -81,7 +83,14 @@ def build_logical_project(
             f"cannot load plan annotation {annotation_path}: {error}"
         ) from error
     annotation = PlanAnnotation.from_dict(annotation_data)
-    room = build_logical_room(annotation)
+    try:
+        measurements_data = json.loads(measurements_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValidationError(
+            f"cannot load measurements {measurements_path}: {error}"
+        ) from error
+    measurements = MeasurementSet.from_dict(measurements_data)
+    room = build_logical_room(annotation, measurements)
     room_path = project_dir / "room.json"
     save_room(room, room_path)
 

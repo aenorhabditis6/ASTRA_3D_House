@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest import mock
 
 from astra_house.cli import build_logical_project, main
+from astra_house.io import load_room
 
 
 class CliSmokeTest(unittest.TestCase):
@@ -47,6 +48,12 @@ class CliSmokeTest(unittest.TestCase):
                     for item in calls[0]
                 )
             )
+            room = load_room(Path("projects/dorm-right-bedroom/room.json"))
+            self.assertEqual(room.scale_source.kind, "confirmed_measurement")
+            entry = next(
+                opening for opening in room.openings if opening.id == "entry-door"
+            )
+            self.assertAlmostEqual(entry.width_m, 1.0)
 
     def test_missing_blender_returns_external_failure_code(self) -> None:
         with mock.patch(

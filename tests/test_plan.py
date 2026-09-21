@@ -17,7 +17,7 @@ class PlanCalibrationTest(unittest.TestCase):
 
     def test_isotropic_scale_uses_both_bed_axes(self) -> None:
         self.assertAlmostEqual(
-            self.calibration.meters_per_pixel, 0.0127149052, places=9
+            self.calibration.meters_per_pixel, 0.01394929875, places=9
         )
 
     def test_coordinate_round_trip(self) -> None:
@@ -32,4 +32,3 @@ class PlanCalibrationTest(unittest.TestCase):
         top = self.calibration.pixel_to_room(Vec2(495, 82))
         bottom = self.calibration.pixel_to_room(Vec2(495, 294))
         self.assertGreater(top.y, bottom.y)
-

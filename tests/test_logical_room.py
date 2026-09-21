@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from astra_house.logical_room import build_logical_room
+from astra_house.measurements import MeasurementSet
 from astra_house.plan import PlanAnnotation
 
 
@@ -12,7 +13,12 @@ class LogicalRoomTest(unittest.TestCase):
         raw = json.loads(
             Path("projects/dorm-right-bedroom/plan-annotation.json").read_text()
         )
-        cls.room = build_logical_room(PlanAnnotation.from_dict(raw))
+        measurements = MeasurementSet.from_dict(
+            json.loads(
+                Path("projects/dorm-right-bedroom/measurements.json").read_text()
+            )
+        )
+        cls.room = build_logical_room(PlanAnnotation.from_dict(raw), measurements)
 
     def test_confirmed_height_and_l_shaped_floor(self) -> None:
         self.assertAlmostEqual(self.room.ceiling_height_m, 3.3528)
@@ -25,17 +31,34 @@ class LogicalRoomTest(unittest.TestCase):
         )
         self.assertEqual(
             {opening.id for opening in self.room.openings},
-            {"window-north", "bath-door-south", "entry-door"},
+            {"window-west", "window-east", "bath-door-south", "entry-door"},
         )
         bed = next(item for item in self.room.proxies if item.id == "bed-full")
-        self.assertAlmostEqual(bed.size.x, 1.905)
-        self.assertAlmostEqual(bed.size.y, 1.3716)
+        self.assertAlmostEqual(bed.size.x, 2.13)
+        self.assertAlmostEqual(bed.size.y, 1.45)
 
-    def test_provisional_values_are_not_marked_confirmed(self) -> None:
-        confidence = {
-            opening.id: opening.vertical_source.confidence
-            for opening in self.room.openings
-        }
-        self.assertLess(confidence["window-north"], 0.5)
-        self.assertLess(confidence["entry-door"], 0.5)
+    def test_exact_measurements_override_proxy_and_opening_dimensions(self) -> None:
+        proxies = {proxy.id: proxy for proxy in self.room.proxies}
+        openings = {opening.id: opening for opening in self.room.openings}
+        self.assertAlmostEqual(proxies["desk"].size.y, 1.22)
+        self.assertAlmostEqual(proxies["closet"].size.x, 0.73)
+        for window_id in ("window-west", "window-east"):
+            self.assertAlmostEqual(openings[window_id].width_m, 1.27)
+            self.assertAlmostEqual(openings[window_id].height_m, 1.78)
+            self.assertAlmostEqual(openings[window_id].sill_m, 0.77)
+            self.assertEqual(
+                openings[window_id].vertical_source.kind,
+                "confirmed_measurement",
+            )
+        self.assertAlmostEqual(openings["entry-door"].width_m, 1.0)
 
+    def test_scale_is_confirmed_but_unmeasured_door_heights_remain_provisional(
+        self,
+    ) -> None:
+        openings = {opening.id: opening for opening in self.room.openings}
+        self.assertEqual(self.room.scale_source.kind, "confirmed_measurement")
+        self.assertEqual(self.room.scale_source.confidence, 1.0)
+        self.assertLess(openings["entry-door"].vertical_source.confidence, 0.5)
+        self.assertLess(
+            openings["bath-door-south"].vertical_source.confidence, 0.5
+        )

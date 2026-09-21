@@ -12,52 +12,70 @@
   "floor_polygon": [
     [
       0.0,
-      3.8526162842556193
+      4.226637521272226
     ],
     [
-      4.501076450912506,
-      3.8526162842556193
+      4.938051757525966,
+      4.226637521272226
     ],
     [
-      4.501076450912506,
+      4.938051757525966,
       0.0
     ],
     [
-      2.161533888856288,
+      2.3713807875124697,
       0.0
     ],
     [
-      2.161533888856288,
-      1.1570563757995425
+      2.3713807875124697,
+      1.2693861862566749
     ],
     [
       0.0,
-      1.1570563757995425
+      1.2693861862566749
     ]
   ],
   "openings": [
     {
-      "height_m": 1.5,
-      "id": "window-north",
-      "offset_m": 0.8010390293996832,
+      "height_m": 1.78,
+      "id": "window-west",
+      "offset_m": 0.8788058212546211,
       "position_source": {
-        "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: west window width 127 cm (2026-09-20)"
       },
-      "sill_m": 0.9,
+      "sill_m": 0.77,
       "vertical_source": {
-        "confidence": 0.35,
-        "kind": "provisional_assumption",
-        "reference": "opening/furniture default height"
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: west window sill 77 cm (2026-09-20); user: west window two stacked 89 cm panes (2026-09-20)"
       },
       "wall_id": "wall-00",
-      "width_m": 2.771849339827475
+      "width_m": 1.27
+    },
+    {
+      "height_m": 1.78,
+      "id": "window-east",
+      "offset_m": 2.650366762513937,
+      "position_source": {
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: east window width 127 cm (2026-09-20)"
+      },
+      "sill_m": 0.77,
+      "vertical_source": {
+        "confidence": 1.0,
+        "kind": "confirmed_measurement",
+        "reference": "user: east window sill 77 cm (2026-09-20); user: east window two stacked 89 cm panes (2026-09-20)"
+      },
+      "wall_id": "wall-00",
+      "width_m": 1.27
     },
     {
       "height_m": 2.03,
       "id": "bath-door-south",
-      "offset_m": 1.1570563757995425,
+      "offset_m": 1.2693861862566749,
       "position_source": {
         "confidence": 1.0,
         "kind": "trusted_floorplan",
@@ -70,16 +88,16 @@
         "reference": "opening/furniture default height"
       },
       "wall_id": "wall-02",
-      "width_m": 0.9154731764567807
+      "width_m": 1.004349510005281
     },
     {
       "height_m": 2.03,
       "id": "entry-door",
       "offset_m": 0.0,
       "position_source": {
-        "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: living-room exit door width 100 cm (2026-09-20)"
       },
       "sill_m": 0.0,
       "vertical_source": {
@@ -88,7 +106,7 @@
         "reference": "opening/furniture default height"
       },
       "wall_id": "wall-04",
-      "width_m": 0.8137539346282496
+      "width_m": 1.0
     }
   ],
   "provenance": [
@@ -98,9 +116,9 @@
       "reference": "dorm-suite-floorplan.png"
     },
     {
-      "confidence": 0.6,
-      "kind": "provisional_scale",
-      "reference": "full-bed 54x75in"
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: bed length 213 cm (2026-09-20); user: bed width 145 cm (2026-09-20)"
     },
     {
       "confidence": 1.0,
@@ -111,19 +129,84 @@
       "confidence": 0.35,
       "kind": "provisional_assumption",
       "reference": "opening/furniture default height"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: bed length 213 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: bed width 145 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: desk width 122 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: west window width 127 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: west window two stacked 89 cm panes (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: west window sill 77 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: east window width 127 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: east window two stacked 89 cm panes (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: east window sill 77 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: full bathroom-door wall 133 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: closet projection depth 73 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: living-room exit door width 100 cm (2026-09-20)"
+    },
+    {
+      "confidence": 1.0,
+      "kind": "confirmed_measurement",
+      "reference": "user: full living-room exit wall 250 cm (2026-09-20)"
     }
   ],
   "proxies": [
     {
       "center": [
-        3.4775265800129107,
-        2.70191736107036,
+        3.8151332081450615,
+        2.964225984390587,
         0.275
       ],
       "footprint_source": {
         "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "kind": "confirmed_measurement",
+        "reference": "user: bed length 213 cm (2026-09-20); user: bed width 145 cm (2026-09-20)"
       },
       "height_source": {
         "confidence": 0.35,
@@ -133,22 +216,22 @@
       "id": "bed-full",
       "kind": "bed",
       "size": [
-        1.905,
-        1.3716,
+        2.13,
+        1.45,
         0.55
       ],
       "yaw_rad": 0.0
     },
     {
       "center": [
-        0.49588130391408963,
-        3.1914412123701665,
+        0.5440226512528606,
+        3.5012739862684112,
         0.38
       ],
       "footprint_source": {
-        "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: desk width 122 cm (2026-09-20)"
       },
       "height_source": {
         "confidence": 0.35,
@@ -158,16 +241,16 @@
       "id": "desk",
       "kind": "desk",
       "size": [
-        0.6103154509711872,
-        1.27149052285664,
+        0.6695663400035209,
+        1.22,
         0.76
       ],
       "yaw_rad": 0.0
     },
     {
       "center": [
-        1.0044775130567456,
-        3.312232812041547,
+        1.1019946012557948,
+        3.633792324394108,
         0.45
       ],
       "footprint_source": {
@@ -183,16 +266,16 @@
       "id": "chair",
       "kind": "chair",
       "size": [
-        0.4323067777712576,
-        0.5467409248283552,
+        0.47427615750249397,
+        0.5998198462531541,
         0.9
       ],
       "yaw_rad": 0.0
     },
     {
       "center": [
-        3.235943380670149,
-        2.453976709113315,
+        3.5500965318936677,
+        2.692214658764157,
         0.325
       ],
       "footprint_source": {
@@ -208,16 +291,16 @@
       "id": "chest",
       "kind": "chest",
       "size": [
-        0.6484601666568864,
-        0.6611750718854528,
+        0.7114142362537409,
+        0.7253635350038142,
         0.65
       ],
       "yaw_rad": 0.0
     },
     {
       "center": [
-        4.227705988498328,
-        1.7800867319992961,
+        4.63814183439939,
+        1.9529018250102692,
         0.325
       ],
       "footprint_source": {
@@ -233,22 +316,22 @@
       "id": "pedestal",
       "kind": "pedestal",
       "size": [
-        0.44502168299982403,
-        0.4068769673141248,
+        0.4882254562525673,
+        0.44637756000234724,
         0.65
       ],
       "yaw_rad": 0.0
     },
     {
       "center": [
-        4.157774009741213,
-        0.7183921454140016,
+        4.561420691273986,
+        0.7881353793791444,
         1.2
       ],
       "footprint_source": {
-        "confidence": 1.0,
-        "kind": "trusted_floorplan",
-        "reference": "dorm-suite-floorplan.png"
+        "confidence": 0.9,
+        "kind": "hybrid_plan_measurement",
+        "reference": "floorplan position; user: closet projection depth 73 cm (2026-09-20)"
       },
       "height_source": {
         "confidence": 0.35,
@@ -258,8 +341,8 @@
       "id": "closet",
       "kind": "fixed_closet",
       "size": [
-        0.6866048823425857,
-        1.4367842908280033,
+        0.73,
+        1.5762707587582887,
         2.4
       ],
       "yaw_rad": 0.0
@@ -267,16 +350,16 @@
   ],
   "room_id": "dorm-right-bedroom",
   "scale_source": {
-    "confidence": 0.6,
-    "kind": "provisional_scale",
-    "reference": "full-bed 54x75in"
+    "confidence": 1.0,
+    "kind": "confirmed_measurement",
+    "reference": "user: bed length 213 cm (2026-09-20); user: bed width 145 cm (2026-09-20)"
   },
   "schema_version": "1.0",
   "walls": [
     {
       "end": [
-        4.501076450912506,
-        3.8526162842556193
+        4.938051757525966,
+        4.226637521272226
       ],
       "geometry_source": {
         "confidence": 1.0,
@@ -286,7 +369,7 @@
       "id": "wall-00",
       "start": [
         0.0,
-        3.8526162842556193
+        4.226637521272226
       ],
       "thickness_m": 0.12,
       "thickness_source": {
@@ -297,7 +380,7 @@
     },
     {
       "end": [
-        4.501076450912506,
+        4.938051757525966,
         0.0
       ],
       "geometry_source": {
@@ -307,8 +390,8 @@
       },
       "id": "wall-01",
       "start": [
-        4.501076450912506,
-        3.8526162842556193
+        4.938051757525966,
+        4.226637521272226
       ],
       "thickness_m": 0.12,
       "thickness_source": {
@@ -319,7 +402,7 @@
     },
     {
       "end": [
-        2.161533888856288,
+        2.3713807875124697,
         0.0
       ],
       "geometry_source": {
@@ -329,7 +412,7 @@
       },
       "id": "wall-02",
       "start": [
-        4.501076450912506,
+        4.938051757525966,
         0.0
       ],
       "thickness_m": 0.12,
@@ -341,8 +424,8 @@
     },
     {
       "end": [
-        2.161533888856288,
-        1.1570563757995425
+        2.3713807875124697,
+        1.2693861862566749
       ],
       "geometry_source": {
         "confidence": 1.0,
@@ -351,7 +434,7 @@
       },
       "id": "wall-03",
       "start": [
-        2.161533888856288,
+        2.3713807875124697,
         0.0
       ],
       "thickness_m": 0.12,
@@ -364,7 +447,7 @@
     {
       "end": [
         0.0,
-        1.1570563757995425
+        1.2693861862566749
       ],
       "geometry_source": {
         "confidence": 1.0,
@@ -373,8 +456,8 @@
       },
       "id": "wall-04",
       "start": [
-        2.161533888856288,
-        1.1570563757995425
+        2.3713807875124697,
+        1.2693861862566749
       ],
       "thickness_m": 0.12,
       "thickness_source": {
@@ -386,7 +469,7 @@
     {
       "end": [
         0.0,
-        3.8526162842556193
+        4.226637521272226
       ],
       "geometry_source": {
         "confidence": 1.0,
@@ -396,7 +479,7 @@
       "id": "wall-05",
       "start": [
         0.0,
-        1.1570563757995425
+        1.2693861862566749
       ],
       "thickness_m": 0.12,
       "thickness_source": {

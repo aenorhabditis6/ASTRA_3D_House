@@ -15,12 +15,13 @@
   "scale_anchor": {
     "id": "full-bed",
     "bbox_px": [694, 118, 843, 227],
-    "size_m": [1.905, 1.3716],
+    "size_m": [2.13, 1.45],
     "fit": "isotropic_least_squares",
-    "source": "floorplan label FULL BED"
+    "source": "user measured bed 213x145cm (2026-09-20)"
   },
   "openings": [
-    {"id": "window-north", "edge_index": 0, "start_px": [558, 82], "end_px": [776, 82], "sill_m": 0.9, "height_m": 1.5, "confidence": 0.35},
+    {"id": "window-west", "edge_index": 0, "start_px": [558, 82], "end_px": [649, 82], "sill_m": 0.77, "height_m": 1.78, "confidence": 1.0},
+    {"id": "window-east", "edge_index": 0, "start_px": [685, 82], "end_px": [776, 82], "sill_m": 0.77, "height_m": 1.78, "confidence": 1.0},
     {"id": "bath-door-south", "edge_index": 2, "start_px": [758, 385], "end_px": [686, 385], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35},
     {"id": "entry-door", "edge_index": 4, "start_px": [665, 294], "end_px": [601, 294], "sill_m": 0.0, "height_m": 2.03, "confidence": 0.35}
   ],
