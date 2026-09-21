@@ -118,12 +118,16 @@ assertion traceback yet still return process status 0.
 - closet projection depth: `0.73 m`;
 - west living-room exit door: `1.00 × 2.37 m`;
 - bathroom door: `0.91 × 2.37 m`;
-- full bathroom-door wall: `1.33 m` (audit-only);
+- west-facing bathroom-door wall: `1.33 m` (audit-only; the current unsegmented
+  floor-plan edge measures `2.57 m`, so this remains an explicit conflict);
 - west exit-door wall: `2.50 m` (audit-only).
 
 The cardinal interpretation follows the on-site correction: the double-window
 wall is east, the `2.94 m` wall is north, and the west side first contains the
 `2.50 m` exit-door wall before the footprint extends into the bathroom return.
+The bathroom door is on the separate west-facing wall beside the closet—the
+horizontal wall below the bedroom in the drawing—not on the connecting return
+or at the entry-door corner.
 
 Exact overrides are written into generated geometry. Audit-only wall lengths do
 not silently distort the floor polygon: their residuals are reported against the

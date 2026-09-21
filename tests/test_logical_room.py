@@ -54,9 +54,24 @@ class LogicalRoomTest(unittest.TestCase):
         self.assertAlmostEqual(openings["entry-door"].height_m, 2.37)
         self.assertAlmostEqual(openings["window-west"].offset_m, 0.79)
         self.assertAlmostEqual(openings["window-east"].offset_m, 2.55)
-        self.assertEqual(openings["bath-door-south"].wall_id, "wall-03")
+        self.assertEqual(openings["bath-door-south"].wall_id, "wall-02")
+        self.assertAlmostEqual(
+            openings["bath-door-south"].offset_m,
+            1.2693861862566749,
+        )
         self.assertAlmostEqual(openings["bath-door-south"].width_m, 0.91)
         self.assertAlmostEqual(openings["bath-door-south"].height_m, 2.37)
+        parent_wall = next(
+            wall
+            for wall in self.room.walls
+            if wall.id == openings["bath-door-south"].wall_id
+        )
+        remaining_jamb = (
+            parent_wall.length_m
+            - openings["bath-door-south"].offset_m
+            - openings["bath-door-south"].width_m
+        )
+        self.assertGreater(remaining_jamb, 0.30)
 
     def test_scale_and_measured_door_heights_are_confirmed(self) -> None:
         openings = {opening.id: opening for opening in self.room.openings}

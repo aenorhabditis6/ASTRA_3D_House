@@ -75,7 +75,7 @@
     {
       "height_m": 2.37,
       "id": "bath-door-south",
-      "offset_m": 0.0,
+      "offset_m": 1.2693861862566749,
       "position_source": {
         "confidence": 0.9,
         "kind": "hybrid_plan_measurement",
@@ -87,7 +87,7 @@
         "kind": "confirmed_measurement",
         "reference": "user: bathroom door height 237 cm (2026-09-20)"
       },
-      "wall_id": "wall-03",
+      "wall_id": "wall-02",
       "width_m": 0.91
     },
     {
@@ -198,7 +198,7 @@
     {
       "confidence": 1.0,
       "kind": "confirmed_measurement",
-      "reference": "user: full bathroom-door wall 133 cm (2026-09-20)"
+      "reference": "user: west-facing bathroom-door wall 133 cm; door is on drawing-bottom wall beside closet (2026-09-20)"
     },
     {
       "confidence": 1.0,

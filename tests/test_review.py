@@ -40,10 +40,13 @@ class ReviewArtifactTest(unittest.TestCase):
             audit = {item["id"]: item for item in result["measurement_audit"]}
             self.assertAlmostEqual(audit["bed-length"]["residual_percent"], 0.0)
             self.assertEqual(
-                audit["bath-wall-length"]["target_id"], "wall-03"
+                audit["bath-wall-length"]["target_id"], "wall-02"
             )
             self.assertEqual(
-                audit["bath-wall-length"]["status"], "within_tolerance"
+                audit["bath-wall-length"]["status"], "needs_review"
+            )
+            self.assertGreater(
+                abs(audit["bath-wall-length"]["residual_percent"]), 50.0
             )
             self.assertLess(
                 abs(audit["east-window-wall-length"]["residual_percent"]), 2.0

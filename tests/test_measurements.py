@@ -21,7 +21,7 @@ class MeasurementSetTest(unittest.TestCase):
             measurements.value_for("window-east", "height"), 1.78
         )
         self.assertEqual(
-            measurements.record_for("wall-03", "length").application,
+            measurements.record_for("wall-02", "length").application,
             "audit_only",
         )
         self.assertAlmostEqual(

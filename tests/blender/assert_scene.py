@@ -28,6 +28,8 @@ assert abs(bpy.data.objects["OPENINGS.window-west"].location.z - 1.66) < 1e-6
 assert abs(bpy.data.objects["FURNITURE_PROXY.bed-full"].dimensions.x - 2.13) < 1e-6
 assert abs(bpy.data.objects["FURNITURE_PROXY.bed-full"].dimensions.y - 1.45) < 1e-6
 assert abs(bpy.data.objects["OPENINGS.entry-door"].dimensions.x - 1.0) < 1e-6
+assert abs(bpy.data.objects["OPENINGS.bath-door-south"].location.y) < 1e-6
+assert abs(bpy.data.objects["OPENINGS.bath-door-south"].location.x - 3.2136656) < 1e-6
 assert (
     bpy.data.objects["OPENINGS.window-west"]["height_source_kind"]
     == "confirmed_measurement"
