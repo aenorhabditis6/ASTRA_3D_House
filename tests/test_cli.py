@@ -30,6 +30,7 @@ class CliSmokeTest(unittest.TestCase):
                 calls.append(command)
                 (output / "house_master.blend").touch()
                 (output / "house.glb").touch()
+                (output / "schematic-axonometric.png").touch()
 
             result = build_logical_project(
                 project_dir=Path("projects/dorm-right-bedroom"),
@@ -40,6 +41,7 @@ class CliSmokeTest(unittest.TestCase):
             self.assertEqual(result, output / "house_master.blend")
             self.assertTrue((output / "plan-review.svg").exists())
             self.assertTrue((output / "quality-report.json").exists())
+            self.assertTrue((output / "schematic-axonometric.png").exists())
             self.assertEqual(
                 calls[0][0], "/Applications/Blender.app/Contents/MacOS/Blender"
             )
@@ -49,6 +51,7 @@ class CliSmokeTest(unittest.TestCase):
                     for item in calls[0]
                 )
             )
+            self.assertIn(str(output / "schematic-axonometric.png"), calls[0])
             room = load_room(Path("projects/dorm-right-bedroom/room.json"))
             self.assertEqual(room.scale_source.kind, "confirmed_measurement")
             entry = next(

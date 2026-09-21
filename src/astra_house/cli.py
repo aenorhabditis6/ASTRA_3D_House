@@ -99,6 +99,7 @@ def build_logical_project(
     report_path = output_dir / "quality-report.json"
     blend_path = output_dir / "house_master.blend"
     glb_path = output_dir / "house.glb"
+    schematic_path = output_dir / "schematic-axonometric.png"
     write_plan_overlay(annotation, room, overlay_path, measurements)
     write_quality_report(annotation, room, report_path, measurements)
 
@@ -115,10 +116,15 @@ def build_logical_project(
         str(room_path),
         str(blend_path),
         str(glb_path),
+        str(schematic_path),
     ]
     runner(command)
 
-    missing = [path.name for path in (blend_path, glb_path) if not path.is_file()]
+    missing = [
+        path.name
+        for path in (blend_path, glb_path, schematic_path)
+        if not path.is_file()
+    ]
     if missing:
         raise ValidationError(
             "Blender completed without required outputs: " + ", ".join(missing)

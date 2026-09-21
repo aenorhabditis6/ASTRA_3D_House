@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import bpy
+from mathutils import Vector
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = REPOSITORY_ROOT / "src"
@@ -37,15 +38,17 @@ COLLECTION_NAMES = (
 )
 
 
-def _arguments() -> tuple[Path, Path, Path]:
+def _arguments() -> tuple[Path, Path, Path, Path]:
     if "--" not in sys.argv:
         raise ValueError(
-            "usage: blender ... -- <room.json> <house_master.blend> <house.glb>"
+            "usage: blender ... -- <room.json> <house_master.blend> <house.glb> "
+            "<schematic.png>"
         )
     arguments = sys.argv[sys.argv.index("--") + 1 :]
-    if len(arguments) != 3:
+    if len(arguments) != 4:
         raise ValueError(
-            "expected exactly three arguments: room.json, output.blend, output.glb"
+            "expected exactly four arguments: room.json, output.blend, output.glb, "
+            "schematic.png"
         )
     return tuple(_repository_path(value) for value in arguments)  # type: ignore[return-value]
 
@@ -79,7 +82,118 @@ def _create_collections() -> dict[str, "Collection"]:
 def _material(name: str, color: tuple[float, float, float, float]) -> "Material":
     material = bpy.data.materials.new(name=name)
     material.diffuse_color = color
+    material.use_nodes = True
+    principled = material.node_tree.nodes.get("Principled BSDF")
+    if principled is not None:
+        principled.inputs["Base Color"].default_value = color
+        principled.inputs["Roughness"].default_value = 0.72
     return material
+
+
+def _look_at(obj: "Object", target: tuple[float, float, float]) -> None:
+    direction = Vector(target) - obj.location
+    obj.rotation_euler = direction.to_track_quat("-Z", "Y").to_euler()
+
+
+def _configure_schematic(
+    room: RoomModel,
+    collections: dict[str, "Collection"],
+    schematic_path: Path,
+) -> None:
+    """Create a reusable axonometric camera and deterministic presentation rig."""
+    scene = bpy.context.scene
+    points = room.floor_polygon
+    minimum_x = min(point.x for point in points)
+    maximum_x = max(point.x for point in points)
+    minimum_y = min(point.y for point in points)
+    maximum_y = max(point.y for point in points)
+    center_x = (minimum_x + maximum_x) / 2.0
+    center_y = (minimum_y + maximum_y) / 2.0
+    span = max(maximum_x - minimum_x, maximum_y - minimum_y)
+
+    camera_data = bpy.data.cameras.new("CAMERA.axonometric")
+    camera_data.type = "ORTHO"
+    camera_data.ortho_scale = span * 1.42
+    camera = bpy.data.objects.new("APPEARANCE.camera-axonometric", camera_data)
+    collections["APPEARANCE"].objects.link(camera)
+    camera.location = (
+        center_x - span * 1.35,
+        center_y - span * 1.45,
+        room.ceiling_height_m + span * 1.08,
+    )
+    _look_at(camera, (center_x, center_y, room.ceiling_height_m * 0.30))
+    camera_data.lens = 50.0
+    scene.camera = camera
+
+    sun_data = bpy.data.lights.new("LIGHT.sun-soft", type="SUN")
+    sun_data.energy = 2.0
+    sun_data.angle = 0.35
+    sun = bpy.data.objects.new("APPEARANCE.sun-soft", sun_data)
+    collections["APPEARANCE"].objects.link(sun)
+    sun.rotation_euler = (0.55, -0.35, -0.55)
+
+    area_data = bpy.data.lights.new("LIGHT.area-key", type="AREA")
+    area_data.energy = 900.0
+    area_data.shape = "DISK"
+    area_data.size = span * 1.2
+    area = bpy.data.objects.new("APPEARANCE.area-key", area_data)
+    collections["APPEARANCE"].objects.link(area)
+    area.location = (
+        center_x - span * 0.25,
+        center_y - span * 0.4,
+        room.ceiling_height_m + span * 0.95,
+    )
+    _look_at(area, (center_x, center_y, 0.0))
+
+    world = bpy.data.worlds.new("WORLD.schematic")
+    world.use_nodes = True
+    background = world.node_tree.nodes.get("Background")
+    if background is not None:
+        background.inputs["Color"].default_value = (0.96, 0.97, 0.98, 1.0)
+        background.inputs["Strength"].default_value = 0.75
+    scene.world = world
+
+    # The source model remains complete. Only the render omits the ceiling and
+    # camera-facing boundary, producing a conventional dollhouse cutaway.
+    bpy.data.objects["STRUCTURE.ceiling"].hide_render = True
+    camera_direction = Vector(
+        (camera.location.x - center_x, camera.location.y - center_y)
+    )
+    hidden_wall_ids = {
+        wall.id
+        for wall in room.walls
+        if Vector(
+            (
+                (wall.start.x + wall.end.x) / 2.0 - center_x,
+                (wall.start.y + wall.end.y) / 2.0 - center_y,
+            )
+        ).dot(camera_direction)
+        > 0.0
+    }
+    for obj in collections["STRUCTURE"].objects:
+        semantic_id = str(obj.get("semantic_id", ""))
+        if any(semantic_id.startswith(f"{wall_id}:") for wall_id in hidden_wall_ids):
+            obj.hide_render = True
+    openings_by_id = {opening.id: opening for opening in room.openings}
+    for obj in collections["OPENINGS"].objects:
+        opening = openings_by_id[str(obj.get("semantic_id"))]
+        if opening.wall_id in hidden_wall_ids:
+            obj.hide_render = True
+
+    schematic_path.parent.mkdir(parents=True, exist_ok=True)
+    scene.render.engine = "BLENDER_EEVEE"
+    scene.render.resolution_x = 1600
+    scene.render.resolution_y = 1200
+    scene.render.resolution_percentage = 100
+    scene.render.image_settings.file_format = "PNG"
+    scene.render.image_settings.color_mode = "RGB"
+    scene.render.image_settings.color_depth = "8"
+    scene.render.film_transparent = False
+    scene.render.filepath = str(schematic_path)
+    scene.render.image_settings.color_management = "FOLLOW_SCENE"
+    scene.render.use_file_extension = True
+    scene["schematic_kind"] = "orthographic_dollhouse"
+    scene["schematic_resolution"] = "1600x1200"
 
 
 def _create_box(
@@ -163,11 +277,17 @@ def _source_for_structure(
     return opening.position_source, opening.vertical_source
 
 
-def build_scene(room_path: Path, blend_path: Path, glb_path: Path) -> None:
+def build_scene(
+    room_path: Path,
+    blend_path: Path,
+    glb_path: Path,
+    schematic_path: Path,
+) -> None:
     """Build, save, and export a logical scene from a validated room file."""
     room_path = Path(room_path).resolve()
     blend_path = Path(blend_path).resolve()
     glb_path = Path(glb_path).resolve()
+    schematic_path = Path(schematic_path).resolve()
 
     # Validate every input and derive all geometry before touching output files.
     room = load_room(room_path)
@@ -182,19 +302,22 @@ def build_scene(room_path: Path, blend_path: Path, glb_path: Path) -> None:
     scene.unit_settings.scale_length = 1.0
     collections = _create_collections()
     materials = {
-        "structure": _material("MAT.structure", (0.72, 0.74, 0.78, 1.0)),
-        "fixture": _material("MAT.fixture", (0.58, 0.62, 0.68, 1.0)),
-        "proxy": _material("MAT.proxy", (0.31, 0.52, 0.76, 1.0)),
-        "opening": _material("MAT.opening", (0.26, 0.72, 0.78, 1.0)),
+        "wall": _material("MAT.wall-warm-white", (0.82, 0.80, 0.75, 1.0)),
+        "floor": _material("MAT.floor-light-gray", (0.67, 0.70, 0.73, 1.0)),
+        "bed": _material("MAT.bed-blue", (0.18, 0.42, 0.82, 1.0)),
+        "work": _material("MAT.work-orange", (0.94, 0.42, 0.14, 1.0)),
+        "storage": _material("MAT.storage-yellow", (0.92, 0.65, 0.12, 1.0)),
+        "opening": _material("MAT.opening-cyan", (0.12, 0.68, 0.78, 1.0)),
     }
 
     for spec in wall_boxes:
-        obj = _create_box(spec, collections[spec.collection], materials["structure"])
+        obj = _create_box(spec, collections[spec.collection], materials["wall"])
         geometry_source, height_source = _source_for_structure(room, spec.source_id)
         _set_properties(obj, room, geometry_source, height_source, spec.id)
 
     for spec in (floor_spec, ceiling_spec):
-        obj = _create_polygon(spec, collections[spec.collection], materials["structure"])
+        material = materials["floor"] if spec.id == "floor" else materials["wall"]
+        obj = _create_polygon(spec, collections[spec.collection], material)
         _set_properties(
             obj,
             room,
@@ -227,7 +350,12 @@ def build_scene(room_path: Path, blend_path: Path, glb_path: Path) -> None:
             collection=collection_name,
             source_id=proxy.id,
         )
-        material = materials["fixture"] if collection_name == "FIXTURES" else materials["proxy"]
+        if proxy.kind == "bed":
+            material = materials["bed"]
+        elif proxy.kind in {"desk", "chair"}:
+            material = materials["work"]
+        else:
+            material = materials["storage"]
         obj = _create_box(spec, collections[collection_name], material)
         _set_properties(
             obj,
@@ -240,6 +368,7 @@ def build_scene(room_path: Path, blend_path: Path, glb_path: Path) -> None:
     scene["room_id"] = room.room_id
     scene["schema_version"] = room.schema_version
     scene["generator"] = "astra_house logical-room MVP"
+    _configure_schematic(room, collections, schematic_path)
 
     blend_path.parent.mkdir(parents=True, exist_ok=True)
     glb_path.parent.mkdir(parents=True, exist_ok=True)
@@ -251,13 +380,15 @@ def build_scene(room_path: Path, blend_path: Path, glb_path: Path) -> None:
         export_cameras=False,
         export_lights=False,
     )
+    bpy.ops.render.render(write_still=True)
 
 
 def main() -> None:
-    room_path, blend_path, glb_path = _arguments()
-    build_scene(room_path, blend_path, glb_path)
+    room_path, blend_path, glb_path, schematic_path = _arguments()
+    build_scene(room_path, blend_path, glb_path, schematic_path)
     print(f"ASTRA_BLEND={blend_path}")
     print(f"ASTRA_GLB={glb_path}")
+    print(f"ASTRA_SCHEMATIC={schematic_path}")
 
 
 if __name__ == "__main__":

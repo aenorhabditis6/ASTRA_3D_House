@@ -19,8 +19,8 @@ immutable floor-plan PNG
 ```
 
 Every measured or assumed value has a source kind and confidence. The supplied
-11 ft ceiling height and the measured `2.13 × 1.45 m` bed are confirmed. Door
-heights and unmeasured furniture heights remain explicit assumptions.
+11 ft ceiling height, `2.13 × 1.45 m` bed, two door heights, and window dimensions
+are confirmed. Unmeasured furniture heights remain explicit assumptions.
 
 ## Prerequisites
 
@@ -43,8 +43,9 @@ PYTHONPATH=src python3 -m astra_house.cli build-logical \
 
 The command first verifies the immutable source SHA-256, regenerates and
 validates the logical model, writes human/machine review artifacts, invokes
-Blender, and finally checks that both Blender outputs exist. A validation failure
-returns exit code 2; a failed Blender process returns exit code 3.
+Blender, and finally checks that the Blend, GLB, and schematic PNG all exist. A
+validation failure returns exit code 2; a failed Blender process returns exit
+code 3.
 
 ## Artifacts
 
@@ -61,6 +62,9 @@ returns exit code 2; a failed Blender process returns exit code 3.
   named collections and custom provenance properties.
 - `build/dorm-right-bedroom/house.glb` — portable geometry export whose semantic
   object names are verified by importing it into a clean Blender scene.
+- `build/dorm-right-bedroom/schematic-axonometric.png` — `1600 × 1200` colored
+  orthographic cutaway rendered from the same geometry, with blue bed, orange
+  work area, yellow storage, and cyan windows.
 
 `build/` is reproducible and intentionally ignored by Git.
 
@@ -82,6 +86,11 @@ Verify the generated Blender file and GLB independently:
 /Applications/Blender.app/Contents/MacOS/Blender \
   --background --factory-startup --python-exit-code 1 \
   --python tests/blender/assert_glb.py -- build/dorm-right-bedroom/house.glb
+
+/Applications/Blender.app/Contents/MacOS/Blender \
+  --background --factory-startup --python-exit-code 1 \
+  --python tests/blender/assert_schematic.py -- \
+  build/dorm-right-bedroom/schematic-axonometric.png
 ```
 
 `--python-exit-code 1` is important: without it Blender can print a Python
@@ -102,12 +111,19 @@ assertion traceback yet still return process status 0.
 ## Current confirmed measurements
 
 - bed: `2.13 × 1.45 m`;
-- two windows: each `1.27 m` wide and `1.78 m` high, sill `0.77 m`;
+- east wall: `4.85 m`, containing two windows each `1.27 m` wide and `1.78 m`
+  high with `0.77 m` sills; their along-wall offsets are `0.79 m` and `2.55 m`;
+- north wall: `2.94 m`;
 - desk width: `1.22 m`;
 - closet projection depth: `0.73 m`;
-- living-room exit door width: `1.00 m`;
-- full bathroom-door wall: `1.33 m` (audit-only pending endpoint review);
-- full living-room exit wall: `2.50 m` (audit-only).
+- west living-room exit door: `1.00 × 2.37 m`;
+- bathroom door: `0.91 × 2.37 m`;
+- full bathroom-door wall: `1.33 m` (audit-only);
+- west exit-door wall: `2.50 m` (audit-only).
+
+The cardinal interpretation follows the on-site correction: the double-window
+wall is east, the `2.94 m` wall is north, and the west side first contains the
+`2.50 m` exit-door wall before the footprint extends into the bathroom return.
 
 Exact overrides are written into generated geometry. Audit-only wall lengths do
 not silently distort the floor polygon: their residuals are reported against the
