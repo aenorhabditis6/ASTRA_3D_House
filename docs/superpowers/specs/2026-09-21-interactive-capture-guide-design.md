@@ -2,7 +2,7 @@
 
 Date: 2026-09-21
 
-Status: revised draft for user review after external technical review
+Status: revised draft for user review after two external technical reviews
 
 Target: right-side dorm bedroom in `projects/dorm-right-bedroom`
 
@@ -17,9 +17,11 @@ The current capture package is a correct offline reference but behaves like a
 printable document. A person shooting the room still has to find the right
 station, remember the current direction, and track completion independently.
 
-This change turns the generated `index.html` into an offline, map-first field
-workflow. The operator chooses either a 24-image lightweight route or the
-existing 48-image diagnostic route, follows one current task at a time, and
+This change turns the generated `index.html` into a self-contained, map-first
+field workflow that needs no further network request while the document remains
+loaded. A reload still needs the same origin. The operator chooses either a
+24-image lightweight route or the existing 48-image diagnostic route, follows
+one current task at a time, and
 checks off photographs or groups after taking them with the Xiaomi native camera
 application. The room diagram updates after every action to show where to stand
 and which way to aim.
@@ -35,9 +37,10 @@ originals and their EXIF metadata.
 - Continue using the Xiaomi native camera; completion is recorded manually in
   the guide after each photograph or group.
 - For the pilot, open the guide on the same Xiaomi phone used for photography,
-  in Chrome for Android over a stable HTTP(S) origin. Opening the file directly,
-  an in-app browser, Xiaomi Browser, and WeChat are fallback/test cases rather
-  than persistence-supported paths.
+  in Chrome for Android. A stable HTTPS origin is preferred; a Mac-hosted LAN
+  HTTP origin is the documented development fallback and has explicit uptime
+  constraints. Opening the file directly, an in-app browser, Xiaomi Browser,
+  and WeChat are fallback/test cases rather than persistence-supported paths.
 - Use the map-first mobile layout selected in the visual comparison.
 - Provide two enabled modes:
   - `lite-24`: a faster 24-image route with lower redundancy;
@@ -102,6 +105,8 @@ The change succeeds when:
   overlap, vertical coverage, and scale anchors.
 - Static no-JavaScript fallback content for both modes.
 - Updated intake/report JSON contracts that describe both modes.
+- A delivery contract for stable HTTPS and a documented Mac-LAN development
+  fallback; deployment itself remains external to the generator.
 - Automated domain, rendering, CLI, interaction, persistence, accessibility,
   and responsive-layout checks.
 
@@ -113,10 +118,12 @@ The change succeeds when:
 - Automatic EXIF/filename-to-shot matching and image quality control. The
   current release records evidence for a later tool but leaves ambiguity for
   manual resolution.
-- Blur, exposure, duplicate, and coverage analysis.
+- Photo-derived blur, exposure, duplicate, and coverage analysis. Plan-geometry
+  coverage preflight remains included.
 - WebXR, ARCore, GPS, compass-gated completion, or automatic station detection.
 - COLMAP, hloc, LightGlue, dense depth, Gaussian Splatting, and texture fusion.
-- Hosting, PWA installation, accounts, and cross-device synchronization.
+- Bundled hosting/provider setup, PWA installation, accounts, and cross-device
+  synchronization.
 
 The future production route is an additional data mode, not a reason to leave an
 empty or misleading third choice in the current UI.
@@ -159,6 +166,13 @@ This produces 28 standard-mode groups while preserving all 48 shot IDs, their
 order, pitch, instructions, and semantic targets. It also keeps the invariant
 that one group has exactly one station to confirm.
 
+`standard-48.required_scale_anchor_ids` contains all seven reviewed anchors:
+both windows, both doors, bed, desk, and closet. The schema-`1.0` audit confirms
+that its unchanged `target_ids` already cover windows from three stations,
+entry door from two, bathroom door/closet from two, bed from three, and desk
+from two. Standard therefore satisfies the two-station rule without weakening
+the frozen migration fixture or adding target IDs.
+
 ### 5.2 Lightweight mode — `lite-24`
 
 The lightweight mode is an explicit reviewed plan, not a runtime sample of the
@@ -171,9 +185,9 @@ The lightweight mode is an explicit reviewed plan, not a runtime sample of the
 | L09 | Up/down coverage at station 3: bath-door/closet and south-wall area | 2 |
 | L10 | Up/down coverage at station 7: double-window/desk and north-wall area | 2 |
 | L11 | Both windows with surrounding east wall | 1 |
-| L12 | Entry door with north/entry-wall context | 1 |
+| L12 | Measured bed together with the east and south wall directions | 1 |
 | L13 | Bathroom door plus closet with surrounding `wall-02` | 1 |
-| L14 | Measured bed together with the east and south wall directions | 1 |
+| L14 | Entry door with north/entry-wall context | 1 |
 | **Total** |  | **24** |
 
 The 16 level views use these reviewed target pairs:
@@ -189,9 +203,9 @@ The 16 level views use these reviewed target pairs:
 | S07 | `wall-05` + `wall-00` | `wall-00` + `wall-01` |
 | S08 | `wall-04` + `wall-05` | `wall-05` + `wall-00` |
 
-L09 reuses S03, L10 reuses S07, L11 uses S06, L12 uses S02, L13
-uses S04, and L14 uses S06. Exact aim points are reviewed in room coordinates
-so each paired view overlaps both its partner and the neighboring station.
+L09 reuses S03, L10 reuses S07, L11 and L12 form one confirmed visit at S06,
+L13 uses S04, and L14 uses S02. Exact aim points are reviewed in room
+coordinates so each paired view overlaps both its partner and the neighboring station.
 Lightweight shot IDs are `L01-A`/`L01-B` through `L10-A`/`L10-B`, followed by
 the single shots `L11-A` through `L14-A`. The IDs are not aliases for standard
 shots even where the operator instruction is similar.
@@ -203,9 +217,9 @@ The anchor/vertical groups have these required primary targets:
 | L09 | `wall-02`, `wall-01`, `bath-door-south`, `closet` |
 | L10 | `wall-00`, `wall-05`, `window-west`, `window-east`, `desk` |
 | L11 | `wall-00`, `window-west`, `window-east` |
-| L12 | `wall-04`, `wall-05`, `entry-door` |
+| L12 | `bed-full`, `wall-00`, `wall-01` |
 | L13 | `wall-02`, `bath-door-south`, `closet` |
-| L14 | `bed-full`, `wall-00`, `wall-01` |
+| L14 | `wall-04`, `wall-05`, `entry-door` |
 
 Primary scale anchors are `window-west`, `window-east`, `entry-door`,
 `bath-door-south`, `bed-full`, `desk`, and `closet`. Existing level views must
@@ -215,7 +229,7 @@ bed from S04 and S05, and desk from S07 and S08. Thus every anchor is targeted
 from two stations with at least a 0.5 m baseline without adding photographs.
 
 For the pilot data, lightweight level shots use `pitch_deg: -10`, up shots use
-`+30`, and down shots use `-35`. Standard-mode level shots preserve a nominal
+`+25`, and down shots use `-35`. Standard-mode level shots preserve a nominal
 `0`; existing B up/down shots receive `+30`/`-35`. These are operator targets,
 not claims of measured IMU attitude, and their vertical-coverage warnings are
 rechecked after the first Xiaomi trial.
@@ -225,9 +239,10 @@ two views share a wall, and every neighboring station pair in the closed
 S01→…→S08→S01 route shares at least one structural wall target; repeated
 S05–S07 views add translational baseline rather than new directions. The two
 level views at each route station must overlap each other and adjacent stations.
-They must not become isolated close-ups. `target_ids` define the
-minimum elements that must remain recognizable and uncropped; they are not an
-exhaustive claim about every object incidentally visible in the frame. This mode
+They must not become isolated close-ups. `target_ids` define the minimum
+elements that must remain recognizable and horizontally uncropped unless 3D
+framing points explicitly require vertical extent; they are not an exhaustive
+claim about every object incidentally visible in the frame. This mode
 intentionally has less angular, high/low, and occlusion redundancy than
 `standard-48`; the UI states that its reconstruction success rate and
 completeness are lower.
@@ -255,8 +270,10 @@ Top-level fields:
 - `device_profile`: the reviewed Xiaomi settings and conservative optical
   parameters;
 - `wall_review`: the reviewed wall-to-opening ownership table;
-- `scale_anchor_ids`: measured openings/proxies that require multi-station
-  coverage;
+- `scale_anchors`: measured openings/proxies, each with a target ID and one or
+  more exact measurement IDs used for scale;
+- optional `coverage_review`: reviewed mode-plan hash, warning codes, reviewer,
+  and review timestamp; required only when marking a generated route publishable;
 - `stations`: ordered reusable room-space standing zones;
 - `modes`: ordered enabled capture modes.
 
@@ -271,11 +288,32 @@ The device profile retains its human-readable `lens`, `orientation`,
   height and permitted variation;
 - `coverage_margin_deg`: an angular margin removed from both frame edges.
 
-The pilot starts with conservative provisional values of 70° horizontal, 52°
+The pilot starts with conservative provisional values of 70° horizontal, 55°
 vertical, 1.45 m camera height, ±0.10 m height tolerance, and a 5° margin at
 each horizontal edge. The first Xiaomi trial must measure effective field of
 view and either confirm or revise them before the route is promoted beyond the
-pilot. `orientation` already exists and remains fixed to `landscape`.
+pilot. After calibration, source data should store image dimensions and focal
+length in pixels and derive both FOV values from one camera model rather than
+maintaining two independent estimates. `orientation` already exists and remains
+fixed to `landscape`.
+
+The reviewed scale-anchor catalog is:
+
+| Target | Exact measurement IDs used for scale |
+| --- | --- |
+| `window-west` | `window-west-width` |
+| `window-east` | `window-east-width` |
+| `entry-door` | `entry-door-width` |
+| `bath-door-south` | `bath-door-width` |
+| `bed-full` | `bed-length`, `bed-width` |
+| `desk` | `desk-width` |
+| `closet` | `closet-depth` |
+
+Every referenced measurement must exist in `measurements.json`, target the same
+object, have a positive value, and use `exact_override`. Width/length/depth are
+the required scale dimensions for this pilot; measured opening heights remain
+valuable model constraints but are not required to fit uncropped in every
+anchor photograph.
 
 Each station contains:
 
@@ -300,6 +338,13 @@ The current station conversion is fixed as follows:
 Coordinates are metres in the existing room coordinate system. Labels are
 navigation hints, not additional geometric constraints.
 
+Compass mapping is explicit: +X runs from the north side toward the south side,
+and +Y runs from west toward east. Therefore `wall-00` is the east double-window
+wall, `wall-01` the south wall, `wall-05` the north wall, and `wall-02`/`wall-04`
+are west-facing segments. `window-west` and `window-east` are legacy plan-image
+ordering IDs, not compass claims; `plan-annotation.json` and `room.json` place
+both openings on `wall-00`, and their stable IDs are not renamed.
+
 Each mode contains:
 
 - `id`, `title`, and `description`;
@@ -318,8 +363,8 @@ Each shot contains:
 
 - globally unique `id`;
 - `aim_point_m`, a room-space point distinct from its standing point;
-- `framing_points_m`: ordered room-space landmark points that must fit inside
-  the usable horizontal frame;
+- `framing_points_m`: ordered 3D room-space landmark points `[x, y, z]` that
+  must fit inside the declared usable frame;
 - `pitch`: `level`, `up`, or `down`;
 - `pitch_deg`: nominal optical-axis elevation in degrees, positive upward;
 - one or more semantic `target_ids` from walls, openings, or proxies;
@@ -329,8 +374,8 @@ Each shot contains:
 the user whether to hold the phone level, raise it, or lower it, while
 `pitch_deg` makes that instruction testable. Lightweight level shots use a
 nominal −10° pitch to include more textured floor boundary; up/down values are
-stored explicitly per shot. For a single
-wall/opening target the point normally lies on its centre; for a proxy it
+stored explicitly per shot. For a single wall/opening target the point normally
+lies on its centre; for a proxy it
 normally uses the proxy centre. Multi-target and context views use a reviewed
 point on the intended view bisector. Those points are stored explicitly in the
 plan and are never inferred by browser code. Python extends the bearing to its
@@ -338,12 +383,14 @@ first room-boundary intersection and precomputes a field-of-view cone; the
 browser renders those values and never treats arrow length as camera distance.
 
 `framing_points_m` make requirements such as “include both window edges” or
-“keep both sides of the door wall” numerically reviewable. They are selected
-points on walls, opening edges/centres, or proxy footprints and are not inferred
-from an entire wall ID. Every primary target has at least one associated framing
-point; a target that must appear at full width has points at both extremes. This
-prevents a generic `wall-00` target from incorrectly requiring the whole wall to
-fit in every photograph.
+“keep both sides of the door wall” numerically reviewable. They are selected 3D
+points on walls, opening edges/centres, or proxy bounds and are not inferred from
+an entire wall ID. Every primary target has at least one associated framing
+point. A target that must appear at full width has points at both horizontal
+extremes; a shot that explicitly requires full height also has points at its
+vertical extremes and is checked against vertical FOV. Otherwise `uncropped`
+means horizontally uncropped only. This prevents a generic `wall-00` target from
+incorrectly requiring the whole wall to fit in every photograph.
 
 ### 6.1 Identifier scopes and browser keys
 
@@ -382,11 +429,14 @@ Generation stops before replacing outputs unless all rules pass:
 - every shot references at least one known wall, opening, or proxy;
 - every aim point is finite, lies inside or on the floor polygon, and is at least
   `0.50 m` from its station point;
-- every framing point is finite, belongs to one declared target geometry within
-  a `0.01 m` tolerance, and has line of sight from the station inside the room;
+- every 3D framing point is finite, belongs to one declared target geometry
+  within a `0.01 m` tolerance, and has horizontal line of sight from the station
+  inside the room;
 - every pitch is one of the three supported values;
 - every numeric pitch is finite, agrees with its category, and is within the
   reviewed camera guidance range;
+- every scale-anchor measurement exists, targets the declared object, is
+  positive, and has `exact_override` provenance;
 - every room wall appears exactly once in `wall_review`;
 - every room opening appears exactly once under its actual parent wall;
 - `bath-door-south` remains on `wall-02`, while `wall-03` remains opening-free;
@@ -402,6 +452,8 @@ The following are errors:
   stations whose baseline is at least `0.50 m`;
 - the angular span of a shot's framing points exceeds the usable horizontal
   field of view after its margins;
+- framing points that explicitly require a full vertical extent exceed the
+  usable vertical field of view at the shot's pitch and camera height;
 - a referenced target is geometrically behind the shot bearing rather than
   inside its field-of-view cone.
 
@@ -413,18 +465,32 @@ be calibrated by the first real Xiaomi batch:
   span of at least `0.50 m` inside both view cones;
 - a station is closer than `0.30 m` to a wall or movable proxy;
 - the first boundary hit is closer than `1.0 m` to the station;
+- a same-station up/down shot overlaps every compatible level shot by less than
+  30% of the smaller vertical angular interval;
 - vertical ray/FOV analysis using room height, camera height, pitch, and vertical
-  FOV finds no planned coverage of a required floor/ceiling seam;
-- any wall has no primary coverage target in a mode. `wall-03` may remain a
-  warning in `lite-24`, but it cannot disappear silently from the report.
+  FOV finds no planned coverage of a required floor-wall seam. Every structural
+  wall's floor seam is required; ceiling seams are advisory because the room
+  height is already measured;
+- a wall is a primary target from fewer than two stations, or the maximum
+  baseline between those stations is below `0.50 m`. Under the reviewed
+  `lite-24` targets this intentionally reports `wall-03`; it cannot pass
+  silently merely because one station names it.
 
 The report stores per-shot bearings, first-wall intersections, angular target
 spans, visible target IDs, adjacent-station shared spans, vertical extents, and
 all warning/error codes. The HTML embeds a toggleable diagnostic FOV layer over
 the floor plan; this satisfies the coverage-map requirement without creating a
 fourth generated file. Warnings remain visible in the mode-selection screen and
-must be acknowledged for the pilot. After measured FOV and one completed trial,
-the reviewed thresholds may be promoted to errors.
+report, but the field operator does not make a geometry-release decision. A
+plan author records reviewed warning codes, reviewer, and timestamp in a
+`coverage_review` record before publishing the route. During this pilot the plan
+author and operator may be the same person. After measured FOV and one completed
+trial, the reviewed thresholds may be promoted to errors.
+
+A draft build may emit unreviewed warnings so they can be inspected. A
+publishable build requires `coverage_review` to match the current mode-plan hash
+and exact warning-code set; changing geometry, optics, or warnings makes the
+review stale without making exploratory generation impossible.
 
 The general domain validator allows additional future fixed-count modes. The
 project fixture tests, rather than hard-coded library branches, lock the two
@@ -440,11 +506,12 @@ its completed/required count and offers `Resume`. Starting one mode does not
 alter the other.
 
 The supported pilot entry path is the same Xiaomi phone used for capture,
-running current Chrome for Android and loading the page from one stable HTTP(S)
-URL. The URL may be served from the development Mac on the same local network
-during the pilot; permanent hosting remains outside this change. Direct
-`file://`/`content://`, in-app browsers, Xiaomi Browser, and message-app WebViews
-show a warning that persistence and download are unverified.
+running current Chrome for Android and loading the page from one stable URL. A
+static HTTPS origin is preferred because its origin survives Mac sleep/address
+changes and enables the modern clipboard API. The development Mac may serve a
+LAN HTTP URL under the §10 runtime constraints. Direct `file://`/`content://`,
+in-app browsers, Xiaomi Browser, and message-app WebViews show a warning that
+persistence and download are unverified.
 
 If no saved state exists, the recommended default is `standard-48`; the user
 must still make the selection explicitly. The card may carry a `Recommended`
@@ -459,10 +526,11 @@ instead of the mode chooser. It does not restore physical station confirmation.
 Before the first station, the inherited Xiaomi checklist is mandatory: 1× 23 mm
 main camera, landscape 4:3 JPG, one unchanged Leica style, watermark/filters/
 AI-scene/HDR/flash/digital zoom/Dynamic Shot off, stable room lights and
-curtains, and no moving screens or people. Each movable door is put in one fixed
-state—preferably closed unless an open doorway is required—and is not moved
-during the selected route. The guide records acknowledgement but cannot verify
-camera settings.
+curtains, and no moving screens or people. Both the entry and bathroom door are
+closed before either current route starts and remain closed for the entire
+route. If access or safety requires changing a door state, finish/restart under
+a new capture ID rather than mixing states. The guide records acknowledgement
+but cannot verify camera settings.
 
 ### 8.2 Map-first field screen
 
@@ -490,7 +558,10 @@ overrides every other visual state. Within that pass, a non-current station is
 shots and at least one skipped shot, `in progress` when it mixes resolved and
 pending shots, and `upcoming` when every shot remains pending. A secondary ring
 and accessible label expose whole-mode state using the same rules. A station
-with no shots in a future mode is not rendered as selectable.
+with no shots anywhere in a future mode is not rendered as selectable. A station
+that belongs to the mode but has no task in the current pass uses a neutral
+`not in this pass` fill; its outer mode ring remains active and the station
+remains selectable for review.
 
 Because tightly spaced SVG markers may overlap at phone width, the map is not
 the only navigation control. A native-button station list below it exposes the
@@ -503,9 +574,9 @@ The guide says `Go to station N` and describes nearby landmarks. The user taps
 enabled. This is a manual confirmation, not automatic detection. Confirmation
 is held for the current in-memory station visit, including consecutive groups at
 the same station. Selecting a different station or reloading requires
-confirmation again. The confirmation action is exported as a time-boundary
-event while being explicitly labeled operator input, not evidence that the phone
-was physically at the station.
+confirmation again. The confirmation action is exported as an audit-marker
+event while being explicitly labeled operator input, not an intake interval
+boundary or evidence that the phone was physically at the station.
 
 The current page does not expose a `position_provider` field and does not request
 camera, geolocation, motion, compass, or XR permission. A future automatic
@@ -534,7 +605,13 @@ travel between stations as photographic progress.
 action. It appends an inverse event and reopens the affected group. Individual
 reopen/undo, note editing, and restoring a skipped shot are allowed without
 station confirmation; only a transition from pending to completed and the group
-completion action require current-station confirmation.
+completion action require current-station confirmation. A compensation applied
+by undo may restore an earlier completed state without confirmation because it
+does not assert that a new photograph was taken.
+
+Controls that would not change derived state are disabled. Repeated activation,
+completing a group with no pending shots, reopening an already pending shot, or
+skipping an already skipped shot appends no event.
 
 ### 8.5 Skip, notes, and out-of-order work
 
@@ -588,10 +665,13 @@ room_id + capture_id + mode_id + mode_plan_sha256
 The mode-specific hash covers a canonical bundle containing the capture schema,
 room/capture identity, device profile, wall review, scale-anchor catalog,
 selected complete mode, every station referenced by that mode, and the source
-room-model SHA-256. It
-prevents changed instructions, camera settings, geometry, shots, aim points, or
-station coordinates from silently reusing stale completion state, while avoiding
-a reset when only another mode is edited.
+room-model SHA-256. It prevents changed instructions, camera settings, geometry,
+shots, aim points, or station coordinates from silently reusing stale completion
+state, while avoiding a reset when only another mode is edited.
+
+`coverage_review` is excluded from the mode-plan hash to avoid a self-referential
+digest; instead it stores and is validated against that hash. Updating only the
+reviewer or review timestamp does not invalidate field progress.
 
 Saved state contains:
 
@@ -606,20 +686,31 @@ Every event contains:
 
 - `seq`;
 - `t_ms`, UTC Unix epoch milliseconds;
-- `tz_offset_min`, minutes east of UTC at the time of the action;
+- `tz_offset_min`, minutes east of UTC at the time of the action, implemented as
+  the negation of JavaScript `Date.getTimezoneOffset()`;
 - `type`;
 - `group_id`, `station_id`, and ordered `shot_ids` where applicable;
 - `method`: `shot`, `group`, or `manual_station` where applicable;
 - a note payload only for note/skip events.
 
-Event types cover station confirmation, shot completion, group completion, skip,
-reopen, note change, and undo. `group_complete` stores all affected pending shot
-IDs in displayed order and `method: group`; it does not synthesize individual
-shutter events. Undo appends an event referring to the prior reversible `seq`
-rather than deleting history. It targets the latest state-changing event not
-already compensated; station-confirmation is not an undo target, and cursor
-changes are not events. Current per-shot status and note values are derived by
-replay, with invalid references rejecting the event that contains them.
+Event types cover capture start, station confirmation, shot completion, group
+completion, skip, reopen, note change, and undo. `capture_started` is appended
+after the preflight checklist when the field route opens. `group_complete`
+stores all affected pending shot IDs in displayed order and `method: group`; it
+does not synthesize individual shutter events.
+
+Undo is a strict backward stack, not a toggle or redo. An undo event is never an
+undo candidate. Each new undo references the latest earlier state-changing
+event that is not itself an undo and has not already been compensated; two
+successive undo actions therefore roll back two distinct actions. Station
+confirmation is not an undo target, cursor changes are not events, and
+compensation bypasses station-confirmation gating. Current per-shot status and
+note values are derived by replay.
+
+Replay accepts only the longest valid event prefix. At the first invalid event
+or reference it stops, warns, and derives state from the valid prefix; it never
+skips forward into later events whose dependencies may be broken. The complete
+raw event array remains untouched and exportable for diagnosis.
 
 The controller writes after every event and cursor change. Refresh replays the
 event log, validates the last group, derives its current shot, and reconstructs
@@ -654,15 +745,17 @@ exception that crashes the guide.
 
 `Export progress` is available at any time and downloads a canonically ordered
 JSON document for the currently selected mode. It contains identity/hash fields,
-the full ordered event log, derived completed/skipped/pending shot IDs, warning
-acknowledgements, and the first/last event time. Its values include real action
-timestamps, so separate capture sessions are not expected to produce
-byte-identical exports. It never includes photos or persistent browser/device
-identifiers.
+the full ordered event log, derived completed/skipped/pending shot IDs, the
+build-time coverage-review digest, and the first/last event time. Its values
+include real action timestamps, so separate capture sessions are not expected
+to produce byte-identical exports. It never includes photos or persistent
+browser/device identifiers.
 
 If Blob download fails, the page displays the exact export JSON in a read-only
-text area with `Select all` and `Copy` controls. Clipboard failure leaves manual
-selection available.
+text area with `Select all` and `Copy` controls. `Copy` first uses the modern
+Clipboard API in a secure context, then selects the text and tries
+`document.execCommand('copy')` on LAN HTTP. If both fail, the selection remains
+active for manual copying.
 
 `Reset current mode` requires confirmation and removes only the selected mode's
 current-hash state. It does not reset the other mode.
@@ -672,17 +765,21 @@ Progress import and cross-device sync remain deferred.
 ### 9.3 Manual photo-intake contract
 
 - The supported pilot runs the guide and Xiaomi native camera on the same phone.
-- `station_confirmed` and the following resolution events define operator-action
-  windows, not measured shutter windows or proof of station location. For
-  consecutive groups in one confirmed station visit, the prior group's last
-  resolution event becomes the next group's lower time boundary.
+- Matching uses contiguous operator-action intervals: the first begins at
+  `capture_started`; each completion/group-completion/skip resolution closes the
+  current interval and becomes the next interval's lower boundary.
+- `station_confirmed` events are auxiliary markers inside those intervals, not
+  interval boundaries, measured shutter times, or proof of station location.
+  A photograph taken after arriving but before tapping confirmation therefore
+  does not fall into an artificial gap.
 - For `method: shot`, action order is evidence of reported shot order, still not
   direct shutter observation.
 - For `method: group`, ordered `shot_ids` are explicitly marked
   `within_group_order: inferred`; downstream matching must not present them as
   observed.
-- EXIF `DateTimeOriginal` is interpreted with `OffsetTimeOriginal` when present;
-  otherwise the event's `tz_offset_min` is an explicit matching assumption.
+- EXIF `DateTimeOriginal` is combined with `SubSecTimeOriginal` when present and
+  interpreted with `OffsetTimeOriginal` when present; otherwise the event's
+  `tz_offset_min` is an explicit matching assumption.
 - Reopened/undone shots, overlapping time windows, missing EXIF, unexpected file
   counts, and multiple plausible photos require manual confirmation.
 - Images outside every plausible action window remain `unassigned` but are
@@ -700,16 +797,23 @@ astra-house build-capture-pack \
   --output build/dorm-right-bedroom/capture-pack
 ```
 
-For the dorm pilot, serve that directory from the Mac on the same trusted local
-network, then open its stable LAN URL in Chrome on the Xiaomi phone:
+The preferred field delivery is a stable static HTTPS URL. Hosting credentials,
+provider choice, and publication remain outside this generator change. For
+development or the dorm pilot, the Mac may instead serve the directory on one
+trusted LAN origin:
 
 ```text
-python3 -m http.server 8765 \
+caffeinate -i python3 -m http.server 8765 \
   --directory build/dorm-right-bedroom/capture-pack
 ```
 
-The exact Mac LAN address is deployment information, not embedded in the pack.
-This serving step adds no generated artifact or runtime package dependency.
+The Mac stays connected to power with its lid open; the command, port, hostname
+or reserved IP, and network remain unchanged for the complete capture. Before
+starting, the phone must open and reload the exact URL successfully. If campus
+Wi-Fi client isolation blocks phone-to-Mac traffic, use the stable HTTPS path
+rather than changing LAN origins mid-capture. A reclaimed tab needs the same
+origin to reload, so the LAN fallback is not described as independent of the
+Mac. This serving step adds no generated artifact or runtime package dependency.
 
 It still produces exactly three deterministic files:
 
@@ -732,6 +836,12 @@ The report changes from a single `shot_count` to:
 The intake document does not imply that both routes are captured in one batch.
 The exported progress JSON identifies the selected mode for later intake and
 EXIF matching.
+
+Before comparison, hashing, or serialization, derived geometry is canonically
+quantized: lengths/coordinates to `1e-4 m` and angles to `0.01°`. Threshold
+decisions use the same quantized metrics. Source measurements retain their
+reviewed precision. This prevents insignificant platform `libm` differences in
+ray/FOV calculations from changing report bytes or warning decisions.
 
 ## 11. Rendering and Component Boundaries
 
@@ -786,13 +896,15 @@ static checkboxes and omits controls whose behavior cannot exist on paper.
 
 - Invalid capture data stops generation before replacing any artifact.
 - Missing or hash-mismatched floor-plan data stops generation.
-- Unknown current group or shot IDs in saved state cause the state to be ignored
-  at event granularity with a warning; valid earlier events remain available.
+- An invalid event or unknown group/shot reference stops replay at that event;
+  the longest valid prefix supplies state, while the untouched raw log remains
+  exportable with a warning.
 - An invalid cursor is recomputed from the event-derived statuses.
 - A mode-plan hash mismatch starts a fresh state under a new key and leaves the
   previous key untouched and exportable.
 - Storage write failure switches to memory and reports the persistence loss.
-- Repeated button activation is idempotent; it cannot increment counts twice.
+- Repeated/no-op button activation is idempotent, cannot increment counts twice,
+  and appends no event.
 - Direct station selection changes only the cursor, never completion state.
 - Skipped shots prevent a false `complete` result.
 - Export failure is surfaced as an actionable message and leaves progress intact.
@@ -816,8 +928,14 @@ static checkboxes and omits controls whose behavior cannot exist on paper.
   counts, unknown targets, invalid pitch, invalid aim points, and stations outside
   the concave floor polygon.
 - Test concave-polygon segment containment, first-wall ray intersections,
-  FOV/multi-target angular spans, anchor baselines, station clearances, adjacent
-  shared spans, and vertical coverage warnings.
+  horizontal/vertical FOV framing spans, anchor measurements/baselines, station
+  clearances, adjacent shared spans, two-station wall coverage, required floor
+  seams, and 30% vertical-overlap warnings.
+- Assert the unchanged standard targets satisfy every required anchor from at
+  least two stations, while `lite-24` reports the reviewed single-station
+  `wall-03` warning.
+- Allow draft warning output but require an exact current hash/code match before
+  report status becomes publishable; stale coverage review remains visible.
 - Preserve the regression that `bath-door-south` belongs to `wall-02` and
   `wall-03` contains no opening.
 - Prove a third valid fixed-count mode can be parsed without adding a renderer
@@ -831,6 +949,8 @@ static checkboxes and omits controls whose behavior cannot exist on paper.
 - Assert mode-plan hashes and counts appear in the report.
 - Assert the embedded map contains eight stations, per-shot aim geometry, FOV
   cones, and the same diagnostic codes as the report.
+- Assert derived coordinates and angles use canonical quantization and match
+  fixed expected report bytes in the supported macOS and Linux CI environments.
 - Assert no external resource URL or network-dependent element is emitted.
 - Preserve fail-before-replacement behavior for invalid inputs.
 
@@ -847,6 +967,9 @@ opens `file://` only to verify honest fallback behavior:
 - complete a group and verify automatic next-group selection;
 - verify forward-then-wrap traversal, completed-station reopening, global undo,
   and undo without station confirmation;
+- verify two consecutive undo actions compensate two distinct events, undo
+  events are never undo targets, and compensation may restore completed state
+  without station confirmation;
 - skip with a note and verify the route is not reported complete;
 - click an out-of-order station and verify no shot status changes;
 - reload and verify persistence;
@@ -854,10 +977,17 @@ opens `file://` only to verify honest fallback behavior:
 - reset one mode and verify the other remains unchanged;
 - intercept and validate the progress JSON download;
 - force Blob/clipboard failure and verify the read-only manual-copy fallback;
+- verify secure-context Clipboard API, LAN-HTTP `execCommand` fallback, and
+  final manual selection paths;
 - inject unavailable, corrupt, and failing storage and verify the warning and
   in-memory fallback, corrupt-value quarantine, and invalid-cursor recovery;
 - simulate a stale mode hash and verify old progress is discoverable/exportable
   but never applied;
+- inject an invalid middle event and verify replay stops at the longest valid
+  prefix while raw export retains the suffix;
+- assert no-op controls append no event and `capture_started` is emitted once;
+- assert Pacific daylight time records `tz_offset_min: -420`;
+- verify `not in this pass` styling while the station remains selectable;
 - disable JavaScript and verify both static checklists remain readable;
 - inject an initialization exception and verify static content stays visible;
 - assert `scrollWidth == clientWidth` at desktop, 390 × 844, and 320-pixel-wide
@@ -868,18 +998,23 @@ opens `file://` only to verify honest fallback behavior:
 - render a third-mode fixture and run its full select/confirm/complete/export
   flow, rather than proving parsing alone;
 - use screenshot baselines for map labels, status treatments, direction/FOV
-  geometry, current task, and completion handoff.
+  geometry, current task, and completion handoff in a pinned browser/container
+  image with an explicit system-font stack.
 
-No camera, motion-sensor, WebXR, or cloud permission is needed. After the initial
-HTTP(S) document load, the page makes no network request.
+No camera, motion-sensor, WebXR, or cloud permission is needed. While the loaded
+document remains alive it makes no further network request; a browser reload
+still requires the same origin to be reachable.
 
 ### 14.4 Required real-device pilot matrix
 
-Desktop Playwright cannot validate Android `content://`, tab reclamation, or
-vendor WebViews. Before field release, the Xiaomi test records pass/fail evidence
-for current Chrome over the supported HTTP(S) URL: first open, refresh, switch to
-the native camera and return, simulated tab kill/reload, independent mode state,
-download, copy fallback, and completion recovery. Direct file, Xiaomi Browser,
+Desktop Playwright cannot validate Android `content://`, tab reclamation, LAN
+client isolation, or vendor WebViews. Before field release, the Xiaomi test
+records pass/fail evidence for current Chrome over stable HTTPS and the Mac-LAN
+fallback: first open, refresh, switch to the native camera and return, simulated
+tab kill/reload, independent mode state, download, copy fallback, server
+unreachable during reload, and recovery through the same origin. The tab-kill
+report records the exact Android developer/ADB method and confirms from server
+logs whether Chrome requested the document again. Direct file, Xiaomi Browser,
 and WeChat are tested only to verify that they warn or degrade honestly; they are
 not promoted to supported paths by a desktop test.
 
@@ -905,7 +1040,9 @@ not promoted to supported paths by a desktop test.
 ## 16. Resource Budget
 
 - Python standard library only at runtime.
-- No frontend framework, build tool, database, hosting service, or cloud job.
+- The generator adds no frontend framework, build tool, database, hosting
+  service, or cloud job; a separately supplied static HTTPS origin may serve the
+  three generated files.
 - One self-contained operator page and two small JSON handoff files.
 - Progress contains metadata only. Its append-only log grows with operator
   actions, not photograph bytes, and remains small at the planned route sizes.
@@ -916,9 +1053,10 @@ not promoted to supported paths by a desktop test.
 - [ ] `lite-24` contains exactly 24 reviewed images.
 - [ ] `standard-48` preserves exactly 48 reviewed images.
 - [ ] Both modes use the same eight valid station locations.
-- [ ] Every shot has a validated target, pitch, instruction, and aim point.
+- [ ] Every shot has validated targets, pitch, instruction, aim point, and 3D
+      framing points.
 - [ ] Every required scale anchor is targeted from two stations at least 0.5 m
-      apart.
+      apart and references exact measurements for the same object.
 - [ ] Geometry preflight reports line of sight, FOV span, neighboring overlap,
       vertical coverage, and uncovered walls before field use.
 - [ ] The map updates pass/mode station state, ray, and FOV cone after each
@@ -926,11 +1064,13 @@ not promoted to supported paths by a desktop test.
 - [ ] The current group can be completed, undone, skipped, or visited out of
       order without corrupting totals.
 - [ ] The event log distinguishes individual and group resolution, records UTC
-      plus timezone offset, and preserves undo history.
+      plus timezone offset, preserves undo history, and rolls consecutive undo
+      actions backward rather than toggling.
 - [ ] Mode progress is independent and survives refresh when storage works.
 - [ ] Storage failure is visible and non-blocking.
-- [ ] A supported Chrome/HTTP(S) reload resumes the active mode and group without
-      pretending station confirmation survived.
+- [ ] A supported Chrome/HTTP(S) reload resumes the active mode and group when
+      the same origin is reachable, without pretending station confirmation
+      survived; unreachable/recovery behavior is tested explicitly.
 - [ ] Exported progress identifies the exact room, batch, mode, plan hash, and
       missing shots.
 - [ ] Download failure exposes the same JSON for manual copy.
