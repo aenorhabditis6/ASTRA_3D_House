@@ -47,6 +47,31 @@ Blender, and finally checks that the Blend, GLB, and schematic PNG all exist. A
 validation failure returns exit code 2; a failed Blender process returns exit
 code 3.
 
+## Build the Xiaomi diagnostic capture guide
+
+This step does not require Blender. It turns the reviewed room model into a
+self-contained shooting guide for the first 48-photo reconstruction test:
+
+```bash
+PYTHONPATH=src python3 -m astra_house.cli build-capture-pack \
+  --project projects/dorm-right-bedroom \
+  --output build/dorm-right-bedroom/capture-pack
+```
+
+Open `build/dorm-right-bedroom/capture-pack/index.html` on a phone or computer.
+The guide contains four ordered passes: 24 structure-loop views, 8 high/low
+views, 8 corner/occlusion views, and 8 opening/scale-anchor views. The same
+command also writes an empty `capture-intake.json` for matching original files
+to shot IDs and a `capture-pack-report.json` containing validation status,
+counts, and source hashes.
+
+Use one Xiaomi 17 Ultra for the complete batch: landscape 4:3 JPG stills from
+the 1× Leica 23 mm main camera only. Do not mix iPhone images into this capture
+ID, switch lenses, use 50 MP/RAW, or rename files on the phone. ARCore is
+optional and currently unverified for the exact Xiaomi 17 Ultra model; the RGB
+route and later camera-pose recovery do not depend on it. The phone's laser
+focus sensor is not LiDAR.
+
 ## Artifacts
 
 - `projects/dorm-right-bedroom/room.json` — versioned meter/Z-up logical model,
@@ -65,6 +90,12 @@ code 3.
 - `build/dorm-right-bedroom/schematic-axonometric.png` — `1600 × 1200` colored
   orthographic cutaway rendered from the same geometry, with blue bed, orange
   work area, yellow storage, and cyan windows.
+- `build/dorm-right-bedroom/capture-pack/index.html` — offline, phone-readable
+  48-shot route map, settings card, structural wall review, and field checklist.
+- `build/dorm-right-bedroom/capture-pack/capture-intake.json` — 48 empty intake
+  rows for original filenames, hashes, EXIF times, dimensions, and shot IDs.
+- `build/dorm-right-bedroom/capture-pack/capture-pack-report.json` — validated
+  pass counts and hashes for the capture guide inputs.
 
 `build/` is reproducible and intentionally ignored by Git.
 
