@@ -128,8 +128,11 @@ class CapturePlan:
             raise ValidationError(
                 f"capture room_id {self.room_id!r} does not match {room.room_id!r}"
             )
-        if self.expected_image_count <= 0:
-            raise ValidationError("expected_image_count must be positive")
+        if self.expected_image_count != 48:
+            raise ValidationError(
+                "diagnostic capture plan must contain exactly 48 shots, "
+                f"not {self.expected_image_count}"
+            )
 
         for field_name, value in vars(self.device_profile).items():
             _require_text(f"device_profile.{field_name}", value)

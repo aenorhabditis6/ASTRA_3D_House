@@ -118,6 +118,13 @@ class CapturePlanTest(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "expected 48.*found 47"):
             CapturePlan.from_dict(short).validate(load_room(ROOM))
 
+    def test_rejects_non_diagnostic_total_even_when_declared_matches(self) -> None:
+        data = valid_capture_data()
+        data["passes"][0]["shots"].pop()
+        data["expected_image_count"] = 47
+        with self.assertRaisesRegex(ValidationError, "exactly 48"):
+            CapturePlan.from_dict(data).validate(load_room(ROOM))
+
 
 if __name__ == "__main__":
     unittest.main()
