@@ -1,5 +1,13 @@
 # ASTRA 3D House
 
+Online capture-guide preview: [中文](https://aenorhabditis6.github.io/ASTRA_3D_House/?lang=zh)
+· [English](https://aenorhabditis6.github.io/ASTRA_3D_House/?lang=en).
+This is the unapproved 32/64-photo draft candidate, not a field-release approval.
+GitHub Pages serves the generated artifacts from `codex/github-pages`; source
+development remains on `codex/logical-room-mvp`. Localhost progress does not
+transfer to the HTTPS origin: export any existing local progress before changing
+addresses, and keep using one origin throughout an actual capture.
+
 ASTRA converts a reviewed 2D room trace into a deterministic, editable Blender
 logic model. The first implemented project is the **right-side bedroom** in the
 supplied dorm floor plan. It deliberately builds structure and semantic proxy
