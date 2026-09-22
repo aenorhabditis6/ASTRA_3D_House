@@ -4,3 +4,7 @@ __pycache__/
 build/
 .DS_Store
 .superpowers/
+node_modules/
+output/playwright/
+playwright-report/
+test-results/

@@ -1,0 +1,14 @@
+{
+  "name": "astra-house-browser-verification",
+  "private": true,
+  "scripts": {
+    "build:capture-fixtures": "PYTHONPATH=src python3 tests/browser/build_capture_fixtures.py",
+    "build:capture-candidate": "PYTHONPATH=src python3 scripts/build_capture_candidate.py",
+    "test:capture-events": "node --test tests/test_capture_events.cjs",
+    "test:capture-browser": "npm run build:capture-fixtures && npm run build:capture-candidate && playwright test",
+    "update:capture-snapshots": "npm run build:capture-fixtures && npm run build:capture-candidate && playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

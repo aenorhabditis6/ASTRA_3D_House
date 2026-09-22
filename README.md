@@ -107,6 +107,25 @@ pending; no coverage-review approval is recorded.
 
 ## Interactive workflow preview and field delivery
 
+A separate **unapproved 32/64-photo candidate** now passes the production
+geometry gate without changing the original 24/48 source, eight stations,
+optics, or measured dimensions:
+
+```bash
+npm run build:capture-candidate
+python3 -m http.server 8767 --directory build/dorm-right-bedroom/capture-candidate
+```
+
+The candidate keeps full measured anchor extents from two separated stations,
+adds local wall patches and floor seams, and adds ceiling/detail views in the
+64-image mode. Proposed JSON is at
+`build/dorm-right-bedroom/capture-plan-candidate.json`; the adjacent
+`capture-candidate/` directory contains exactly the three production-format
+artifacts. Both modes remain `draft` with unreviewed warnings (13/27 at this
+revision). This is an explicit proposal with a new capture ID, not approval to
+replace the frozen routes. Geometry checks do not prove texture quality,
+furniture occlusion, complete appearance coverage or reconstruction success.
+
 The browser fixtures provide a **simulation only**, visibly marked blocked,
 so the interaction can be reviewed while the source route is being corrected:
 
