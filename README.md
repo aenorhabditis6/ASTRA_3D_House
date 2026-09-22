@@ -164,6 +164,13 @@ images. Export progress regularly and before resetting a mode. Storage failure
 keeps the workflow in memory and displays a warning. Older route hashes remain
 discoverable for raw export; invalid event suffixes are retained for diagnosis.
 
+The header's **语言 / Language** selector switches between English and Chinese.
+Chinese covers operator controls, candidate-route instructions, camera setup,
+station guidance and handoff. `?lang=zh` opens a Chinese preview directly.
+Language is a separate presentation preference: switching does not change the
+plan hash, events, station confirmation or unsaved note text. Technical IDs stay
+stable for matching originals and exported records.
+
 `capture_started` opens the first photo-intake interval. Each completion,
 group-completion or skip closes an interval and begins the next;
 `station_confirmed` is only an auxiliary marker. Group shot order is inferred.

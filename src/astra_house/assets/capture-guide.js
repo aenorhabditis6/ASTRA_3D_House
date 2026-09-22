@@ -259,7 +259,7 @@
       document.querySelectorAll("[data-mode-id]").forEach(node => { if (node.tagName === "BUTTON") node.addEventListener("click", () => this.chooseMode(node.dataset.modeId)); });
       const bind = (id, action) => document.getElementById(id)?.addEventListener("click", action);
       bind("undo-action", () => this.undoLastAction()); bind("export-progress", () => this.exportProgress());
-      bind("reset-mode", () => { if (this.mode && window.confirm("Reset current mode? Export first if you need this history.")) this.resetCurrentMode(); });
+      bind("reset-mode", () => { const text = "Reset current mode? Export first if you need this history."; if (this.mode && window.confirm(window.AstraI18n?.text(text) || text)) this.resetCurrentMode(); });
       bind("change-mode", () => this.showChooser());
       bind("toggle-diagnostics", () => { const enabled = document.documentElement.classList.toggle("show-diagnostics"); document.getElementById("toggle-diagnostics").setAttribute("aria-pressed", String(enabled)); });
       bind("select-export", () => { const area = document.getElementById("export-text"); area.focus(); area.select(); });

@@ -466,3 +466,46 @@ for (const [modeId, count] of [["candidate-lite-32",32], ["candidate-standard-64
     expect(exported.coverage_review_digest).toBeNull();
   });
 }
+
+test("Chinese option preserves events, hash, confirmation and unsaved notes", async ({ page }) => {
+  await startMode(page, 'candidate-lite-32', 'http://127.0.0.1:8767/index.html');
+  await confirmCurrent(page);
+  const before = await readExport(page);
+  const note = page.locator('#task-view textarea').first();
+  await note.fill('Save note <img src=x> 我的临时备注');
+  await page.getByLabel('语言 / Language').selectOption('zh');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+  await expect(page.getByRole('heading', {name:'房间拍摄指引'})).toBeVisible();
+  await expect(page.getByRole('button', {name:/已手动确认在 \d+ 号站位/})).toBeDisabled();
+  await expect(note).toHaveValue('Save note <img src=x> 我的临时备注');
+  await expect(page.locator('#task-view .shot-card p').first()).toContainText('墙');
+  expect(await readExport(page)).toEqual(before);
+  await page.locator('#task-view input[data-shot-id]').first().click();
+  await expect(page.getByTestId('complete-count')).toHaveText('1');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+  await expect(page.getByTestId('complete-count')).toHaveText('1');
+  await expect(page.getByRole('button', {name:/我已到达 \d+ 号站位/})).toBeEnabled();
+  await page.getByLabel('语言 / Language').selectOption('en');
+  await expect(page.getByRole('heading', {name:'Room capture guide'})).toBeVisible();
+  await expect(page.locator('#task-view .shot-card p').first()).toContainText('Frame');
+  const after = await readExport(page);
+  expect(after.mode_plan_sha256).toBe(before.mode_plan_sha256);
+  expect(after.events.length).toBe(before.events.length + 1);
+});
+
+test("Chinese preflight and mobile layout work without storage", async ({ page }) => {
+  await page.setViewportSize({width:320,height:800});
+  await page.addInitScript(() => Object.defineProperty(window, 'localStorage', {get(){ throw new Error('disabled'); }}));
+  await page.goto('http://127.0.0.1:8767/index.html?lang=zh');
+  await page.locator('button[data-mode-id="candidate-lite-32"]').click();
+  await page.getByLabel('我已检查小米相机设置').check();
+  await page.getByRole('button',{name:'开始拍摄',exact:true}).click();
+  await expect(page.locator('#storage-warning')).toContainText('无法保存进度');
+  await page.getByRole('button',{name:/我已到达 \d+ 号站位/}).click();
+  await expect(page.locator('#task-view')).toHaveScreenshot('candidate-chinese-task-320.png');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth === document.documentElement.clientWidth)).toBe(true);
+  await page.getByLabel('语言 / Language').selectOption('en');
+  await expect(page).toHaveURL(/lang=en/);
+  await expect(page.getByRole('button',{name:'All photos taken — complete group'})).toBeEnabled();
+});

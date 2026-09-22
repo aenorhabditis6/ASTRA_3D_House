@@ -120,12 +120,12 @@ def render_capture_html(
     wall_rows = ''.join(f'<tr><th scope="row">{_text(w.wall_id)}</th><td>{_text(w.role)}</td><td>{_text(", ".join(w.opening_ids) or "none")}</td></tr>' for w in plan.wall_review)
     stations = ''.join(f'<button type="button" data-station-id="{_text(s.id)}">{s.number} · {_text(s.id)} · {_text(s.label)}</button>' for s in plan.stations)
     try:
-        javascript = _asset_text('capture-guide.js')
+        javascript = _asset_text('capture-i18n.js') + '\n' + _asset_text('capture-guide.js')
     except FileNotFoundError:
         javascript = ''  # A source checkout can still render the complete static guide.
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{_text(plan.room_id)} · Capture guide</title><style>{_asset_text('capture-guide.css')}</style></head>
-<body><main><header><p class="eyebrow">ASTRA · Field capture pilot</p><h1>Room capture guide</h1><p>{_text(plan.room_id)} · Capture ID: <code>{_text(plan.capture_id)}</code></p><p class="notice">Release status: {_text(report['status'])}. Pilot: real Xiaomi device verification is still required.</p></header>
+<body><main><header><p class="eyebrow">ASTRA · Field capture pilot</p><h1>Room capture guide</h1><label class="language-picker interactive-only" data-no-translate>语言 / Language <select id="guide-language" aria-label="语言 / Language"><option value="en">English</option><option value="zh">中文</option></select></label><p>{_text(plan.room_id)} · Capture ID: <code>{_text(plan.capture_id)}</code></p><p class="notice">Release status: {_text(report['status'])}. Pilot: real Xiaomi device verification is still required.</p></header>
 <p id="enhancement-warning" role="status"></p><noscript><p>JavaScript is disabled. Use the complete static guide and manual checkboxes below; export and saved progress are unavailable.</p></noscript>
 <section id="interactive-guide" class="interactive-guide"><h2>Choose a route</h2><div id="mode-chooser" class="layout-grid">{''.join(summaries)}</div>
 <div id="workflow" hidden><nav class="actions" aria-label="Capture actions"><button id="change-mode" type="button">Change mode</button><button id="export-progress" type="button">Export progress</button><button id="undo-action" type="button">Undo last action</button><button id="reset-mode" type="button">Reset this mode</button></nav><p id="progress-status" aria-live="polite"></p><div id="task-view"></div></div>
