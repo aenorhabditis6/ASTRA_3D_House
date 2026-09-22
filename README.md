@@ -90,14 +90,72 @@ focus sensor is not LiDAR.
 - `build/dorm-right-bedroom/schematic-axonometric.png` — `1600 × 1200` colored
   orthographic cutaway rendered from the same geometry, with blue bed, orange
   work area, yellow storage, and cyan windows.
-- `build/dorm-right-bedroom/capture-pack/index.html` — offline, phone-readable
-  48-shot route map, settings card, structural wall review, and field checklist.
-- `build/dorm-right-bedroom/capture-pack/capture-intake.json` — 48 empty intake
-  rows for original filenames, hashes, EXIF times, dimensions, and shot IDs.
-- `build/dorm-right-bedroom/capture-pack/capture-pack-report.json` — validated
-  pass counts and hashes for the capture guide inputs.
+- On a geometry-valid route, `build/dorm-right-bedroom/capture-pack/index.html`
+  is a self-contained interactive map with independent capture modes and a
+  complete printable fallback. Intake/report JSON contain mode-specific rows,
+  input hashes, coverage diagnostics and review status.
+
+**Current route status: blocked by geometry preflight.** The frozen 24/48-shot
+source contains mutually incompatible target/station requirements under the
+60° usable field of view. For example, `L01-A` and `C04-A` require a minimum
+77.47° span between the north wall and entry door from station 1. The production
+build correctly fails before replacing existing outputs. Existing old build
+files are not evidence that the new route passed. Source route revision is
+pending; no coverage-review approval is recorded.
 
 `build/` is reproducible and intentionally ignored by Git.
+
+## Interactive workflow preview and field delivery
+
+The browser fixtures provide a **simulation only**, visibly marked blocked,
+so the interaction can be reviewed while the source route is being corrected:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run build:capture-fixtures
+python3 -m http.server 8765 --directory build/browser-simulation/capture-pack
+```
+
+See the fixture script's printed paths if the test output layout changes.
+The simulation renders the actual plan and failed diagnostics without calling
+the production package writer. It is not a capture-release artifact.
+
+After a corrected route passes preflight, use the unchanged production command:
+
+```bash
+PYTHONPATH=src python3 -m astra_house.cli build-capture-pack \
+  --project projects/dorm-right-bedroom \
+  --output build/dorm-right-bedroom/capture-pack
+caffeinate -i python3 -m http.server 8765 --directory build/dorm-right-bedroom/capture-pack
+```
+
+Prefer a stable HTTPS URL for field delivery. For Mac-LAN HTTP, keep the Mac
+powered with its lid open, and keep server, port, hostname/IP and network
+unchanged. Open and reload the exact phone URL before capture. Campus Wi-Fi
+client isolation may prevent LAN access; use stable HTTPS in that case. A loaded
+page needs no further network requests, but a reclaimed/reloaded tab still
+needs the same reachable origin. Do not change origins mid-capture.
+
+Select a mode, acknowledge the camera/closed-door checklist, then manually
+confirm each station visit. Mark each photo or group after using the native
+camera. Mode progress is independent; refresh resumes the route but requires
+fresh station confirmation. The guide does not detect indoor position or read
+images. Export progress regularly and before resetting a mode. Storage failure
+keeps the workflow in memory and displays a warning. Older route hashes remain
+discoverable for raw export; invalid event suffixes are retained for diagnosis.
+
+`capture_started` opens the first photo-intake interval. Each completion,
+group-completion or skip closes an interval and begins the next;
+`station_confirmed` is only an auxiliary marker. Group shot order is inferred.
+Match EXIF `DateTimeOriginal` with optional `SubSecTimeOriginal` and
+`OffsetTimeOriginal`; without the offset, event `tz_offset_min` is an explicit
+assumption. Reopened/undone shots and ambiguous timing need manual review.
+Out-of-window images remain unassigned and retained. Upload original JPGs,
+unrenamed and uncompressed, with the exported progress JSON; keep retakes.
+
+The [Xiaomi pilot matrix](docs/field-tests/xiaomi-capture-guide-pilot.md) remains
+unrun. Desktop tests establish software behavior, not Android field readiness.
 
 ## Verification
 
@@ -105,6 +163,8 @@ Run the standard-library suite:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
+node --test tests/test_capture_events.cjs
+npm run test:capture-browser
 ```
 
 Verify the generated Blender file and GLB independently:
