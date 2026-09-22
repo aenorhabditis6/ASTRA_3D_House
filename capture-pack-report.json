@@ -1,0 +1,3844 @@
+{
+  "capture_id": "dorm-right-bedroom-diagnostic-01-candidate-02",
+  "coverage": [
+    {
+      "adjacent_shared_spans_m": [
+        [
+          "S01",
+          "S02",
+          3.9479
+        ],
+        [
+          "S02",
+          "S03",
+          2.4596
+        ],
+        [
+          "S03",
+          "S04",
+          2.3714
+        ],
+        [
+          "S04",
+          "S05",
+          1.8333
+        ],
+        [
+          "S05",
+          "S06",
+          0.2515
+        ],
+        [
+          "S06",
+          "S07",
+          1.0852
+        ],
+        [
+          "S07",
+          "S08",
+          2.1316
+        ],
+        [
+          "S08",
+          "S01",
+          2.4199
+        ]
+      ],
+      "anchor_station_baselines_m": [
+        [
+          "window-west",
+          2,
+          2.3049
+        ],
+        [
+          "window-east",
+          2,
+          1.5207
+        ],
+        [
+          "entry-door",
+          2,
+          2.103
+        ],
+        [
+          "bath-door-south",
+          2,
+          1.1402
+        ],
+        [
+          "bed-full",
+          2,
+          0.5148
+        ],
+        [
+          "desk",
+          2,
+          1.7614
+        ],
+        [
+          "closet",
+          2,
+          2.3049
+        ]
+      ],
+      "ceiling_seam_spans_m": [
+        [
+          "wall-00",
+          1.2296
+        ],
+        [
+          "wall-01",
+          0.9525
+        ],
+        [
+          "wall-02",
+          0.6974
+        ],
+        [
+          "wall-03",
+          0.0
+        ],
+        [
+          "wall-04",
+          0.0
+        ],
+        [
+          "wall-05",
+          1.2103
+        ]
+      ],
+      "floor_seam_spans_m": [
+        [
+          "wall-00",
+          4.9381
+        ],
+        [
+          "wall-01",
+          4.2266
+        ],
+        [
+          "wall-02",
+          2.5667
+        ],
+        [
+          "wall-03",
+          1.2694
+        ],
+        [
+          "wall-04",
+          2.2623
+        ],
+        [
+          "wall-05",
+          2.9573
+        ]
+      ],
+      "issues": [
+        {
+          "code": "W_ADJACENT_SHARED_SPAN:S05-S06",
+          "message": "maximum shared structural span is 0.2515 m",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S05-S06"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CL-G1-S04",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-G1-S04"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CL-G2-S01",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-G2-S01"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CL-G2-S04",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-G2-S04"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CL-G2-S08",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-G2-S08"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CL-G3-S03",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-G3-S03"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CL-030",
+          "message": "first boundary ray is 0.9837 m",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "CL-030"
+        },
+        {
+          "code": "W_STATION_CLEARANCE:S02",
+          "message": "station clearance is 0.2806 m",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S02"
+        },
+        {
+          "code": "W_STATION_CLEARANCE:S05",
+          "message": "station clearance is 0.2438 m",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S05"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S03",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S03"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S06",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S06"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S07",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S07"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S08",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-lite-32",
+          "severity": "warning",
+          "subject_id": "S08"
+        }
+      ],
+      "mode_id": "candidate-lite-32",
+      "mode_plan_sha256": "2a0b30c609f1da496187382c3bb5095a4630a36c06acf26298d56c974aa784aa",
+      "shots": [
+        {
+          "bearing_deg": 67.17,
+          "boundary_distance_m": 2.7956,
+          "boundary_hit_m": {
+            "x": 2.4345,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 1.0257,
+              "y": 4.2266
+            },
+            {
+              "x": 4.7478,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 18.63,
+          "shot_id": "CL-001",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 11.09,
+          "boundary_distance_m": 2.8411,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0964
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 4.9381,
+              "y": 3.9811
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5948
+            }
+          ],
+          "horizontal_span_deg": 19.57,
+          "shot_id": "CL-003",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -70.9,
+          "boundary_distance_m": 1.5344,
+          "boundary_hit_m": {
+            "x": 3.602,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 4.7737,
+              "y": 0.0
+            },
+            {
+              "x": 2.8207,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 33.87,
+          "shot_id": "CL-005",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": 115.19,
+          "boundary_distance_m": 2.6817,
+          "boundary_hit_m": {
+            "x": 2.5085,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 0.1595,
+              "y": 4.2266
+            },
+            {
+              "x": 3.8541,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 19.04,
+          "shot_id": "CL-002",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 12.01,
+          "boundary_distance_m": 1.3169,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0741
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.9381,
+              "y": 2.9603
+            },
+            {
+              "x": 4.9381,
+              "y": 1.3818
+            }
+          ],
+          "horizontal_span_deg": 40.52,
+          "shot_id": "CL-004",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -140.01,
+          "boundary_distance_m": 1.6688,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.7276
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 2.9944,
+              "y": -0.0
+            },
+            {
+              "x": 0.6369,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 24.99,
+          "shot_id": "CL-008",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -167.37,
+          "boundary_distance_m": 2.4263,
+          "boundary_hit_m": {
+            "x": 1.2824,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 2.3714,
+              "y": 0.6229
+            },
+            {
+              "x": 0.0,
+              "y": 2.9416
+            }
+          ],
+          "horizontal_span_deg": 4.97,
+          "shot_id": "CL-010",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": 165.68,
+          "boundary_distance_m": 3.767,
+          "boundary_hit_m": {
+            "x": -0.0,
+            "y": 2.7316
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 1.76,
+              "y": 1.2694
+            },
+            {
+              "x": 1.1649,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 14.64,
+          "shot_id": "CL-012",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": -97.84,
+          "boundary_distance_m": 1.3099,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.8024
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 3.4054,
+              "y": -0.0
+            },
+            {
+              "x": 1.9048,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 5.29,
+          "shot_id": "CL-007",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -121.63,
+          "boundary_distance_m": 1.7977,
+          "boundary_hit_m": {
+            "x": 1.2571,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.1563,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.6122
+            }
+          ],
+          "horizontal_span_deg": 26.12,
+          "shot_id": "CL-009",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": -53.14,
+          "boundary_distance_m": 3.4368,
+          "boundary_hit_m": {
+            "x": 3.6114,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 4.9381,
+              "y": 1.3017
+            },
+            {
+              "x": 1.728,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 13.18,
+          "shot_id": "CL-006",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": 153.06,
+          "boundary_distance_m": 1.2339,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 2.6591
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 0.0,
+              "y": 2.0413
+            },
+            {
+              "x": 0.0,
+              "y": 3.7902
+            }
+          ],
+          "horizontal_span_deg": 38.56,
+          "shot_id": "CL-011",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": 88.43,
+          "boundary_distance_m": 2.5776,
+          "boundary_hit_m": {
+            "x": 1.4207,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 0.0,
+              "y": 4.1438
+            },
+            {
+              "x": 2.9334,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 27.67,
+          "shot_id": "CL-013",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": 32.5,
+          "boundary_distance_m": 4.2544,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 3.936
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 2.6912,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 1.8067
+            }
+          ],
+          "horizontal_span_deg": 46.05,
+          "shot_id": "CL-021",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -49.5,
+            5.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 69.77,
+          "boundary_distance_m": 2.8526,
+          "boundary_hit_m": {
+            "x": 3.1364,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 1.6891,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 3.8704
+            }
+          ],
+          "horizontal_span_deg": 23.46,
+          "shot_id": "CL-015",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": -170.06,
+          "boundary_distance_m": 1.0461,
+          "boundary_hit_m": {
+            "x": 2.0696,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.3714,
+              "y": 0.8399
+            },
+            {
+              "x": -0.0,
+              "y": 2.5818
+            }
+          ],
+          "horizontal_span_deg": 7.96,
+          "shot_id": "CL-017",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": 131.46,
+          "boundary_distance_m": 3.2381,
+          "boundary_hit_m": {
+            "x": 1.5061,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": -0.0,
+              "y": 3.0241
+            },
+            {
+              "x": 3.158,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 16.45,
+          "shot_id": "CL-014",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": 100.19,
+          "boundary_distance_m": 2.4655,
+          "boundary_hit_m": {
+            "x": 3.2139,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 1.6002,
+              "y": 4.2266
+            },
+            {
+              "x": 4.5242,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 28.39,
+          "shot_id": "CL-016",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": -102.87,
+          "boundary_distance_m": 1.8464,
+          "boundary_hit_m": {
+            "x": 3.2386,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.2046,
+              "y": -0.0
+            },
+            {
+              "x": 2.3714,
+              "y": 0.4228
+            }
+          ],
+          "horizontal_span_deg": 26.94,
+          "shot_id": "CL-020",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 151.29,
+          "boundary_distance_m": 4.1617,
+          "boundary_hit_m": {
+            "x": -0.0,
+            "y": 3.7994
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": -0.0,
+              "y": 1.718
+            },
+            {
+              "x": 2.1753,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 22.23,
+          "shot_id": "CL-024",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -38.5,
+            16.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        },
+        {
+          "bearing_deg": -16.1,
+          "boundary_distance_m": 1.3407,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.4281
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.9381,
+              "y": 2.1187
+            },
+            {
+              "x": 4.9381,
+              "y": 0.4613
+            }
+          ],
+          "horizontal_span_deg": 12.32,
+          "shot_id": "CL-026",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": -73.14,
+          "boundary_distance_m": 2.1943,
+          "boundary_hit_m": {
+            "x": 3.1864,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.7909,
+              "y": 0.0
+            },
+            {
+              "x": 2.3561,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 22.37,
+          "shot_id": "CL-019",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 156.3,
+          "boundary_distance_m": 2.4027,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 3.7659
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 0.0,
+              "y": 2.5573
+            },
+            {
+              "x": 1.1522,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 42.16,
+          "shot_id": "CL-023",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -49.5,
+            5.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        },
+        {
+          "bearing_deg": -21.54,
+          "boundary_distance_m": 3.6425,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.4124
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 4.9381,
+              "y": 3.2537
+            },
+            {
+              "x": 3.734,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 4.75,
+          "shot_id": "CL-025",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": -52.53,
+          "boundary_distance_m": 1.0465,
+          "boundary_hit_m": {
+            "x": 1.7366,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5077
+            },
+            {
+              "x": 1.2089,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 38.75,
+          "shot_id": "CL-018",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": 23.02,
+          "boundary_distance_m": 4.17,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 3.7304
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 2.7016,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 1.6298
+            }
+          ],
+          "horizontal_span_deg": 41.81,
+          "shot_id": "CL-022",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -48.5,
+            6.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 83.43,
+          "boundary_distance_m": 2.6943,
+          "boundary_hit_m": {
+            "x": 2.4584,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 0.9902,
+              "y": 4.2266
+            },
+            {
+              "x": 4.1359,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 20.88,
+          "shot_id": "CL-027",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -55.5,
+            -0.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 18.7,
+          "boundary_distance_m": 1.9405,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0723
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 4.9381,
+              "y": 3.5425
+            },
+            {
+              "x": 4.9381,
+              "y": 1.0828
+            }
+          ],
+          "horizontal_span_deg": 27.25,
+          "shot_id": "CL-028",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -63.5,
+            -8.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -137.79,
+          "boundary_distance_m": 0.9837,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.7891
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.6348,
+              "y": 0.0
+            },
+            {
+              "x": 2.2654,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 37.62,
+          "shot_id": "CL-030",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -72.5,
+            -17.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -63.28,
+          "boundary_distance_m": 2.3511,
+          "boundary_hit_m": {
+            "x": 3.6073,
+            "y": -0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5328
+            },
+            {
+              "x": 2.4298,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 21.32,
+          "shot_id": "CL-029",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -58.5,
+            -3.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": -121.63,
+          "boundary_distance_m": 1.7977,
+          "boundary_hit_m": {
+            "x": 1.2571,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.1563,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.6122
+            }
+          ],
+          "horizontal_span_deg": 26.12,
+          "shot_id": "CL-031",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -65.5,
+            -10.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": -179.93,
+          "boundary_distance_m": 1.55,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 2.7482
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 0.0,
+              "y": 1.8527
+            },
+            {
+              "x": -0.0,
+              "y": 3.6425
+            }
+          ],
+          "horizontal_span_deg": 35.76,
+          "shot_id": "CL-032",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -69.5,
+            -14.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        }
+      ],
+      "wall_station_baselines_m": [
+        [
+          "wall-00",
+          3,
+          2.3049
+        ],
+        [
+          "wall-01",
+          3,
+          1.5207
+        ],
+        [
+          "wall-02",
+          3,
+          2.023
+        ],
+        [
+          "wall-03",
+          3,
+          1.1402
+        ],
+        [
+          "wall-04",
+          2,
+          1.7614
+        ],
+        [
+          "wall-05",
+          3,
+          2.5676
+        ]
+      ]
+    },
+    {
+      "adjacent_shared_spans_m": [
+        [
+          "S01",
+          "S02",
+          3.9479
+        ],
+        [
+          "S02",
+          "S03",
+          3.1438
+        ],
+        [
+          "S03",
+          "S04",
+          2.7531
+        ],
+        [
+          "S04",
+          "S05",
+          3.4949
+        ],
+        [
+          "S05",
+          "S06",
+          3.3529
+        ],
+        [
+          "S06",
+          "S07",
+          3.2499
+        ],
+        [
+          "S07",
+          "S08",
+          3.8562
+        ],
+        [
+          "S08",
+          "S01",
+          3.9137
+        ]
+      ],
+      "anchor_station_baselines_m": [
+        [
+          "window-west",
+          4,
+          2.3049
+        ],
+        [
+          "window-east",
+          4,
+          2.3049
+        ],
+        [
+          "entry-door",
+          4,
+          2.103
+        ],
+        [
+          "bath-door-south",
+          4,
+          1.7614
+        ],
+        [
+          "bed-full",
+          4,
+          2.5676
+        ],
+        [
+          "desk",
+          4,
+          2.5676
+        ],
+        [
+          "closet",
+          4,
+          2.3049
+        ]
+      ],
+      "ceiling_seam_spans_m": [
+        [
+          "wall-00",
+          3.9348
+        ],
+        [
+          "wall-01",
+          4.2266
+        ],
+        [
+          "wall-02",
+          2.5667
+        ],
+        [
+          "wall-03",
+          1.2694
+        ],
+        [
+          "wall-04",
+          2.2623
+        ],
+        [
+          "wall-05",
+          2.7572
+        ]
+      ],
+      "floor_seam_spans_m": [
+        [
+          "wall-00",
+          4.9381
+        ],
+        [
+          "wall-01",
+          4.2266
+        ],
+        [
+          "wall-02",
+          2.5667
+        ],
+        [
+          "wall-03",
+          1.2694
+        ],
+        [
+          "wall-04",
+          2.2623
+        ],
+        [
+          "wall-05",
+          2.9573
+        ]
+      ],
+      "issues": [
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G1-S04",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G1-S04"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G2-S01",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G2-S01"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G2-S04",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G2-S04"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G2-S08",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G2-S08"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G3-S03",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G3-S03"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G4-S01",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G4-S01"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G4-S02",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G4-S02"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G4-S03",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G4-S03"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G4-S05",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G4-S05"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G4-S06",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G4-S06"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G6-S01",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G6-S01"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G6-S03",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G6-S03"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G6-S05",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G6-S05"
+        },
+        {
+          "code": "W_PAIRED_BEARING_GAP:CS-G6-S06",
+          "message": "paired shot bearings exceed the provisional overlap threshold",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-G6-S06"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-030",
+          "message": "first boundary ray is 0.9837 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-030"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-040",
+          "message": "first boundary ray is 0.9020 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-040"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-041",
+          "message": "first boundary ray is 0.9958 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-041"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-042",
+          "message": "first boundary ray is 0.6414 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-042"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-048",
+          "message": "first boundary ray is 0.9837 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-048"
+        },
+        {
+          "code": "W_SHORT_BOUNDARY_RAY:CS-056",
+          "message": "first boundary ray is 0.9959 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "CS-056"
+        },
+        {
+          "code": "W_STATION_CLEARANCE:S02",
+          "message": "station clearance is 0.2806 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S02"
+        },
+        {
+          "code": "W_STATION_CLEARANCE:S05",
+          "message": "station clearance is 0.2438 m",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S05"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S01",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S01"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S03",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S03"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S06",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S06"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S07",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S07"
+        },
+        {
+          "code": "W_VERTICAL_OVERLAP:S08",
+          "message": "pitched coverage overlaps compatible level coverage by less than 30%",
+          "mode_id": "candidate-standard-64",
+          "severity": "warning",
+          "subject_id": "S08"
+        }
+      ],
+      "mode_id": "candidate-standard-64",
+      "mode_plan_sha256": "0af1162099288fcf6726ca46f03c14459da1f2675b8eb96dbe5c165b4270c18f",
+      "shots": [
+        {
+          "bearing_deg": 67.17,
+          "boundary_distance_m": 2.7956,
+          "boundary_hit_m": {
+            "x": 2.4345,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 1.0257,
+              "y": 4.2266
+            },
+            {
+              "x": 4.7478,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 18.63,
+          "shot_id": "CS-001",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 11.09,
+          "boundary_distance_m": 2.8411,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0964
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 4.9381,
+              "y": 3.9811
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5948
+            }
+          ],
+          "horizontal_span_deg": 19.57,
+          "shot_id": "CS-003",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -70.9,
+          "boundary_distance_m": 1.5344,
+          "boundary_hit_m": {
+            "x": 3.602,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 4.7737,
+              "y": 0.0
+            },
+            {
+              "x": 2.8207,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 33.87,
+          "shot_id": "CS-005",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": 115.19,
+          "boundary_distance_m": 2.6817,
+          "boundary_hit_m": {
+            "x": 2.5085,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 0.1595,
+              "y": 4.2266
+            },
+            {
+              "x": 3.8541,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 19.04,
+          "shot_id": "CS-002",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 12.01,
+          "boundary_distance_m": 1.3169,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0741
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.9381,
+              "y": 2.9603
+            },
+            {
+              "x": 4.9381,
+              "y": 1.3818
+            }
+          ],
+          "horizontal_span_deg": 40.52,
+          "shot_id": "CS-004",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -140.01,
+          "boundary_distance_m": 1.6688,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.7276
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 2.9944,
+              "y": -0.0
+            },
+            {
+              "x": 0.6369,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 24.99,
+          "shot_id": "CS-008",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -167.37,
+          "boundary_distance_m": 2.4263,
+          "boundary_hit_m": {
+            "x": 1.2824,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 2.3714,
+              "y": 0.6229
+            },
+            {
+              "x": 0.0,
+              "y": 2.9416
+            }
+          ],
+          "horizontal_span_deg": 4.97,
+          "shot_id": "CS-010",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": 165.68,
+          "boundary_distance_m": 3.767,
+          "boundary_hit_m": {
+            "x": -0.0,
+            "y": 2.7316
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 1.76,
+              "y": 1.2694
+            },
+            {
+              "x": 1.1649,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 14.64,
+          "shot_id": "CS-012",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": -97.84,
+          "boundary_distance_m": 1.3099,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.8024
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 3.4054,
+              "y": -0.0
+            },
+            {
+              "x": 1.9048,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 5.29,
+          "shot_id": "CS-007",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -121.63,
+          "boundary_distance_m": 1.7977,
+          "boundary_hit_m": {
+            "x": 1.2571,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.1563,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.6122
+            }
+          ],
+          "horizontal_span_deg": 26.12,
+          "shot_id": "CS-009",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": -53.14,
+          "boundary_distance_m": 3.4368,
+          "boundary_hit_m": {
+            "x": 3.6114,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 4.9381,
+              "y": 1.3017
+            },
+            {
+              "x": 1.728,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 13.18,
+          "shot_id": "CS-006",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": 153.06,
+          "boundary_distance_m": 1.2339,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 2.6591
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 0.0,
+              "y": 2.0413
+            },
+            {
+              "x": 0.0,
+              "y": 3.7902
+            }
+          ],
+          "horizontal_span_deg": 38.56,
+          "shot_id": "CS-011",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": 88.43,
+          "boundary_distance_m": 2.5776,
+          "boundary_hit_m": {
+            "x": 1.4207,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 0.0,
+              "y": 4.1438
+            },
+            {
+              "x": 2.9334,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 27.67,
+          "shot_id": "CS-013",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": 32.5,
+          "boundary_distance_m": 4.2544,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 3.936
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 2.6912,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 1.8067
+            }
+          ],
+          "horizontal_span_deg": 46.05,
+          "shot_id": "CS-021",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -49.5,
+            5.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 69.77,
+          "boundary_distance_m": 2.8526,
+          "boundary_hit_m": {
+            "x": 3.1364,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 1.6891,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 3.8704
+            }
+          ],
+          "horizontal_span_deg": 23.46,
+          "shot_id": "CS-015",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": -170.06,
+          "boundary_distance_m": 1.0461,
+          "boundary_hit_m": {
+            "x": 2.0696,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.3714,
+              "y": 0.8399
+            },
+            {
+              "x": -0.0,
+              "y": 2.5818
+            }
+          ],
+          "horizontal_span_deg": 7.96,
+          "shot_id": "CS-017",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": 131.46,
+          "boundary_distance_m": 3.2381,
+          "boundary_hit_m": {
+            "x": 1.5061,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": -0.0,
+              "y": 3.0241
+            },
+            {
+              "x": 3.158,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 16.45,
+          "shot_id": "CS-014",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": 100.19,
+          "boundary_distance_m": 2.4655,
+          "boundary_hit_m": {
+            "x": 3.2139,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 1.6002,
+              "y": 4.2266
+            },
+            {
+              "x": 4.5242,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 28.39,
+          "shot_id": "CS-016",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": -102.87,
+          "boundary_distance_m": 1.8464,
+          "boundary_hit_m": {
+            "x": 3.2386,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.2046,
+              "y": -0.0
+            },
+            {
+              "x": 2.3714,
+              "y": 0.4228
+            }
+          ],
+          "horizontal_span_deg": 26.94,
+          "shot_id": "CS-020",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 151.29,
+          "boundary_distance_m": 4.1617,
+          "boundary_hit_m": {
+            "x": -0.0,
+            "y": 3.7994
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": -0.0,
+              "y": 1.718
+            },
+            {
+              "x": 2.1753,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 22.23,
+          "shot_id": "CS-024",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -38.5,
+            16.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        },
+        {
+          "bearing_deg": -16.1,
+          "boundary_distance_m": 1.3407,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.4281
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 4.9381,
+              "y": 2.1187
+            },
+            {
+              "x": 4.9381,
+              "y": 0.4613
+            }
+          ],
+          "horizontal_span_deg": 12.32,
+          "shot_id": "CS-026",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": -73.14,
+          "boundary_distance_m": 2.1943,
+          "boundary_hit_m": {
+            "x": 3.1864,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.7909,
+              "y": 0.0
+            },
+            {
+              "x": 2.3561,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 22.37,
+          "shot_id": "CS-019",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 156.3,
+          "boundary_distance_m": 2.4027,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 3.7659
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 0.0,
+              "y": 2.5573
+            },
+            {
+              "x": 1.1522,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 42.16,
+          "shot_id": "CS-023",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -49.5,
+            5.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        },
+        {
+          "bearing_deg": -21.54,
+          "boundary_distance_m": 3.6425,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.4124
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 4.9381,
+              "y": 3.2537
+            },
+            {
+              "x": 3.734,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 4.75,
+          "shot_id": "CS-025",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": -52.53,
+          "boundary_distance_m": 1.0465,
+          "boundary_hit_m": {
+            "x": 1.7366,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5077
+            },
+            {
+              "x": 1.2089,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 38.75,
+          "shot_id": "CS-018",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": 23.02,
+          "boundary_distance_m": 4.17,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 3.7304
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 2.7016,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 1.6298
+            }
+          ],
+          "horizontal_span_deg": 41.81,
+          "shot_id": "CS-022",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -48.5,
+            6.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 83.43,
+          "boundary_distance_m": 2.6943,
+          "boundary_hit_m": {
+            "x": 2.4584,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 0.9902,
+              "y": 4.2266
+            },
+            {
+              "x": 4.1359,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 20.88,
+          "shot_id": "CS-027",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -55.5,
+            -0.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 18.7,
+          "boundary_distance_m": 1.9405,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.0723
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 4.9381,
+              "y": 3.5425
+            },
+            {
+              "x": 4.9381,
+              "y": 1.0828
+            }
+          ],
+          "horizontal_span_deg": 27.25,
+          "shot_id": "CS-028",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -63.5,
+            -8.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -137.79,
+          "boundary_distance_m": 0.9837,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.7891
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.6348,
+              "y": 0.0
+            },
+            {
+              "x": 2.2654,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 37.62,
+          "shot_id": "CS-030",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -72.5,
+            -17.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -63.28,
+          "boundary_distance_m": 2.3511,
+          "boundary_hit_m": {
+            "x": 3.6073,
+            "y": -0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5328
+            },
+            {
+              "x": 2.4298,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 21.32,
+          "shot_id": "CS-029",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -58.5,
+            -3.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": -121.63,
+          "boundary_distance_m": 1.7977,
+          "boundary_hit_m": {
+            "x": 1.2571,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.1563,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.6122
+            }
+          ],
+          "horizontal_span_deg": 26.12,
+          "shot_id": "CS-031",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -65.5,
+            -10.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": -179.93,
+          "boundary_distance_m": 1.55,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 2.7482
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 0.0,
+              "y": 1.8527
+            },
+            {
+              "x": -0.0,
+              "y": 3.6425
+            }
+          ],
+          "horizontal_span_deg": 35.76,
+          "shot_id": "CS-032",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -69.5,
+            -14.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": 92.47,
+          "boundary_distance_m": 2.579,
+          "boundary_hit_m": {
+            "x": 1.2387,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 0.0,
+              "y": 3.7712
+            },
+            {
+              "x": 2.6928,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 21.92,
+          "shot_id": "CS-033",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": -143.6,
+          "boundary_distance_m": 0.6414,
+          "boundary_hit_m": {
+            "x": 0.8337,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 1.1837,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.4987
+            }
+          ],
+          "horizontal_span_deg": 39.11,
+          "shot_id": "CS-042",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": 60.51,
+          "boundary_distance_m": 3.0751,
+          "boundary_hit_m": {
+            "x": 3.6638,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 2.1262,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 3.1929
+            }
+          ],
+          "horizontal_span_deg": 16.01,
+          "shot_id": "CS-034",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 168.53,
+          "boundary_distance_m": 2.1938,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 1.9861
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.15,
+              "y": 1.55
+            },
+            {
+              "x": 1.313,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 3.4499
+            }
+          ],
+          "horizontal_span_deg": 25.13,
+          "shot_id": "CS-043",
+          "station_id": "S02",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": -93.07,
+          "boundary_distance_m": 1.4521,
+          "boundary_hit_m": {
+            "x": 3.0223,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 3.8367,
+              "y": 0.0
+            },
+            {
+              "x": 2.3714,
+              "y": 0.3309
+            }
+          ],
+          "horizontal_span_deg": 37.94,
+          "shot_id": "CS-038",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": -143.88,
+          "boundary_distance_m": 0.902,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.9183
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.4581,
+              "y": 0.0
+            },
+            {
+              "x": 1.4156,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 44.4,
+          "shot_id": "CS-040",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": 23.37,
+          "boundary_distance_m": 2.6015,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 3.1321
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.1309,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 1.8226
+            }
+          ],
+          "horizontal_span_deg": 19.9,
+          "shot_id": "CS-035",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": -97.04,
+          "boundary_distance_m": 1.457,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.6539
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 3.4396,
+              "y": -0.0
+            },
+            {
+              "x": 1.9231,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 4.36,
+          "shot_id": "CS-039",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -31.88,
+          "boundary_distance_m": 3.2243,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.0973
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 4.9381,
+              "y": 2.7103
+            },
+            {
+              "x": 3.6966,
+              "y": -0.0
+            }
+          ],
+          "horizontal_span_deg": 14.91,
+          "shot_id": "CS-036",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": 163.39,
+          "boundary_distance_m": 2.2958,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 3.4563
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 0.0,
+              "y": 2.2763
+            },
+            {
+              "x": 0.8514,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 23.49,
+          "shot_id": "CS-044",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": -45.51,
+          "boundary_distance_m": 3.8548,
+          "boundary_hit_m": {
+            "x": 4.2513,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 4.9381,
+              "y": 1.8097
+            },
+            {
+              "x": 1.9326,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 10.49,
+          "shot_id": "CS-037",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": -56.52,
+          "boundary_distance_m": 0.9958,
+          "boundary_hit_m": {
+            "x": 1.6493,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.1846
+            },
+            {
+              "x": 1.1505,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 42.7,
+          "shot_id": "CS-041",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": 143.15,
+          "boundary_distance_m": 1.6871,
+          "boundary_hit_m": {
+            "x": 0.0,
+            "y": 2.6618
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": -0.0,
+              "y": 1.8122
+            },
+            {
+              "x": 0.2484,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 25.92,
+          "shot_id": "CS-050",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            17.5,
+            72.5
+          ],
+          "visible_target_ids": [
+            "wall-05"
+          ]
+        },
+        {
+          "bearing_deg": -137.79,
+          "boundary_distance_m": 0.9837,
+          "boundary_hit_m": {
+            "x": 2.3714,
+            "y": 0.7891
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.6348,
+              "y": 0.0
+            },
+            {
+              "x": 2.2654,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 37.62,
+          "shot_id": "CS-048",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            17.5,
+            72.5
+          ],
+          "visible_target_ids": [
+            "wall-03"
+          ]
+        },
+        {
+          "bearing_deg": -63.28,
+          "boundary_distance_m": 2.3511,
+          "boundary_hit_m": {
+            "x": 3.6073,
+            "y": -0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 0.5328
+            },
+            {
+              "x": 2.4298,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 21.32,
+          "shot_id": "CS-047",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            10.5,
+            65.5
+          ],
+          "visible_target_ids": [
+            "wall-02"
+          ]
+        },
+        {
+          "bearing_deg": -121.63,
+          "boundary_distance_m": 1.7977,
+          "boundary_hit_m": {
+            "x": 1.2571,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.1563,
+              "y": 1.2694
+            },
+            {
+              "x": 0.0,
+              "y": 1.6122
+            }
+          ],
+          "horizontal_span_deg": 26.12,
+          "shot_id": "CS-049",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            17.5,
+            72.5
+          ],
+          "visible_target_ids": [
+            "wall-04"
+          ]
+        },
+        {
+          "bearing_deg": 60.15,
+          "boundary_distance_m": 1.7025,
+          "boundary_hit_m": {
+            "x": 2.3974,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 1.5462,
+              "y": 4.2266
+            },
+            {
+              "x": 4.0923,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 28.02,
+          "shot_id": "CS-045",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            17.5,
+            72.5
+          ],
+          "visible_target_ids": [
+            "wall-00"
+          ]
+        },
+        {
+          "bearing_deg": 0.2,
+          "boundary_distance_m": 3.8381,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 2.1131
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 4.7546,
+              "y": 4.2266
+            },
+            {
+              "x": 4.7661,
+              "y": -0.0
+            }
+          ],
+          "horizontal_span_deg": 14.84,
+          "shot_id": "CS-046",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -1.5,
+            53.5
+          ],
+          "visible_target_ids": [
+            "wall-01"
+          ]
+        },
+        {
+          "bearing_deg": 116.71,
+          "boundary_distance_m": 2.8844,
+          "boundary_hit_m": {
+            "x": 0.0535,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 0.0,
+              "y": 2.5364
+            },
+            {
+              "x": 1.4981,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 31.75,
+          "shot_id": "CS-061",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -49.5,
+            5.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        },
+        {
+          "bearing_deg": -1.33,
+          "boundary_distance_m": 3.589,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.5665
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.35,
+              "y": 1.65
+            },
+            {
+              "x": 4.9381,
+              "y": 3.6117
+            },
+            {
+              "x": 1.9752,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 0.3,
+          "shot_id": "CS-064",
+          "station_id": "S01",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": -85.92,
+          "boundary_distance_m": 1.4537,
+          "boundary_hit_m": {
+            "x": 3.2035,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 4.0811,
+              "y": 0.0
+            },
+            {
+              "x": 2.3954,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 34.66,
+          "shot_id": "CS-058",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 63.61,
+          "boundary_distance_m": 3.0997,
+          "boundary_hit_m": {
+            "x": 4.4779,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.1,
+              "y": 1.45
+            },
+            {
+              "x": 2.925,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 2.6715
+            }
+          ],
+          "horizontal_span_deg": 27.01,
+          "shot_id": "CS-060",
+          "station_id": "S03",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -56.5,
+            -1.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 80.29,
+          "boundary_distance_m": 2.4619,
+          "boundary_hit_m": {
+            "x": 4.0652,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 3.65,
+              "y": 1.8
+            },
+            {
+              "x": 2.7528,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 3.3509
+            }
+          ],
+          "horizontal_span_deg": 37.16,
+          "shot_id": "CS-059",
+          "station_id": "S04",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -65.5,
+            -10.5
+          ],
+          "visible_target_ids": [
+            "bed-full"
+          ]
+        },
+        {
+          "bearing_deg": 116.29,
+          "boundary_distance_m": 2.372,
+          "boundary_hit_m": {
+            "x": 1.4993,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 0.0,
+              "y": 3.8011
+            },
+            {
+              "x": 2.6878,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 26.64,
+          "shot_id": "CS-052",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": -123.48,
+          "boundary_distance_m": 0.9959,
+          "boundary_hit_m": {
+            "x": 2.0006,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 2.4222,
+              "y": -0.0
+            },
+            {
+              "x": 0.8853,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 42.69,
+          "shot_id": "CS-056",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": -15.04,
+          "boundary_distance_m": 2.4727,
+          "boundary_hit_m": {
+            "x": 4.9381,
+            "y": 1.4585
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.55,
+              "y": 2.1
+            },
+            {
+              "x": 4.9381,
+              "y": 2.7383
+            },
+            {
+              "x": 4.6474,
+              "y": 0.0
+            }
+          ],
+          "horizontal_span_deg": 5.22,
+          "shot_id": "CS-063",
+          "station_id": "S05",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "closet"
+          ]
+        },
+        {
+          "bearing_deg": 115.13,
+          "boundary_distance_m": 1.5758,
+          "boundary_hit_m": {
+            "x": 1.5307,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 0.1524,
+              "y": 4.2266
+            },
+            {
+              "x": 2.3215,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 39.06,
+          "shot_id": "CS-051",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-west"
+          ]
+        },
+        {
+          "bearing_deg": 58.79,
+          "boundary_distance_m": 1.668,
+          "boundary_hit_m": {
+            "x": 3.0643,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 2.2301,
+              "y": 4.2266
+            },
+            {
+              "x": 4.7961,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 34.85,
+          "shot_id": "CS-054",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": -101.02,
+          "boundary_distance_m": 1.5594,
+          "boundary_hit_m": {
+            "x": 1.9019,
+            "y": 1.2694
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 3.163,
+              "y": -0.0
+            },
+            {
+              "x": 0.8685,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 34.82,
+          "shot_id": "CS-055",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "entry-door"
+          ]
+        },
+        {
+          "bearing_deg": -70.52,
+          "boundary_distance_m": 2.97,
+          "boundary_hit_m": {
+            "x": 3.1905,
+            "y": 0.0
+          },
+          "cone_polygon_m": [
+            {
+              "x": 2.2,
+              "y": 2.8
+            },
+            {
+              "x": 4.9381,
+              "y": 0.4599
+            },
+            {
+              "x": 1.9158,
+              "y": 1.2694
+            }
+          ],
+          "horizontal_span_deg": 16.39,
+          "shot_id": "CS-057",
+          "station_id": "S06",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "bath-door-south"
+          ]
+        },
+        {
+          "bearing_deg": 44.47,
+          "boundary_distance_m": 2.108,
+          "boundary_hit_m": {
+            "x": 3.0543,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.55,
+              "y": 2.75
+            },
+            {
+              "x": 1.9604,
+              "y": 4.2266
+            },
+            {
+              "x": 4.9381,
+              "y": 3.6242
+            }
+          ],
+          "horizontal_span_deg": 22.85,
+          "shot_id": "CS-053",
+          "station_id": "S07",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -27.5,
+            27.5
+          ],
+          "visible_target_ids": [
+            "window-east"
+          ]
+        },
+        {
+          "bearing_deg": 117.33,
+          "boundary_distance_m": 2.3939,
+          "boundary_hit_m": {
+            "x": 0.0009,
+            "y": 4.2266
+          },
+          "cone_polygon_m": [
+            {
+              "x": 1.1,
+              "y": 2.1
+            },
+            {
+              "x": 0.0,
+              "y": 2.8053
+            },
+            {
+              "x": 1.1991,
+              "y": 4.2266
+            }
+          ],
+          "horizontal_span_deg": 42.11,
+          "shot_id": "CS-062",
+          "station_id": "S08",
+          "usable_horizontal_fov_deg": 60.0,
+          "vertical_interval_deg": [
+            -56.5,
+            -1.5
+          ],
+          "visible_target_ids": [
+            "desk"
+          ]
+        }
+      ],
+      "wall_station_baselines_m": [
+        [
+          "wall-00",
+          4,
+          2.3049
+        ],
+        [
+          "wall-01",
+          6,
+          2.5676
+        ],
+        [
+          "wall-02",
+          3,
+          2.023
+        ],
+        [
+          "wall-03",
+          3,
+          1.1402
+        ],
+        [
+          "wall-04",
+          4,
+          2.5676
+        ],
+        [
+          "wall-05",
+          6,
+          2.5676
+        ]
+      ]
+    }
+  ],
+  "coverage_review_digests": {
+    "candidate-lite-32": null,
+    "candidate-standard-64": null
+  },
+  "coverage_review_status": {
+    "candidate-lite-32": "missing",
+    "candidate-standard-64": "missing"
+  },
+  "generator_version": "astra-house-capture-pack/2.0",
+  "group_counts": {
+    "candidate-lite-32": 21,
+    "candidate-standard-64": 41
+  },
+  "mode_counts": {
+    "candidate-lite-32": 32,
+    "candidate-standard-64": 64
+  },
+  "mode_plan_sha256": {
+    "candidate-lite-32": "2a0b30c609f1da496187382c3bb5095a4630a36c06acf26298d56c974aa784aa",
+    "candidate-standard-64": "0af1162099288fcf6726ca46f03c14459da1f2675b8eb96dbe5c165b4270c18f"
+  },
+  "pass_counts": {
+    "candidate-lite-32": {
+      "CL-P1": 12,
+      "CL-P2": 14,
+      "CL-P3": 6
+    },
+    "candidate-standard-64": {
+      "CS-P1": 12,
+      "CS-P2": 14,
+      "CS-P3": 6,
+      "CS-P4": 12,
+      "CS-P5": 6,
+      "CS-P6": 14
+    }
+  },
+  "room_id": "dorm-right-bedroom",
+  "schema_version": "2.0",
+  "source_hashes": {
+    "capture_plan_sha256": "5be4e6c5a406f8f7ed227589a5bc0cf4e646c088ce1fc504e75dc4ba6b689f27",
+    "floorplan_sha256": "8aae212209211a2e0f668801de6148cee8dae6c155b487a66c8797fdbcc77011",
+    "measurements_sha256": "f1703401d0813e148898c3206d1d307a8a60dbb3b4cec1be3c38360844d7944d",
+    "room_model_sha256": "e6584003888753e95b114e8967f9cd026115fe8f56ac6b28ef38d95b974a740c"
+  },
+  "station_counts": {
+    "candidate-lite-32": 8,
+    "candidate-standard-64": 8
+  },
+  "status": "draft"
+}

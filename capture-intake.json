@@ -1,0 +1,1553 @@
+{
+  "capture_id": "dorm-right-bedroom-diagnostic-01-candidate-02",
+  "modes": {
+    "candidate-lite-32": {
+      "mode_plan_sha256": "2a0b30c609f1da496187382c3bb5095a4630a36c06acf26298d56c974aa784aa",
+      "shots": [
+        {
+          "assigned_shot_id": "CL-001",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S01",
+          "pass_id": "CL-P1",
+          "planned_order": 1,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CL-003",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S02",
+          "pass_id": "CL-P1",
+          "planned_order": 2,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CL-005",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S03",
+          "pass_id": "CL-P1",
+          "planned_order": 3,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CL-002",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S04",
+          "pass_id": "CL-P1",
+          "planned_order": 4,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-004",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S04",
+          "pass_id": "CL-P1",
+          "planned_order": 5,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-008",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S04",
+          "pass_id": "CL-P1",
+          "planned_order": 6,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-010",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S04",
+          "pass_id": "CL-P1",
+          "planned_order": 7,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-012",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S04",
+          "pass_id": "CL-P1",
+          "planned_order": 8,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-007",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S05",
+          "pass_id": "CL-P1",
+          "planned_order": 9,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CL-009",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S06",
+          "pass_id": "CL-P1",
+          "planned_order": 10,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CL-006",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S07",
+          "pass_id": "CL-P1",
+          "planned_order": 11,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CL-011",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G1-S08",
+          "pass_id": "CL-P1",
+          "planned_order": 12,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CL-013",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S01",
+          "pass_id": "CL-P2",
+          "planned_order": 13,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CL-021",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S01",
+          "pass_id": "CL-P2",
+          "planned_order": 14,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CL-015",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S02",
+          "pass_id": "CL-P2",
+          "planned_order": 15,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CL-017",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S03",
+          "pass_id": "CL-P2",
+          "planned_order": 16,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CL-014",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S04",
+          "pass_id": "CL-P2",
+          "planned_order": 17,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-016",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S04",
+          "pass_id": "CL-P2",
+          "planned_order": 18,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-020",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S04",
+          "pass_id": "CL-P2",
+          "planned_order": 19,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-024",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S04",
+          "pass_id": "CL-P2",
+          "planned_order": 20,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-026",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S04",
+          "pass_id": "CL-P2",
+          "planned_order": 21,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CL-019",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S05",
+          "pass_id": "CL-P2",
+          "planned_order": 22,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CL-023",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S06",
+          "pass_id": "CL-P2",
+          "planned_order": 23,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CL-025",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S07",
+          "pass_id": "CL-P2",
+          "planned_order": 24,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CL-018",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S08",
+          "pass_id": "CL-P2",
+          "planned_order": 25,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CL-022",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G2-S08",
+          "pass_id": "CL-P2",
+          "planned_order": 26,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CL-027",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S02",
+          "pass_id": "CL-P3",
+          "planned_order": 27,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CL-028",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S03",
+          "pass_id": "CL-P3",
+          "planned_order": 28,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CL-030",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S03",
+          "pass_id": "CL-P3",
+          "planned_order": 29,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CL-029",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S05",
+          "pass_id": "CL-P3",
+          "planned_order": 30,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CL-031",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S06",
+          "pass_id": "CL-P3",
+          "planned_order": 31,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CL-032",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CL-G3-S07",
+          "pass_id": "CL-P3",
+          "planned_order": 32,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        }
+      ]
+    },
+    "candidate-standard-64": {
+      "mode_plan_sha256": "0af1162099288fcf6726ca46f03c14459da1f2675b8eb96dbe5c165b4270c18f",
+      "shots": [
+        {
+          "assigned_shot_id": "CS-001",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S01",
+          "pass_id": "CS-P1",
+          "planned_order": 1,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-003",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S02",
+          "pass_id": "CS-P1",
+          "planned_order": 2,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CS-005",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S03",
+          "pass_id": "CS-P1",
+          "planned_order": 3,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-002",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S04",
+          "pass_id": "CS-P1",
+          "planned_order": 4,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-004",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S04",
+          "pass_id": "CS-P1",
+          "planned_order": 5,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-008",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S04",
+          "pass_id": "CS-P1",
+          "planned_order": 6,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-010",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S04",
+          "pass_id": "CS-P1",
+          "planned_order": 7,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-012",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S04",
+          "pass_id": "CS-P1",
+          "planned_order": 8,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-007",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S05",
+          "pass_id": "CS-P1",
+          "planned_order": 9,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-009",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S06",
+          "pass_id": "CS-P1",
+          "planned_order": 10,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-006",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S07",
+          "pass_id": "CS-P1",
+          "planned_order": 11,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-011",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G1-S08",
+          "pass_id": "CS-P1",
+          "planned_order": 12,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CS-013",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S01",
+          "pass_id": "CS-P2",
+          "planned_order": 13,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-021",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S01",
+          "pass_id": "CS-P2",
+          "planned_order": 14,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-015",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S02",
+          "pass_id": "CS-P2",
+          "planned_order": 15,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CS-017",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S03",
+          "pass_id": "CS-P2",
+          "planned_order": 16,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-014",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S04",
+          "pass_id": "CS-P2",
+          "planned_order": 17,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-016",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S04",
+          "pass_id": "CS-P2",
+          "planned_order": 18,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-020",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S04",
+          "pass_id": "CS-P2",
+          "planned_order": 19,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-024",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S04",
+          "pass_id": "CS-P2",
+          "planned_order": 20,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-026",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S04",
+          "pass_id": "CS-P2",
+          "planned_order": 21,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-019",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S05",
+          "pass_id": "CS-P2",
+          "planned_order": 22,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-023",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S06",
+          "pass_id": "CS-P2",
+          "planned_order": 23,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-025",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S07",
+          "pass_id": "CS-P2",
+          "planned_order": 24,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-018",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S08",
+          "pass_id": "CS-P2",
+          "planned_order": 25,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CS-022",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G2-S08",
+          "pass_id": "CS-P2",
+          "planned_order": 26,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CS-027",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S02",
+          "pass_id": "CS-P3",
+          "planned_order": 27,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CS-028",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S03",
+          "pass_id": "CS-P3",
+          "planned_order": 28,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-030",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S03",
+          "pass_id": "CS-P3",
+          "planned_order": 29,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-029",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S05",
+          "pass_id": "CS-P3",
+          "planned_order": 30,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-031",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S06",
+          "pass_id": "CS-P3",
+          "planned_order": 31,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-032",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G3-S07",
+          "pass_id": "CS-P3",
+          "planned_order": 32,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-033",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S01",
+          "pass_id": "CS-P4",
+          "planned_order": 33,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-042",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S01",
+          "pass_id": "CS-P4",
+          "planned_order": 34,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-034",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S02",
+          "pass_id": "CS-P4",
+          "planned_order": 35,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CS-043",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S02",
+          "pass_id": "CS-P4",
+          "planned_order": 36,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S02"
+        },
+        {
+          "assigned_shot_id": "CS-038",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S03",
+          "pass_id": "CS-P4",
+          "planned_order": 37,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-040",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S03",
+          "pass_id": "CS-P4",
+          "planned_order": 38,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-035",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S05",
+          "pass_id": "CS-P4",
+          "planned_order": 39,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-039",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S05",
+          "pass_id": "CS-P4",
+          "planned_order": 40,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-036",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S06",
+          "pass_id": "CS-P4",
+          "planned_order": 41,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-044",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S06",
+          "pass_id": "CS-P4",
+          "planned_order": 42,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-037",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S07",
+          "pass_id": "CS-P4",
+          "planned_order": 43,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-041",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G4-S08",
+          "pass_id": "CS-P4",
+          "planned_order": 44,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CS-050",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S01",
+          "pass_id": "CS-P5",
+          "planned_order": 45,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-048",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S03",
+          "pass_id": "CS-P5",
+          "planned_order": 46,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-047",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S05",
+          "pass_id": "CS-P5",
+          "planned_order": 47,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-049",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S06",
+          "pass_id": "CS-P5",
+          "planned_order": 48,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-045",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S07",
+          "pass_id": "CS-P5",
+          "planned_order": 49,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-046",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G5-S08",
+          "pass_id": "CS-P5",
+          "planned_order": 50,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        },
+        {
+          "assigned_shot_id": "CS-061",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S01",
+          "pass_id": "CS-P6",
+          "planned_order": 51,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-064",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S01",
+          "pass_id": "CS-P6",
+          "planned_order": 52,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S01"
+        },
+        {
+          "assigned_shot_id": "CS-058",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S03",
+          "pass_id": "CS-P6",
+          "planned_order": 53,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-060",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S03",
+          "pass_id": "CS-P6",
+          "planned_order": 54,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S03"
+        },
+        {
+          "assigned_shot_id": "CS-059",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S04",
+          "pass_id": "CS-P6",
+          "planned_order": 55,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S04"
+        },
+        {
+          "assigned_shot_id": "CS-052",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S05",
+          "pass_id": "CS-P6",
+          "planned_order": 56,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-056",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S05",
+          "pass_id": "CS-P6",
+          "planned_order": 57,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-063",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S05",
+          "pass_id": "CS-P6",
+          "planned_order": 58,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S05"
+        },
+        {
+          "assigned_shot_id": "CS-051",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S06",
+          "pass_id": "CS-P6",
+          "planned_order": 59,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-054",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S06",
+          "pass_id": "CS-P6",
+          "planned_order": 60,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-055",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S06",
+          "pass_id": "CS-P6",
+          "planned_order": 61,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-057",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S06",
+          "pass_id": "CS-P6",
+          "planned_order": 62,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S06"
+        },
+        {
+          "assigned_shot_id": "CS-053",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S07",
+          "pass_id": "CS-P6",
+          "planned_order": 63,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S07"
+        },
+        {
+          "assigned_shot_id": "CS-062",
+          "dimensions_px": null,
+          "exif": {
+            "date_time_original": null,
+            "offset_time_original": null,
+            "orientation": null,
+            "sub_sec_time_original": null
+          },
+          "group_id": "CS-G6-S08",
+          "pass_id": "CS-P6",
+          "planned_order": 64,
+          "sha256": null,
+          "source_filename": null,
+          "station_id": "S08"
+        }
+      ]
+    }
+  },
+  "room_id": "dorm-right-bedroom",
+  "schema_version": "2.0"
+}
