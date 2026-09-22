@@ -54,4 +54,3 @@ class WallGeometryTest(unittest.TestCase):
         opening_box = build_opening_boxes(room)[0]
         self.assertEqual(opening_box.id, "window")
         self.assertEqual(opening_box.collection, "OPENINGS")
-

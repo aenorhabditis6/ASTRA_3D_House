@@ -32,4 +32,3 @@ class ManifestTest(unittest.TestCase):
             }
             with self.assertRaisesRegex(ValidationError, "plan.png.*SHA-256"):
                 verify_manifest(root, manifest)
-
