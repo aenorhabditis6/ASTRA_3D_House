@@ -13,3 +13,6 @@ astra-house = "astra_house.cli:console_main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+astra_house = ["assets/*.css", "assets/*.js"]

@@ -10,6 +10,7 @@ from pathlib import Path
 from unittest import mock
 
 from astra_house.cli import main
+from tests.test_capture_geometry import valid_geometry_data
 
 
 PROJECT = Path("projects/dorm-right-bedroom")
@@ -19,14 +20,20 @@ SOURCE = Path("assets/reference/floorplans/dorm-suite-floorplan.png")
 class CaptureCliTest(unittest.TestCase):
     def test_build_capture_pack_does_not_require_blender(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            output = Path(directory)
+            root = Path(directory)
+            project = root / "project"
+            shutil.copytree(PROJECT, project)
+            # The reviewed route currently has release-blocking geometry. This
+            # valid synthetic route tests CLI success without weakening the gate.
+            (project / "capture-plan.json").write_text(json.dumps(valid_geometry_data()))
+            output = root / "output"
             stdout = io.StringIO()
             with contextlib.redirect_stdout(stdout):
                 result = main(
                     [
                         "build-capture-pack",
                         "--project",
-                        str(PROJECT),
+                        str(project),
                         "--output",
                         str(output),
                     ]
@@ -35,6 +42,19 @@ class CaptureCliTest(unittest.TestCase):
             self.assertEqual(result, 0)
             self.assertTrue((output / "index.html").is_file())
             self.assertIn(str(output / "index.html"), stdout.getvalue())
+            report = json.loads((output / "capture-pack-report.json").read_text())
+            self.assertEqual(report["status"], "draft")
+            self.assertEqual(report["schema_version"], "2.0")
+
+    def test_reviewed_project_geometry_is_rejected_before_output(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "pack"
+            stderr = io.StringIO()
+            with contextlib.redirect_stderr(stderr):
+                result = main(["build-capture-pack", "--project", str(PROJECT), "--output", str(output)])
+            self.assertEqual(result, 2)
+            self.assertIn("capture coverage errors", stderr.getvalue())
+            self.assertFalse(output.exists())
 
     def test_changed_source_hash_fails_before_output(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
