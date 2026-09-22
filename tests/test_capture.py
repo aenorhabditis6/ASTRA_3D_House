@@ -3,15 +3,16 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import math
 import unittest
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, replace
 from pathlib import Path
 
-from astra_house.capture import CapturePlan
+from astra_house.capture import CapturePlan, _framing_point_belongs_to_target
 from astra_house.errors import ValidationError
 from astra_house.io import load_room
 from astra_house.measurements import MeasurementSet
-from astra_house.model import Vec2
+from astra_house.model import Vec2, Vec3
 
 
 ROOM = Path("projects/dorm-right-bedroom/room.json")
@@ -263,6 +264,63 @@ class CapturePlanTest(unittest.TestCase):
         data["device_profile"]["horizontal_fov_deg"] = 9.0
         with self.assertRaisesRegex(ValidationError, "horizontal_fov_deg"):
             self.validate(data)
+
+    def test_framing_points_must_belong_to_a_declared_wall(self) -> None:
+        within_tolerance = valid_capture_data_v2()
+        within_tolerance["modes"][0]["passes"][0]["groups"][0]["shots"][1][
+            "framing_points_m"
+        ] = [[0.009, 2.0, 1.45]]
+        self.validate(within_tolerance)
+
+        outside_tolerance = valid_capture_data_v2()
+        outside_tolerance["modes"][0]["passes"][0]["groups"][0]["shots"][1][
+            "framing_points_m"
+        ] = [[0.011, 2.0, 1.45]]
+        with self.assertRaisesRegex(ValidationError, "T02.*does not belong"):
+            self.validate(outside_tolerance)
+
+    def test_opening_framing_points_use_the_owning_wall_rectangle(self) -> None:
+        data = valid_capture_data_v2()
+        shot = data["modes"][0]["passes"][0]["groups"][0]["shots"][0]
+        shot["target_ids"] = ["window-west"]
+        shot["framing_points_m"] = [[0.79, 4.2266, 1.66]]
+        self.validate(data)
+
+        shot["framing_points_m"] = [[2.071, 4.2266, 1.66]]
+        with self.assertRaisesRegex(ValidationError, "T01.*does not belong"):
+            self.validate(data)
+
+    def test_every_primary_target_requires_a_geometric_framing_point(self) -> None:
+        data = valid_capture_data_v2()
+        shot = data["modes"][0]["passes"][0]["groups"][0]["shots"][0]
+        shot["target_ids"].append("entry-door")
+        with self.assertRaisesRegex(ValidationError, "entry-door.*has no framing point"):
+            self.validate(data)
+
+    def test_proxy_framing_points_must_lie_on_an_oriented_box_face(self) -> None:
+        data = valid_capture_data_v2()
+        shot = data["modes"][0]["passes"][0]["groups"][0]["shots"][0]
+        shot["target_ids"] = ["bed-full"]
+        shot["aim_point_m"] = [3.8151, 2.9642]
+        shot["framing_points_m"] = [[2.7501, 2.9642, 0.275]]
+        self.validate(data)
+
+        shot["framing_points_m"] = [[3.8151, 2.9642, 0.275]]
+        with self.assertRaisesRegex(ValidationError, "T01.*does not belong"):
+            self.validate(data)
+
+    def test_proxy_membership_rotates_into_local_box_coordinates(self) -> None:
+        room = load_room(ROOM)
+        proxy = replace(room.proxies[0], yaw_rad=math.pi / 4.0)
+        room = replace(room, proxies=(proxy,))
+        half_length = proxy.size.x / 2.0
+        point = Vec3(
+            proxy.center.x + half_length / math.sqrt(2),
+            proxy.center.y + half_length / math.sqrt(2),
+            proxy.center.z,
+        )
+        self.assertTrue(_framing_point_belongs_to_target(point, proxy.id, room))
+        self.assertFalse(_framing_point_belongs_to_target(proxy.center, proxy.id, room))
 
     def test_rejects_bad_scale_anchor_measurements(self) -> None:
         wrong_target = valid_capture_data_v2()

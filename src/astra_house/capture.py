@@ -505,6 +505,22 @@ class CapturePlan:
                 raise ValidationError(
                     f"shot {shot.id!r} has a non-finite framing point"
                 )
+            if not any(
+                _framing_point_belongs_to_target(point, target_id, room)
+                for target_id in shot.target_ids
+            ):
+                raise ValidationError(
+                    f"shot {shot.id!r} framing point {point.to_list()!r} "
+                    "does not belong to a declared target"
+                )
+        for target_id in shot.target_ids:
+            if not any(
+                _framing_point_belongs_to_target(point, target_id, room)
+                for point in shot.framing_points_m
+            ):
+                raise ValidationError(
+                    f"shot {shot.id!r} target {target_id!r} has no framing point"
+                )
 
     def _validate_coverage_review(self) -> None:
         _ensure_unique(
@@ -666,7 +682,7 @@ def _point_strictly_in_polygon(point: Vec2, polygon: tuple[Vec2, ...]) -> bool:
     if not math.isfinite(point.x) or not math.isfinite(point.y):
         return False
     if any(
-        _point_on_segment(point, start, end)
+        _quantize_length_m(_distance_to_segment(point, start, end)) <= 0.01
         for start, end in zip(polygon, polygon[1:] + polygon[:1], strict=True)
     ):
         return False
@@ -707,4 +723,80 @@ def _point_on_segment(point: Vec2, start: Vec2, end: Vec2) -> bool:
         and min(start.y, end.y) - epsilon
         <= point.y
         <= max(start.y, end.y) + epsilon
+    )
+
+
+def _distance_to_segment(point: Vec2, start: Vec2, end: Vec2) -> float:
+    dx = end.x - start.x
+    dy = end.y - start.y
+    length_squared = dx * dx + dy * dy
+    if length_squared <= 1e-18:
+        return point.distance_to(start)
+    parameter = max(
+        0.0,
+        min(
+            1.0,
+            ((point.x - start.x) * dx + (point.y - start.y) * dy)
+            / length_squared,
+        ),
+    )
+    closest = Vec2(start.x + parameter * dx, start.y + parameter * dy)
+    return point.distance_to(closest)
+
+
+def _framing_point_belongs_to_target(
+    point: Vec3, target_id: str, room: RoomModel
+) -> bool:
+    tolerance = 0.01
+    wall_by_id = {wall.id: wall for wall in room.walls}
+    wall = wall_by_id.get(target_id)
+    if wall is not None:
+        return (
+            _quantize_length_m(_distance_to_segment(Vec2(point.x, point.y), wall.start, wall.end))
+            <= tolerance
+            and -tolerance <= point.z <= room.ceiling_height_m + tolerance
+        )
+
+    opening = next(
+        (item for item in room.openings if item.id == target_id), None
+    )
+    if opening is not None:
+        owner = wall_by_id[opening.wall_id]
+        wall_length = owner.length_m
+        along = _quantize_length_m((
+            (point.x - owner.start.x) * (owner.end.x - owner.start.x)
+            + (point.y - owner.start.y) * (owner.end.y - owner.start.y)
+        ) / wall_length)
+        return (
+            _quantize_length_m(_distance_to_segment(Vec2(point.x, point.y), owner.start, owner.end))
+            <= tolerance
+            and opening.offset_m - tolerance
+            <= along
+            <= opening.offset_m + opening.width_m + tolerance
+            and opening.sill_m - tolerance
+            <= point.z
+            <= opening.sill_m + opening.height_m + tolerance
+        )
+
+    proxy = next((item for item in room.proxies if item.id == target_id), None)
+    if proxy is None:
+        return False
+    delta_x = point.x - proxy.center.x
+    delta_y = point.y - proxy.center.y
+    cosine = math.cos(proxy.yaw_rad)
+    sine = math.sin(proxy.yaw_rad)
+    local = (
+        cosine * delta_x + sine * delta_y,
+        -sine * delta_x + cosine * delta_y,
+        point.z - proxy.center.z,
+    )
+    half_sizes = (proxy.size.x / 2.0, proxy.size.y / 2.0, proxy.size.z / 2.0)
+    if any(
+        _quantize_length_m(abs(coordinate) - half_size) > tolerance
+        for coordinate, half_size in zip(local, half_sizes, strict=True)
+    ):
+        return False
+    return any(
+        _quantize_length_m(abs(abs(coordinate) - half_size)) <= tolerance
+        for coordinate, half_size in zip(local, half_sizes, strict=True)
     )
