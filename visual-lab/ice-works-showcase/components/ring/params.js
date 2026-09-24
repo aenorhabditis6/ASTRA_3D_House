@@ -136,6 +136,19 @@ export function defaultParams() {
     idxWeight: 400,
     listSize: 0.9, // vw; the column's line height is unitless so rows follow
 
+    // -- the note under the name ------------------------------------------
+    // One per work, not per card, so it sits still for three cards at a time.
+    // Sized and placed off nameSize, so it travels with the lockup above it.
+    note: true,
+    noteWidth: 23, // vw
+    noteSize: (13 / 1440) * 100,
+    noteLabelSize: (11 / 1440) * 100,
+    noteGap: 0.95, // name-heights below the lockup's centre
+    noteLead: 1.55, // unitless
+    noteOpacity: 0.62,
+    noteFade: 0.42, // seconds in
+    noteOut: 0.22, // and out
+
     // The morph between one card's words and the next.
     nameMorphTime: 1.2,
     nameEase: "circ.out",

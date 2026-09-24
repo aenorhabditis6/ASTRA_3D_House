@@ -1,0 +1,87 @@
+name: Publish works showcase
+
+# Pages serves this repository from the codex/github-pages branch (the classic
+# branch source, not an Actions deployment), and the root of that branch is the
+# capture guide. This job only ever writes the works/ directory on it, so the
+# guide at the root is left exactly where it is.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "visual-lab/ice-works-showcase/**"
+      - ".github/workflows/publish-works.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One at a time. Two runs pushing the same branch would race, and the loser
+# would be rejected halfway through a publish.
+concurrency:
+  group: publish-works
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      APP: visual-lab/ice-works-showcase
+      PAGES_BRANCH: codex/github-pages
+      SUBDIR: works
+    steps:
+      # Full history: a shallow clone cannot push the branch it publishes to.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: visual-lab/ice-works-showcase/package-lock.json
+
+      - name: Install
+        working-directory: ${{ env.APP }}
+        run: npm ci
+
+      # There are no tests; lint and the build are the whole safety net, and a
+      # broken build must not take the published site down with it.
+      - name: Lint
+        working-directory: ${{ env.APP }}
+        run: npm run lint
+
+      # A project page is served from /<repo>/, and this app from a directory
+      # inside that. Read off the repository rather than written out, so
+      # renaming it cannot silently publish a page with dead asset URLs.
+      - name: Build
+        working-directory: ${{ env.APP }}
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}/${{ env.SUBDIR }}
+        run: npm run build
+
+      - name: Publish into the Pages branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "+refs/heads/$PAGES_BRANCH:refs/remotes/origin/$PAGES_BRANCH"
+          git worktree add -B "$PAGES_BRANCH" ../pages "origin/$PAGES_BRANCH"
+
+          cd ../pages
+          rm -rf "$SUBDIR"
+          mkdir -p "$SUBDIR"
+          cp -R "$GITHUB_WORKSPACE/$APP/out/." "$SUBDIR/"
+          # Jekyll drops directories beginning with an underscore, which is
+          # every one of Next's. The branch root carries one of these already;
+          # this is the subdirectory's own.
+          touch "$SUBDIR/.nojekyll"
+
+          # Scoped to the subdirectory on purpose: nothing else on this branch
+          # is ours to move.
+          git add -A "$SUBDIR"
+          if git diff --cached --quiet; then
+            echo "Nothing changed under $SUBDIR/."
+            exit 0
+          fi
+          git commit -m "Publish works showcase from ${GITHUB_SHA::7}"
+          git push origin "$PAGES_BRANCH"

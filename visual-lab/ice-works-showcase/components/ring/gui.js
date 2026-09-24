@@ -171,6 +171,20 @@ export function mountGui(GUI, { params, state, info, actions }) {
   // without spinning to a new card each time.
   meta.add({ again: actions.replayMeta }, "again").name("play again");
 
+  // -- the note under the name ----------------------------------------------
+  const note = gui.addFolder("note");
+  const onNote = (k, lo, hi, step, label) =>
+    note.add(params, k, lo, hi, step).name(label).onChange(styleMeta);
+  note.add(params, "note").name("enabled").onChange(styleMeta);
+  onNote("noteWidth", 8, 50, 0.5, "width (vw)");
+  onNote("noteGap", 0, 4, 0.05, "gap (name heights)");
+  onNote("noteSize", 0.3, 3, 0.01, "size (vw)");
+  onNote("noteLabelSize", 0.3, 3, 0.01, "label size (vw)");
+  onNote("noteLead", 1, 2.4, 0.01, "line height");
+  onNote("noteOpacity", 0.1, 1, 0.01, "opacity");
+  note.add(params, "noteFade", 0.05, 2, 0.01).name("fade in");
+  note.add(params, "noteOut", 0.05, 2, 0.01).name("fade out");
+
   // -- glass ---------------------------------------------------------------
   const glass = gui.addFolder("glass");
   glass.add(params, "glass").name("enabled");
@@ -223,14 +237,28 @@ export function mountGui(GUI, { params, state, info, actions }) {
 
   const focusParticles = gui.addFolder("hover particles");
   focusParticles.add(params, "focusParticles").name("enabled");
-  focusParticles.add(params, "focusParticleFrom", 0, 2000, 10).name("desktop from (px)");
+  focusParticles
+    .add(params, "focusParticleFrom", 0, 2000, 10)
+    .name("desktop from (px)");
   focusParticles.add(params, "focusParticleReach", 10, 260, 1).name("reach");
-  focusParticles.add(params, "focusParticleCell", 5, 32, 0.5).name("glyph size");
-  focusParticles.add(params, "focusParticleOpacity", 0, 1, 0.01).name("opacity");
-  focusParticles.add(params, "focusParticleEnter", 0.01, 1, 0.005).name("enter rate");
-  focusParticles.add(params, "focusParticleExit", 0.01, 1, 0.005).name("exit rate");
-  focusParticles.add(params, "focusParticleDrift", 0, 6, 0.05).name("inward drift");
-  focusParticles.add(params, "focusParticleOut", 0, 12, 0.05).name("outward speed");
+  focusParticles
+    .add(params, "focusParticleCell", 5, 32, 0.5)
+    .name("glyph size");
+  focusParticles
+    .add(params, "focusParticleOpacity", 0, 1, 0.01)
+    .name("opacity");
+  focusParticles
+    .add(params, "focusParticleEnter", 0.01, 1, 0.005)
+    .name("enter rate");
+  focusParticles
+    .add(params, "focusParticleExit", 0.01, 1, 0.005)
+    .name("exit rate");
+  focusParticles
+    .add(params, "focusParticleDrift", 0, 6, 0.05)
+    .name("inward drift");
+  focusParticles
+    .add(params, "focusParticleOut", 0, 12, 0.05)
+    .name("outward speed");
 
   const assemble = gui.addFolder("particle opening");
   assemble.add(params, "assemble").name("enabled").onChange(replay);
@@ -245,7 +273,9 @@ export function mountGui(GUI, { params, state, info, actions }) {
   assemble.add(params, "assembleCell", 6, 30, 0.5).name("glyph size");
   assemble.add(params, "assembleOpacity", 0, 1, 0.01).name("opacity");
   assemble.add(params, "assembleHaloReach", 20, 260, 1).name("card halo reach");
-  assemble.add(params, "assembleHaloOpacity", 0, 1, 0.01).name("card halo opacity");
+  assemble
+    .add(params, "assembleHaloOpacity", 0, 1, 0.01)
+    .name("card halo opacity");
 
   const tag = gui.addFolder("tag");
   tag.add(params, "tagFrom", 0, 2000, 10).name("hide at or below (px)");

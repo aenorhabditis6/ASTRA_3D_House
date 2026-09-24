@@ -1,34 +1,9 @@
 @import "tailwindcss";
 
-/* Family names here have to match the strings in ring/params.js — nameFont,
-   idxFont and textFont are looked up by name, not imported. */
-
-/* Project names and disciplines. Two real weights, so nameWeight 400 and 500
-   both resolve to a cut rather than a synthesised one. */
-@font-face {
-  font-family: "Satoshi";
-  src: url("/Satoshi-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Satoshi";
-  src: url("/Satoshi-Medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Numbers, years and the load counter. */
-@font-face {
-  font-family: "Geist";
-  src: url("/Geist-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* The @font-face blocks live in app/layout.js, not here: a url() in a
+   stylesheet is not rewritten for basePath and the published site lives under
+   one. Family names are looked up by name in ring/params.js and listed again
+   in the textFont dropdown in ring/gui.js. */
 
 html,
 body {

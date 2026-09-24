@@ -34,15 +34,17 @@ fine and fails in the browser console — check shader edits by loading the page
 ```
 app/
   page.js              renders <Carousel />, nothing else
-  layout.js            root layout + metadata
+  layout.js            root layout, metadata, @font-face (see Conventions)
   globals.css          Tailwind v4 import, @font-face, page background
 
 components/
   Carousel.jsx        the component. renderer, resize/fit, input, spin
                        physics, the per-frame layout loop, the entry timeline
   ring/
-    projects.js        the eighteen cards, in ring order
+    projects.js        six works of three plates each, in ring order
     plates.js          the card art, painted in Canvas 2D at load
+    note.js            the per-work context under the left lockup
+    asset.js           prefixes anything served out of public/
     params.js          every tunable, as a factory
     utils.js           TAU/DEG, easings, signedOffset, chase
     atlas.js           paints every plate into one texture
@@ -197,7 +199,9 @@ is missing versus what is deliberate.
 
 1. **Clicking a card centres it but nothing opens.** The "View" tag promises a
    destination that does not exist. `pick()` returns early when the card is
-   already at the front — that early return is where navigation belongs.
+   already at the front — that early return is where navigation belongs. The
+   note under the name carries a real link for the works that have one, which
+   is a way out of the page but not the one the tag points at.
 2. **Fonts are `.otf`/`.ttf`, ~340 KB.** Converting to `woff2` would cut that
    by roughly 60%. PP Neue Montreal is also gitignored, so the heading falls
    back on a fresh clone — see below.
@@ -243,9 +247,14 @@ Source is MIT. The contents of `public/` are explicitly _not_ covered — see
 
 Font families are looked up **by name**: the strings in `params.js`
 (`nameFont`, `idxFont`, `textFont`) have to match a `@font-face` family in
-`app/globals.css`, and the `textFont` dropdown in `gui.js` lists them a third
+`app/layout.js`, and the `textFont` dropdown in `gui.js` lists them a third
 time. A name with no matching block falls back to system sans silently, which
 looks like a rendering bug rather than a missing file.
+
+The faces are declared in `layout.js` rather than `globals.css` because a
+`url()` inside a stylesheet is **not** rewritten for `basePath`, and the
+published site lives under one (`/<repo>/works`). Anything else reaching into
+`public/` goes through `ring/asset.js` for the same reason.
 
 ## Dead files — safe to delete
 

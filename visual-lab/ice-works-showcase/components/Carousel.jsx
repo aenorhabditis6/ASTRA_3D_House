@@ -16,7 +16,8 @@ import { createSplitText } from "./ring/splitText";
 import { createTag, TAG_W, TAG_H } from "./ring/tag";
 import { createAsciiTexture } from "./ring/ascii";
 import { defaultParams } from "./ring/params";
-import { PLATE_ART, PROJECTS } from "./ring/projects";
+import { createNote } from "./ring/note";
+import { PLATE_ART, WORK_OF, WORK_OFFSETS, WORKS } from "./ring/projects";
 import {
   TAU,
   HALF_PI,
@@ -42,6 +43,10 @@ export default function Carousel() {
   const containerRef = useRef(null);
   const listRef = useRef(null);
   const itemsRef = useRef([]);
+  const groupsRef = useRef([]);
+  const plateListsRef = useRef([]);
+  // The note under the left lockup: its box and the three things inside it.
+  const noteRef = useRef({ box: null, label: null, blurb: null, link: null });
   const loaderRef = useRef(null);
   const liveRef = useRef(null);
   const cutRef = useRef(null);
@@ -186,6 +191,8 @@ export default function Carousel() {
       params,
     );
 
+    const note = createNote(noteRef.current, params);
+
     /* ---------------------------------------------------------------- art */
     // The atlas is bound on frame one and fills in as images arrive, so the
     // seed can be born already wearing its own art while the rest are still
@@ -266,8 +273,32 @@ export default function Carousel() {
       textGroup.scale.set(k, k, 1);
     };
 
-    const styleMeta = () =>
+    /**
+     * The column is six works, and the one you are inside is open. Six plus
+     * eighteen does not fit: eighteen rows alone reach about 40% of the height
+     * and the lockup beside them sits at 50%, so headings on top of that would
+     * run straight through it. Six plus the three actually in front is a third
+     * of the height and says more — which work, and where you are in it.
+     *
+     * Heights are measured rather than transitioned from `auto`, which does
+     * not animate, and re-measured from here because a resize changes the type
+     * size they were measured at.
+     */
+    const styleList = () => {
+      for (const ul of plateListsRef.current) {
+        if (!ul) continue;
+        ul.style.overflow = "hidden";
+        ul.style.transition =
+          "height 340ms cubic-bezier(.4,0,.2,1), opacity 240ms linear";
+      }
+    };
+
+    const styleMeta = () => {
       meta.style({ textK, tight: tightNow, viewW: viewW });
+      note.style({ textK, tight: tightNow, narrow: narrowNow });
+      styleList();
+      paintList();
+    };
 
     const resize = () => {
       viewW = container.clientWidth;
@@ -609,6 +640,25 @@ export default function Carousel() {
         el.style.opacity = on ? "1" : "0.2";
         if (on) el.setAttribute("aria-current", "true");
         else el.removeAttribute("aria-current");
+      }
+
+      // The heading of the run the front card is inside. Held for all three of
+      // a work's plates, so the column shows which project you are in and not
+      // only which picture.
+      // The work the front card is inside: named at full strength, and the
+      // only one showing its plates. Nothing opens below narrowAt — the type
+      // is bumped 1.5x down there and six names is already the whole column.
+      const work = WORK_OF[shown];
+      const groups = groupsRef.current;
+      const lists = plateListsRef.current;
+      for (let w = 0; w < groups.length; w++) {
+        const on = w === work;
+        if (groups[w]) groups[w].style.opacity = on ? "1" : "0.28";
+        const ul = lists[w];
+        if (!ul) continue;
+        const open = on && !narrowNow;
+        ul.style.height = open ? `${ul.scrollHeight}px` : "0px";
+        ul.style.opacity = open ? "1" : "0";
       }
     };
 
@@ -1093,6 +1143,7 @@ export default function Carousel() {
     const build = () => {
       interactive = false;
       announced = -1;
+      note.reset();
       spinVel = 0;
       dragging = false;
       settling = false;
@@ -1394,6 +1445,7 @@ export default function Carousel() {
       ) {
         announced = shown;
         meta.show(shown);
+        note.show(shown);
       }
 
       renderer.render(scene, camera);
@@ -1419,6 +1471,7 @@ export default function Carousel() {
       gsap.killTweensOf(splitText.fades);
       gsap.killTweensOf(listEl);
       meta.dispose();
+      note.dispose();
       tag.dispose();
       splitText.dispose();
       gui?.destroy();
@@ -1459,20 +1512,90 @@ export default function Carousel() {
         }}
         className="pointer-events-none fixed right-[12vw] top-[2.4vh] z-10 flex flex-col items-start text-right leading-[1.4] tracking-[0.01em] text-[#0a0a0a] opacity-0 max-sm:hidden"
       >
-        {PROJECTS.map((p, i) => (
-          <li
-            key={p.id}
-            ref={(el) => {
-              itemsRef.current[i] = el;
-            }}
-            // No transition, deliberately: the colour turns over the moment
-            // the ring passes the halfway point between two slots.
-            style={{ opacity: 0.2 }}
-          >
-            {p.name}
+        {WORKS.map((work, w) => (
+          <li key={work.id} className={w ? "mt-[0.55em]" : ""}>
+            {/* One heading per work. Held lit for all three of its plates, so
+                the column reads as six projects rather than as eighteen
+                unrelated rows. */}
+            <div
+              ref={(el) => {
+                groupsRef.current[w] = el;
+              }}
+              // Tracked and set in the number's face rather than uppercased:
+              // these are real names and "VfOx" is not "VFOX".
+              style={{
+                opacity: 0.28,
+                fontFamily: '"Geist", ui-sans-serif, system-ui, sans-serif',
+                fontSize: "0.88em",
+                letterSpacing: "0.05em",
+              }}
+            >
+              {work.label}
+            </div>
+            <ul
+              ref={(el) => {
+                plateListsRef.current[w] = el;
+              }}
+              // Starts closed. paintList opens whichever one the front card is
+              // inside, measuring the height to get there.
+              style={{ height: 0, opacity: 0, overflow: "hidden" }}
+              className="pl-[0.9em]"
+            >
+              {work.plates.map((plate, k) => {
+                const i = WORK_OFFSETS[w] + k;
+                return (
+                  <li
+                    key={plate.id}
+                    ref={(el) => {
+                      itemsRef.current[i] = el;
+                    }}
+                    // No transition, deliberately: the colour turns over the
+                    // moment the ring passes the halfway point between slots.
+                    style={{ opacity: 0.2 }}
+                  >
+                    {plate.name}
+                  </li>
+                );
+              })}
+            </ul>
           </li>
         ))}
       </ul>
+
+      {/* Who the work in front was for, what it was, and a way out to it where
+          one exists. Belongs to the work rather than the card, so it holds
+          still for three of them at a time — see ring/note.js. Placed and
+          sized from styleMeta like every other label. */}
+      <div
+        ref={(el) => {
+          noteRef.current.box = el;
+        }}
+        style={{ willChange: "opacity, transform" }}
+        className="pointer-events-none fixed z-10 text-[#0a0a0a] opacity-0 max-sm:hidden"
+      >
+        <div
+          ref={(el) => {
+            noteRef.current.label = el;
+          }}
+        />
+        <p
+          ref={(el) => {
+            noteRef.current.blurb = el;
+          }}
+          className="mt-[0.5em]"
+        />
+        {/* The one thing outside the canvas that takes the pointer. Everything
+            else is pointer-events-none so a throw passing under a label is not
+            interrupted; a link nobody can click is worse than that. */}
+        <a
+          ref={(el) => {
+            noteRef.current.link = el;
+          }}
+          target="_blank"
+          rel="noreferrer"
+          className="pointer-events-auto mt-[0.75em] inline-block underline decoration-[0.05em] underline-offset-[0.35em]"
+        />
+      </div>
 
       {/* Three rows per side, identical in structure and all carrying both
           words: two inside the filtered wrapper that melt into each other, and

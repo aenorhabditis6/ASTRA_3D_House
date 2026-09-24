@@ -254,7 +254,8 @@ export function createMeta(refs, params) {
     right.set([p.type, p.year]);
     // The groups are hidden from the accessibility tree, so the card is
     // announced once, in full, from the live region instead of four times.
-    if (live) live.textContent = `${p.name}. ${p.type}, ${p.year}.`;
+    if (live)
+      live.textContent = `${p.name}. ${p.type}, ${p.year}. ${p.work.label}.`;
   };
 
   const dispose = () => {

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import gsap from "gsap";
+import { asset } from "./asset";
 
 // Shared between the canvas that rasterises the label and the uniform that
 // tells the shader how big it is.
@@ -78,7 +79,7 @@ export function createTag(params, uniforms) {
       arrowReady = true;
       onReady?.();
     };
-    arrow.src = "/arrow-top-right-svgrepo-com.svg";
+    arrow.src = asset("/arrow-top-right-svgrepo-com.svg");
   };
 
   const dispose = () => {
