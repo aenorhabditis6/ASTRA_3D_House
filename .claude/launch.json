@@ -1,0 +1,22 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "visual-lab",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "visual-lab/ice-works-showcase",
+        "run",
+        "dev",
+        "--",
+        "--hostname",
+        "127.0.0.1",
+        "--port",
+        "3101"
+      ],
+      "port": 3101,
+      "url": "http://127.0.0.1:3101"
+    }
+  ]
+}

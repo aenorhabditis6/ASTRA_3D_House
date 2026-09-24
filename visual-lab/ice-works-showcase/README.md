@@ -13,6 +13,22 @@ ICE WORKS 将后数字极简主义、编辑式排版和生成艺术结合在一�
 
 ![环形作品轮播界面](docs/carousel.png)
 
+---
+
+> **本分支的改动（Tina Shen）**
+>
+> 轮播机制、着色器、交互和入场动画全部沿用上游，一行未改。只换了卡片里的**图纹**：
+> 十八张卡片现在由 [`components/ring/plates.js`](components/ring/plates.js) 在加载时
+> 用 Canvas 2D 按各自的数学画出来，对应六项真实的物理与工程工作，不再读取
+> `public/*.webp`。上游打包的示例图片和 PP Neue Montreal 商业字体都已从本分支移除，
+> 开场标题改用随仓库分发的 Satoshi。
+>
+> 因此，下文中凡是提到 `public/*.webp`、Pinterest 素材来源或 PP Neue Montreal 的段落，
+> 描述的是上游原版，本分支已不适用；保留它们是为了不抹掉原作者的说明和署名。
+> 要改卡片，改 `components/ring/plates.js`（画法）和 `components/ring/projects.js`（顺序与文案）。
+
+---
+
 ## 风格
 
 **后数字极简主义（Post-digital Minimalism）× 实验性编辑设计。**

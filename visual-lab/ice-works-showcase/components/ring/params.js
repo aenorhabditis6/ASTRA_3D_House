@@ -105,9 +105,9 @@ export function defaultParams() {
     pickEase: "power3.inOut",
 
     // -- the intro heading, in the scene ---------------------------------
-    text: "ICE WORKS",
+    text: "TINA SHEN",
     textSize: 41,
-    textFont: "PP Neue Montreal",
+    textFont: "Satoshi",
     textWeight: 400,
     textTracking: 0, // em
     textColor: "#0a0a0a",

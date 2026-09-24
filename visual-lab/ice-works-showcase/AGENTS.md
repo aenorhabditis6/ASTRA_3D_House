@@ -41,10 +41,11 @@ components/
   Carousel.jsx        the component. renderer, resize/fit, input, spin
                        physics, the per-frame layout loop, the entry timeline
   ring/
-    projects.js        the eighteen projects, in ring order
+    projects.js        the eighteen cards, in ring order
+    plates.js          the card art, painted in Canvas 2D at load
     params.js          every tunable, as a factory
     utils.js           TAU/DEG, easings, signedOffset, chase
-    atlas.js           packs all art into one texture, incrementally
+    atlas.js           paints every plate into one texture
     meta.js            the two type lockups and their morph
     splitText.js       the intro heading ("Works '26")
     tag.js             the "View" tag that rides the cursor
@@ -200,18 +201,23 @@ is missing versus what is deliberate.
 2. **Fonts are `.otf`/`.ttf`, ~340 KB.** Converting to `woff2` would cut that
    by roughly 60%. PP Neue Montreal is also gitignored, so the heading falls
    back on a fresh clone — see below.
-3. **The art is webp but still oversized.** ~3.3 MB across eighteen files. The
-   atlas downsamples every one to a 512px cell, so resizing the sources to
-   match would cut it again by a large margin.
+3. ~~The art is webp but still oversized.~~ **No longer applies in this
+   fork.** Nothing is downloaded: `ring/plates.js` paints all eighteen cells
+   procedurally at load, in roughly 250 ms total on the main thread. If that
+   ever needs to come down, the per-pixel plates go through `field()` and its
+   `step` argument trades resolution for time.
 4. **`prefers-reduced-motion` is unhandled.** Six seconds of animated blur with
    no escape hatch.
 5. **No keyboard control.** Arrow keys should step the ring; the project column
    is `pointer-events-none` and cannot be clicked to jump.
-6. **All the sample data is placeholder.** Every `type` and `year` in
-   `projects.js` is invented and names marked `(*)` are guesses. The images
-   are other people's work, collected from Behance to build the layout
-   against — not the author's, not licensed, and flagged as such in the README
-   and LICENSE. Do not present them as portfolio work or strip those notices.
+6. ~~All the sample data is placeholder.~~ **No longer applies in this
+   fork.** The eighteen cards are six real pieces of work, three plates each,
+   and the `type` and `year` on every row are true. The art is original and
+   drawn from the maths of the work it stands for. Two things to keep right
+   when editing it: none of these plates is a simulation *result* or a
+   clinical image, so do not label them as one, and the upstream notices
+   about the removed Pinterest imagery stay in the README and LICENSE as the
+   historical record.
 7. **Phone widths are approximate.** The `tight` band was tuned at the 640 end
    of its range. Below ~500px `minScale` pins the ring's size while `posX`
    keeps scaling, so the front card drifts back toward centre.
@@ -220,12 +226,12 @@ is missing versus what is deliberate.
 
 Two things to respect when adding files.
 
-**PP Neue Montreal is bundled but not licensed.** `public/ppneuemontreal-book.otf`
-is a commercial Pangram Pangram face, kept in the repo so the design renders
-during development. It is called out in the README and LICENSE as development
-only, not for commercial use. Do not quietly widen its use, do not remove the
-notices, and if you swap the heading to a free face, take the file out with it.
-Satoshi (ITF Free Font Licence) and Geist (OFL) have no such restriction.
+**PP Neue Montreal has been taken out of this fork**, along with the
+Pinterest imagery, and the heading is set in Satoshi (ITF Free Font Licence)
+instead. Geist (OFL) is the other bundled face. Do not add the commercial face
+back; if a heading wants a different cut, pick another freely licensed one and
+add its `@font-face` block to `app/globals.css` and its name to the `textFont`
+dropdown in `gui.js`.
 
 **Keep third-party attribution intact.** The simplex noise in
 `planeShaders.js` carries an MIT notice that has to travel with the code. If

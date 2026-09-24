@@ -24,6 +24,15 @@ SOFTWARE.
 
 This license covers the source code only.
 
+NOTE FOR THIS FORK (visual-lab/ice-works-showcase, Tina Shen)
+
+  The two items below that are not freely licensed — PP Neue Montreal and the
+  Pinterest-sourced project imagery — have been REMOVED from this fork. No
+  `public/*.webp` and no `ppneuemontreal-book.otf` are distributed here. The
+  card art is painted at load by `components/ring/plates.js`, is original to
+  this project and is covered by the MIT terms above; the heading is set in
+  Satoshi. The clauses below are kept as the upstream record.
+
 The contents of `public/` are NOT covered by it:
 
   - PP Neue Montreal (`public/ppneuemontreal-book.otf`) is a commercial

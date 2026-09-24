@@ -34,7 +34,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background: #090d10;
+  background: #fafafa;
   overflow-x: hidden;
   overscroll-behavior: none;
 }

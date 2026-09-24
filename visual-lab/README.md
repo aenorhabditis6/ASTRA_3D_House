@@ -1,42 +1,64 @@
 # Visual Lab · 视觉效果实验室
 
-## Tina’s Personal Observatory
+## `ice-works-showcase/` — Tina Shen · Works
 
-`ice-works-showcase/` 是从 ICE WORKS 实验起步的个人物理作品集。主页现为原创 WebGL 星球体验：
+上游 [ICE WORKS](https://github.com/MegD1/Ice-works-showcase) 的液态玻璃轮播，**机制原封不动**，
+只把卡片里的图纹换成了自己的东西。
 
-| 星球 | CV 经历 | 原创视觉 |
+滚轮或拖拽转动圆环，相邻卡片在 SDF 里互相融化、拉出蜜丝，上下边缘有玻璃折射带，
+光标附近的场会变软、卡片会让位。这些全部来自上游的那一个全屏片元着色器，没有改动。
+
+### 十八张卡片
+
+六项真实工作，每项三张，顺序即圆环顺序——滚一圈是走完一个问题，再换下一个色系。
+
+| # | 卡片 | 归属 |
 | --- | --- | --- |
-| Reading Venus | NASA VfOx 学生负责人，DAVINCI / APL 交付 | 金星云带、大气辉光、轨道探针 |
-| Seeing the unseen | Stanford RSL REU，稀疏视角 CT | 内部结构与动态扫描切面 |
-| Order from noise | Fei Lu 组的生成模型与 IPS 研究 | 球面离散粒子场 |
-| Matter in motion | Beller 组软物质研究 | 流动域与细丝 |
-| Backside of the Moon | 程序化 roguelike 游戏 | 线框经纬网和程序地形 |
+| 01–03 | Cloud Deck · Oxygen Fugacity · Descent Profile | NASA VfOx，金星大气氧逸度传感器，DAVINCI / APL 交付 |
+| 04–06 | Sparse Sinogram · Back Projection · Reconstruction | Stanford RSL REU，稀疏视角锥束 CT |
+| 07–09 | Interacting Particles · Optimal Transport · Noise to Form | JHU，与 Dr. Fei Lu 的生成模型／相互作用粒子系统 |
+| 10–12 | Brownian Path · Bead and Spring · Nematic Defects | JHU Beller 组，布朗动力学与活性物质 |
+| 13–15 | Far Side · Level Seed · Night Terrain | Backside of the Moon，程序化生成与游戏物理 |
+| 16–18 | Point Cloud · Coverage Plan · Scan Route | ASTRA，本仓库的空间捕获工作 |
 
-所有星球均由 GLSL 实时生成，没有使用原项目样例图片。视觉是艺术表达，不是科学模拟结果。项目描述和已有研究链接来自用户提供的 CV；完整 CV、电话号码、邮件地址不入库。
+图纹全部由 [`components/ring/plates.js`](ice-works-showcase/components/ring/plates.js)
+在加载时用 Canvas 2D 画出，**底下是真的数学**：04 是同一个体模的 Radon 变换积分，05 是把
+它的七个视角反投影回去（条纹就是稀疏采样的代价），12 的指向矢场是从 ±1/2 缺陷求和出来的，
+10 是真的高斯随机游走。整套约 250 ms 画完，不下载任何图片。
+
+这些是**示意图，不是仿真结果，也不是临床影像**。
 
 ### 本地运行
 
 需要 Node.js 20.9+。
 
 ```bash
-cd visual-lab/ice-works-showcase
-npm ci
-npm run dev -- --hostname 127.0.0.1 --port 3101
+npm --prefix visual-lab/ice-works-showcase ci
+npm --prefix visual-lab/ice-works-showcase run dev -- --hostname 127.0.0.1 --port 3101
 ```
 
-打开 <http://127.0.0.1:3101>。点击项目切换星球；聚焦星球区域后可用左右方向键切换。可暂停动画、调整每颗星球的视觉参数，或打开 field notes 查看详情和研究链接。支持手机布局和系统减少动态效果设置。WebGL 不可用时仍可访问全部项目内容。
+打开 <http://127.0.0.1:3101>。开发模式右上角有 lil-gui 调参面板（生产构建不含）。
+入场动画约八秒：计数器走到 100 才放行，卡片从一团液态里长出来，展开成环，再转到左侧定位。
 
-### 修改内容
+`/observatory` 是之前那版每个项目一颗星球的读法，文字介绍在那里，一并留着。
 
-- `components/observatory/projects.js`：项目文案、颜色、链接。
-- `components/observatory/shader.js`：原创星球程序绘画。
-- `components/observatory/Observatory.jsx`：渲染生命周期、导航、参数和详情。
-- `components/observatory/observatory.css`：响应式布局。
+### 改哪里
 
-检查：`npm run lint`、`npm run build`。使用 Webpack 避免本机 Turbopack 子进程端口问题。
+| 想改 | 改这个 |
+| --- | --- |
+| 某张卡的画法 | `components/ring/plates.js` 里对应的 painter |
+| 卡片顺序、名字、分类、年份 | `components/ring/projects.js`（顺序即圆环顺序） |
+| 开场标题、动画节奏、几何、手感 | `components/ring/params.js`，每个参数在 `ring/gui.js` 都有对应控件 |
+
+检查：`npm run lint`、`npm run build`。GLSL 是运行时编译的，着色器改动必须开页面看。
+使用 Webpack 而非 Turbopack，绕开本机的子进程端口问题。
 
 ### 上游与授权
 
-初始实验来自 <https://github.com/MegD1/Ice-works-showcase>，提交 `bed3534a43125f6ef93890c75854427ed6a261a1`。保留上游代码、README、AGENTS.md、LICENSE 和着色器署名作为参考；原始轮播不再是主页。上游文件中有关打包图片及 PP Neue Montreal 的说明仅描述原始版本：本次个人版已移除这些样例图片和商业字体。当前页面使用 Geist 和系统衬线字体。新增视觉和界面代码沿用仓库 MIT 许可。
+源自 <https://github.com/MegD1/Ice-works-showcase>，提交 `bed3534a43125f6ef93890c75854427ed6a261a1`，MIT。
+上游的 README、AGENTS.md、LICENSE 和着色器署名全部保留。
 
-未来实验使用独立子目录与端口（3102、3103……），并记录来源及授权。
+本分支移除了上游打包的 Pinterest 示例图片和 PP Neue Montreal 商业字体；标题改用随仓库分发的
+Satoshi（ITF Free Font Licence），数字用 Geist（OFL）。新增的图纹与界面代码沿用 MIT。
+
+后续实验放独立子目录、独立端口（3102、3103……），并记录来源与授权。

@@ -1,4 +1,5 @@
-import Observatory from "@/components/observatory/Observatory";
+import Carousel from "@/components/Carousel";
+
 export default function Page() {
-  return <Observatory />;
+  return <Carousel />;
 }

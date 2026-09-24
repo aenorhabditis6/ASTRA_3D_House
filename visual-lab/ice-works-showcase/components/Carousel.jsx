@@ -16,7 +16,7 @@ import { createSplitText } from "./ring/splitText";
 import { createTag, TAG_W, TAG_H } from "./ring/tag";
 import { createAsciiTexture } from "./ring/ascii";
 import { defaultParams } from "./ring/params";
-import { IMAGE_FILES, PROJECTS } from "./ring/projects";
+import { PLATE_ART, PROJECTS } from "./ring/projects";
 import {
   TAU,
   HALF_PI,
@@ -199,7 +199,7 @@ export default function Carousel() {
     const readyWaiters = [];
     const whenReady = (fn) => (launchReady ? fn() : readyWaiters.push(fn));
 
-    const atlas = buildAtlas(IMAGE_FILES, (p) => {
+    const atlas = buildAtlas(PLATE_ART, (p) => {
       if (!disposed) loadProg = p;
     });
 
@@ -1461,7 +1461,7 @@ export default function Carousel() {
       >
         {PROJECTS.map((p, i) => (
           <li
-            key={p.file}
+            key={p.id}
             ref={(el) => {
               itemsRef.current[i] = el;
             }}

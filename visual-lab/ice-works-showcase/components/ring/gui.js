@@ -127,7 +127,7 @@ export function mountGui(GUI, { params, state, info, actions }) {
   text
     // Only families with an @font-face block in globals.css — anything else
     // silently falls back to system sans and looks like a bug.
-    .add(params, "textFont", ["PP Neue Montreal", "Satoshi", "Geist"])
+    .add(params, "textFont", ["Satoshi", "Geist"])
     .name("family")
     .onChange(rebuildText);
   text.add(params, "textWeight", { Light: 300, Regular: 400 }).onChange(rebuildText); // prettier-ignore

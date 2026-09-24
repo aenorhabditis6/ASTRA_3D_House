@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Tina Shen — A Personal Observatory",
+  title: "Tina Shen — Works",
   description:
-    "Five worlds at the intersection of physics, applied mathematics and making things. Selected research and projects by Xinming (Tina) Shen.",
+    "Eighteen plates from six pieces of work in physics, applied mathematics and making things. Every card is painted from the maths it stands for.",
 };
 
 export default function RootLayout({ children }) {
